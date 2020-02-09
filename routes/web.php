@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -32,3 +28,12 @@ Route::get('/mostrar_usuarios','UsuarioController@inicio')->name('usuarios.mostr
 Route::get('/editar_usuario/{id}','UsuarioController@editar')->name('usuarios.editar');
 Route::put('/editar_usuario/{id}','UsuarioController@update')->name('usuarios.update');
 Route::delete('/eliminar_usuario/{id}','UsuarioController@eliminar')->name('usuarios.eliminar');
+Route::get('/','PagesController@inicio')->name('inicio');
+ 
+/*PROVEEDORES*/
+Route::get('/mostrar_proveedor','ProveedorController@mostrar')->name('mostrar_proveedor'); 
+Route::get('/agregar','ProveedorController@agregar')->name('agregar_proveedor');
+Route::post('/','ProveedorController@crear_proveedores')->name('crear_proveedor');
+Route::get('/editar_proveedor/{id}', 'ProveedorController@editar' )->name('editar');
+Route::put('/editar_proveedor/{id}','ProveedorController@update')->name('update_proveedor');
+Route::delete('/eliminar/{id}','ProveedorController@eliminar')->name('eliminar_proveedor');
