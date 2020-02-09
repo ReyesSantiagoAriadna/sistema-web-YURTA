@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -14,7 +13,10 @@
                         </div>
                     @endif
 
-                    You are logged in!
+
+                    <div class="links">
+                        <a class=" btn btn-primary" href="{{route('usuarios.mostrar')}}">Mostrar usuarios</a>
+                    </div>
                 </div>
             </div>
         </div>
