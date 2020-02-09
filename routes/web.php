@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/','PagesController@inicio')->name('inicio');
+ 
+/*PROVEEDORES*/
+Route::get('/proveedor','PagesController@ver_proveedor')->name('ver_proveedor'); 
+Route::get('/form_agregar','PagesController@agregar_proveedores')->name('agregar_proveedor');
+Route::post('/','PagesController@crear_proveedores')->name('crear_proveedor');
+Route::get('/editar/{id}', 'PagesController@editarProveedores' )->name('editar');
+Route::put('/editar/{id}','PagesController@update_proveedores')->name('update_proveedor');
+Route::delete('/eliminar/{id}','PagesController@eliminar_proveedores')->name('eliminar_proveedor');
