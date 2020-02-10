@@ -1,9 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
-
-    <h1>Usuario {{$usuario->nombre}}</h1>
-
+@extends('panel')
+@section('contenido')
     @if(session('mensaje'))
         <div class="alert-success">{{session('mensaje')}}</div>
     @endif

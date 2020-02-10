@@ -1,8 +1,9 @@
-@extends('layouts.app')
-@section('content')
+@extends('panel')
+@section('contenido')
     @if(session('mensaje'))
         <div class="alert-success">{{session('mensaje')}}</div>
     @endif
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
@@ -38,7 +39,7 @@
                                 <th scope="row">{{$item->telefono}}</th>
                                 <th scope="row">{{$item->puesto}}</th>
                                 <th>
-                                    <a href="{{route('usuarios.editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="{{route('usuarios>editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
                                     <form  class="d-inline" action="{{route('usuarios.eliminar',$item)}}" method="POST">
                                         @method('DELETE')
                                         @csrf

@@ -1,13 +1,8 @@
-@extends('layouts.app')
-@section('content')
+@extends('panel')
+@section('contenido')
 <div class="container">
     <div class="row justify-content-center">
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Agregar proveedor</h3>
-                <div class="row">
-                </div>
-            </div>
             <div class="card-body">
 
                 @if(session('mensaje'))
