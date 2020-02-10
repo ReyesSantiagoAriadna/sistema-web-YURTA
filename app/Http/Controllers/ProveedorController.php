@@ -6,11 +6,7 @@ use Illuminate\Http\Request;
 use App;
 
 class ProveedorController extends Controller
-{
-    public function inicio(){
-        $proveedores = App\Proveedor::all();
-        return view('welcome', compact('proveedores'));
-    }
+{ 
 
     public function mostrar(){
         $proveedores = App\Proveedor::all();
