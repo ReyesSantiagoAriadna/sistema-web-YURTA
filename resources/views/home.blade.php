@@ -13,9 +13,10 @@
                         </div>
                     @endif
 
-
                     <div class="links">
                         <a class=" btn btn-primary" href="{{route('usuarios.mostrar')}}">Mostrar usuarios</a>
+                        <a class="btn btn-success" href="{{route('proveedores.mostrar')}}">Mostrar proveedores</a>
+                        <a class="btn btn-success" href="{{route('tipo_obras.mostrar')}}">Mostrar Tipos de obras</a>
                     </div>
                 </div>
             </div>

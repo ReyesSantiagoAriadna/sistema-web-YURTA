@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @if(session('mensaje'))
+        <div class="alert-success">{{session('mensaje')}}</div>
+    @endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
@@ -16,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <table id="tabla-usuarios" class="table">
-                        <thead>
+                        <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nombre</th>

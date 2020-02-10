@@ -20,20 +20,26 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+Route::view('/', 'welcome');
+/*USUARIOS*/
 Route::get('/agregar_usuario','UsuarioController@agregar')->name('usuarios.agregar');
 Route::post('/agregar_usuario','UsuarioController@add')->name('usuarios.add');
-
-
 Route::get('/mostrar_usuarios','UsuarioController@inicio')->name('usuarios.mostrar');
 Route::get('/editar_usuario/{id}','UsuarioController@editar')->name('usuarios.editar');
 Route::put('/editar_usuario/{id}','UsuarioController@update')->name('usuarios.update');
 Route::delete('/eliminar_usuario/{id}','UsuarioController@eliminar')->name('usuarios.eliminar');
-Route::get('/','PagesController@inicio')->name('inicio');
- 
+
 /*PROVEEDORES*/
-Route::get('/mostrar_proveedor','ProveedorController@mostrar')->name('mostrar_proveedor'); 
+Route::get('/mostrar_proveedor','ProveedorController@mostrar')->name('proveedores.mostrar');
 Route::get('/agregar','ProveedorController@agregar')->name('agregar_proveedor');
-Route::post('/','ProveedorController@crear_proveedores')->name('crear_proveedor');
+Route::post('/agregar','ProveedorController@crear_proveedores')->name('crear_proveedor');
 Route::get('/editar_proveedor/{id}', 'ProveedorController@editar' )->name('editar');
 Route::put('/editar_proveedor/{id}','ProveedorController@update')->name('update_proveedor');
 Route::delete('/eliminar/{id}','ProveedorController@eliminar')->name('eliminar_proveedor');
+
+//TIPOS DE OBRA//
+Route::get('/mostrar_tipo_obras','TipoObraController@mostrar')->name('tipo_obras.mostrar');
+Route::post('/agregar_tipo_obra','TipoObraController@agregar')->name('tipo_obra.agregar');
+Route::get('/editar_tipo_obra{id}', 'TipoObraController@editar' )->name('tipo_obra.editar');
+Route::put('/editar_tipo_obra/{id}','TipoObraController@update')->name('tipo_obra.update');
+Route::delete('/eliminar_tipo_obra/{id}','TipoObraController@eliminar')->name('tipo_obra.eliminar');

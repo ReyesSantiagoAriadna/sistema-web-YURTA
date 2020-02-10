@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -50,7 +49,9 @@ class UsuarioController extends Controller
         $usuarioUpdate->telefono=$request->telefono;
         $usuarioUpdate->puesto=$request->puesto;
         $usuarioUpdate->save();
-        return back()->with('mensaje','registro actualizado');
+
+        $usuarios=User::all();
+        return view('usuarios.mostrar',['usuarios'=>$usuarios])->with('mensaje','registro actualizado');
     }
 
     public function eliminar($id){
