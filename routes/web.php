@@ -28,6 +28,7 @@ Route::get('/mostrar_usuarios','UsuarioController@inicio')->name('usuarios.mostr
 Route::get('/editar_usuario/{id}','UsuarioController@editar')->name('usuarios.editar');
 Route::put('/editar_usuario/{id}','UsuarioController@update')->name('usuarios.update');
 Route::delete('/eliminar_usuario/{id}','UsuarioController@eliminar')->name('usuarios.eliminar');
+Route::delete('/eliminar_usuario/{id}','UsuarioController@eliminar')->name('usuarios.eliminar'); 
 
 /*PROVEEDORES*/
 Route::get('/mostrar_proveedor','ProveedorController@mostrar')->name('proveedores.mostrar');
@@ -43,3 +44,11 @@ Route::post('/agregar_tipo_obra','TipoObraController@agregar')->name('tipo_obra.
 Route::get('/editar_tipo_obra{id}', 'TipoObraController@editar' )->name('tipo_obra.editar');
 Route::put('/editar_tipo_obra/{id}','TipoObraController@update')->name('tipo_obra.update');
 Route::delete('/eliminar_tipo_obra/{id}','TipoObraController@eliminar')->name('tipo_obra.eliminar');
+
+/*MATERIAL*/
+Route::get('/mostrar_material','MaterialController@mostrar')->name('mostrar_material');  
+Route::get('/agregar','MaterialController@agregar')->name('agregar_material');
+Route::post('/','MaterialController@crear_material')->name('material_add');
+Route::get('/editar/{id}','MaterialController@editar')->name('materiales_editar');
+Route::put('/editar/{id}','MaterialController@update')->name('material_update');
+Route::delete('/eliminar/{id}','MaterialController@eliminar')->name('material_eliminar');
