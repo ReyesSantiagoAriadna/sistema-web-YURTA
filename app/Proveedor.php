@@ -12,5 +12,11 @@ class Proveedor extends Model
 
     public $timestamps = false;
 
+    public function materiales(){
+        return $this->hasMany(Material::class);
+    }
+
     protected $fillable = ['id','razon_social','telefono','direccion'];
+
+  
 }

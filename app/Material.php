@@ -12,5 +12,11 @@ class Material extends Model
 
     public $timestamps = false;
 
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class,'proveedor');
+    }
+
     protected $fillable = ['id','descripcion','unidad','tipo','marca','existencias','precio_unitario','proveedor'];
+
+  
 }
