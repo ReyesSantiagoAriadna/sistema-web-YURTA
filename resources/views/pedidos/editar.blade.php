@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('panel')
 
-@section('content')
+@section('contenido')
 
     <h1>Pedido {{$pedido->id}}</h1>
 

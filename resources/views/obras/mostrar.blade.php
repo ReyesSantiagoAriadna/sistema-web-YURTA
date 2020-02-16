@@ -48,7 +48,7 @@
                                 <td>{{$item->tipo_obra}}</td>
                                 <th>
                                     <a href="{{route('obra>editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
-                                    <form  class="d-inline" action="{{route('usuarios.eliminar',$item)}}" method="POST">
+                                    <form  class="d-inline" action="{{route('obra.eliminar',$item)}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>

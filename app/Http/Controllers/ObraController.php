@@ -39,4 +39,11 @@ class ObraController extends Controller{
         return view('obras.editar', compact('obra','tipos','usuarios'));
        // return view('obras.editar',['obra'=>$obra,'usuarios'=>$usuarios,'tipos'=>$tipos]);
     }
+
+    public function eliminar($id){
+        $obraElimnar = App\Obra::findOrFail($id);
+        $obraElimnar->delete();
+
+        return back()->with('mensaje','Obra eliminada');
+    }
 }

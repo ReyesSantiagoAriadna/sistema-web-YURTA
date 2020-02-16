@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('content')
+@extends('panel')
+@section('contenido')
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
@@ -10,7 +10,7 @@
                             <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar usuario">
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href="{{route('agregar.material')}}">Agregar</a>
+                            <a class="btn btn-primary" href="">Agregar</a>
                         </div>
                     </div>
                 </div>
@@ -52,9 +52,9 @@
                             <td>{{$item->precio_unitario}}</td>
                             <td>{{$item->proveedor}}</td>
                             <td>
-                              <a href="{{route('materiales_editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
+                              <a href="{{route('material>editar', $item)}}" class="btn btn-warning btn-sm">Editar</a>
                             
-                              <form action="{{route('material_eliminar',$item)}}" class="d-inline" method="POST">
+                              <form action=" " class="d-inline" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>

@@ -45,32 +45,25 @@ Route::put('/editar_tipo_obra/{id}','TipoObraController@update')->name('tipo_obr
 Route::delete('/eliminar_tipo_obra/{id}','TipoObraController@eliminar')->name('tipo_obra.eliminar');
 
 
-/*MATERIAL*/
-<<<<<<< HEAD
-Route::get('/mostrar_material','MaterialController@mostrar')->name('materiales');
-Route::get('/agregar','MaterialController@agregar')->name('material>agregar');
-=======
-Route::get('/mostrar_material','MaterialController@mostrar')->name('mostrar_material');  
-Route::get('/agregar','MaterialController@agregar')->name('agregar.material');
->>>>>>> ramitapedidos
+/*MATERIAL*/  
+Route::get('/mostrar_material','MaterialController@mostrar')->name('material');  
+Route::get('/agregar','MaterialController@agregar')->name('m_agregar');
 Route::post('/','MaterialController@crear_material')->name('material_add');
 Route::get('/editar/{id}','MaterialController@editar')->name('material>editar');
 Route::put('/editar/{id}','MaterialController@update')->name('material_update');
 Route::delete('/eliminar/{id}','MaterialController@eliminar')->name('material_eliminar');
 
-<<<<<<< HEAD
 /*OBRAS*/
 Route::get('/mostrar_obras','ObraController@mostrar')->name('obras');
 Route::get('/agregar_obra','ObraController@agregar')->name('obra>agregar');
 Route::post('/agregar_obra','ObraController@add')->name('obra>add');
 Route::get('/editar_obra/{id}','ObraController@editar')->name('obra>editar');
+Route::delete('/elominar/{id}','ObraController@eliminar')->name('obra.eliminar');
 //Route::put('/editar_obra/{id}','ObraControlle@update')->name('obra>update');
-=======
 //Pedidos
-Route::get('/mostrar_pedidos','PedidosController@mostrar')->name('mostrar_proveedor');  
+Route::get('/mostrar_pedidos','PedidosController@mostrar')->name('pedidos');  
 Route::get('/agregar','PedidosController@agregar')->name('agregar_pedido');
 Route::post('/','PedidosController@crear_pedido')->name('crear_pedido');
 Route::get('/editar/{id}','PedidosController@editar')->name('editar_pedido');
 Route::put('/editar/{id}','PedidosController@update')->name('update_pedido');
 Route::delete('/editar/{id}','PedidosController@eliminar')->name('eliminar_pedido');
->>>>>>> ramitapedidos

@@ -7,6 +7,10 @@ use App;
 
 class PedidosController extends Controller
 { 
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    
     public function mostrar(){ 
         $pedidos = App\Pedido::all();
         return view('pedidos.mostrar', compact('pedidos'));

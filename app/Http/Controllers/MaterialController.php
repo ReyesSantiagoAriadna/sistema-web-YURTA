@@ -16,10 +16,10 @@ class MaterialController extends Controller
         $proveedores = App\Proveedor::all();
         return view('materiales.mostrar', compact('materiales','proveedores'));
     }
-
+ 
     public function agregar(){
         $proveedores = App\Proveedor::all();
-        return view('materiales.agregar', compact('proveedores'));
+        return view('materiales.agregar');
     }
 
     public function crear_material(Request $request){ 
