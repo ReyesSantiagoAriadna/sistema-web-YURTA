@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App;
 
 class ProveedorController extends Controller
-{ 
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function mostrar(){
         $proveedores = App\Proveedor::all();

@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App;
 
 class MaterialController extends Controller
-{ 
-
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function mostrar(){
         $materiales = App\Material::all();
         return view('materiales.mostrar', compact('materiales'));

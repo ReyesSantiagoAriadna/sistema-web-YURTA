@@ -16,8 +16,8 @@ class CreateObraTable extends Migration
         Schema::create('obra', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('descripcion');
-            $table->double('lat', 8, 8);
-            $table->double('lng', 8, 8);
+            $table->double('lat', 20, 10);
+            $table->double('lng', 20, 10);
             $table->date('fech_ini');
             $table->string('dependencia');
 

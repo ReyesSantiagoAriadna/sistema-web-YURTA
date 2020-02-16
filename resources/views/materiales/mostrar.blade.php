@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-auto mr-auto">
                             <a class="fa fa-filter"></a>
-                            <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar usuario">
+                            <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar obra">
                         </div>
                         <div class="col-auto">
                             <a class="btn btn-primary" href="{{route('material>agregar')}}">Agregar</a>

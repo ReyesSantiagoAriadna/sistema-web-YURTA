@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class TipoObraController extends Controller{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function mostrar(){
         $tipo = App\TipoObra::all();
         return view('tipo_obra.mostrar', compact('tipo'));

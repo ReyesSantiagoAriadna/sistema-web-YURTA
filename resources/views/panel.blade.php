@@ -21,6 +21,15 @@
     <link href="/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="/css/colors/default.css" id="theme" rel="stylesheet">
+    <style>
+        #map-canvas{
+            width: 550px;
+            height: 450px;
+        }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOoifiSc2LnrhQwCJLy7xuaYgEo3xAE5s&libraries=places"
+        type="text/javascript"></script>
 </head>
 <body class="fix-header">
 <div class="preloader">
@@ -61,8 +70,12 @@
                 </li>
 
                 <li>
-                    <a class="profile-pic" href="#"> <img src="/plugins/images/users/varun.jpg" alt="user-img"
-                                                          width="36" class="img-circle"><b class="hidden-xs">{{ Auth::user()->name }} </b></a>
+                    @guest
+                    @else
+                        <a class="profile-pic" href="#"> <img src="/plugins/images/users/varun.jpg" alt="user-img"
+                                                              width="36" class="img-circle"><b class="hidden-xs">{{ Auth::user()->name }} </b></a>
+
+                    @endguest
                 </li>
             </ul>
         </div>
@@ -98,7 +111,7 @@
                                                                                                           aria-hidden="true"></i></i>Materiales</a>
                 </li>
                 <li>
-                    <a href="map-google.html" class="waves-effect"><i class="fas fa-building fa-fw"
+                    <a href="{{route('obras')}}" class="waves-effect"><i class="fas fa-building fa-fw"
                                                                       aria-hidden="true"></i>Obras</a>
                 </li>
                 <li>

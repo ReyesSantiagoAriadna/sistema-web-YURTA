@@ -104,7 +104,7 @@
                     <select name="proveedor" class="form-control" id="select-proveedor" required autofocus>
                         <option value="value="{{ $material->existencias }}""></option>
                         @foreach ($proveedores as $proveedor)
-                            <option value="{{$proveedor['id']}}">{{$proveedor['razon_social']}}</option>
+                            <option value="{{$proveedor->id}}" {{$material->proveedor==$proveedor->id ? 'selected' : ''}}>{{$proveedor->razon_social}}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('proveedor'))

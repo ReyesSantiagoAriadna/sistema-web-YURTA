@@ -12,6 +12,11 @@ use Illuminate\Support\Str;
 
 class UsuarioController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function inicio(){
         $usuarios=User::all();
         return view('usuarios.mostrar',['usuarios'=>$usuarios]);

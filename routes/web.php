@@ -19,7 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::view('/panel', 'panel');
 Route::view('/', 'welcome');
 /*USUARIOS*/
 Route::get('/agregar_usuario','UsuarioController@agregar')->name('usuarios>agregar');
@@ -54,3 +53,9 @@ Route::get('/editar/{id}','MaterialController@editar')->name('material>editar');
 Route::put('/editar/{id}','MaterialController@update')->name('material_update');
 Route::delete('/eliminar/{id}','MaterialController@eliminar')->name('material_eliminar');
 
+/*OBRAS*/
+Route::get('/mostrar_obras','ObraController@mostrar')->name('obras');
+Route::get('/agregar_obra','ObraController@agregar')->name('obra>agregar');
+Route::post('/agregar_obra','ObraController@add')->name('obra>add');
+Route::get('/editar_obra/{id}','ObraController@editar')->name('obra>editar');
+//Route::put('/editar_obra/{id}','ObraControlle@update')->name('obra>update');
