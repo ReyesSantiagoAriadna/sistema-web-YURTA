@@ -10,6 +10,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('usuario/{id}','Api\ApiController@getUser');
 Route::get('usuarios','Api\ApiController@getUsers')->name('getAllUsers');
-
-
-

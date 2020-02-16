@@ -7,10 +7,10 @@
                     <div class="row">
                         <div class="col-auto mr-auto">
                             <a class="fa fa-filter"></a>
-                            <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar usuario">
+                            <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar pedido">
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href="{{route('agregar.material')}}">Agregar</a>
+                            <a class="btn btn-primary" href="{{route('agregar_pedido')}}">Agregar</a>
                         </div>
                     </div>
                 </div>
@@ -28,33 +28,25 @@
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Unidad</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Existencia</th>
-                            <th scope="col">Precion unitario</th>
-                            <th scope="col">Proveedor</th>
+                            <th scope="col">Fecha del pedido</th>
+                            <th scope="col">Fecha de Confirmacion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Obra</th> 
                             <th scope="col">Acciones</th>
                           </tr>
                         </thead>
                         <tbody>
-                     @foreach ($materiales as $item)          
+                     @foreach ($pedidos as $item)          
                           <tr>
-                          <th scope="row">{{$item->id}}</th>
+                          <th scope="row">{{$item->id}}</th> 
+                            <td>{{$item->fecha_p}}</td>
+                            <td>{{$item->fecha_conf}}</td> 
+                            <td>{{$item->estado}}</td>
+                            <td>{{$item->obra}}</td> 
                             <td>
-                              {{$item->descripcion}}
-                            </td>
-                            <td>{{$item->unidad}}</td>
-                            <td>{{$item->tipo}}</td>
-                            <td>{{$item->marca}}</td>
-                            <td>{{$item->existencias}}</td>
-                            <td>{{$item->precio_unitario}}</td>
-                            <td>{{$item->proveedor}}</td>
-                            <td>
-                              <a href="{{route('materiales_editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
+                              <a href="{{route('editar_pedido',$item)}}" class="btn btn-warning btn-sm">Editar</a>
                             
-                              <form action="{{route('material_eliminar',$item)}}" class="d-inline" method="POST">
+                              <form action="{{route('eliminar_pedido',$item)}}" class="d-inline" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
