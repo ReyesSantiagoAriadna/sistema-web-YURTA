@@ -47,10 +47,10 @@ Route::delete('/eliminar_tipo_obra/{id}','TipoObraController@eliminar')->name('t
 
 /*MATERIAL*/  
 Route::get('/mostrar_material','MaterialController@mostrar')->name('material');  
-Route::get('/agregar','MaterialController@agregar')->name('m_agregar');
-Route::post('/','MaterialController@crear_material')->name('material_add');
-Route::get('/editar/{id}','MaterialController@editar')->name('material>editar');
-Route::put('/editar/{id}','MaterialController@update')->name('material_update');
+Route::get('/agregar_material','MaterialController@agregar')->name('material_agregar');
+Route::post('/agregar_material','MaterialController@crear_material')->name('material_add'); 
+Route::get('/editar_material/{id}','MaterialController@editar')->name('material_editar');
+Route::put('/editar_material/{id}','MaterialController@update')->name('materiales_update');
 Route::delete('/eliminar/{id}','MaterialController@eliminar')->name('material_eliminar');
 
 /*OBRAS*/
@@ -62,8 +62,8 @@ Route::delete('/elominar/{id}','ObraController@eliminar')->name('obra.eliminar')
 //Route::put('/editar_obra/{id}','ObraControlle@update')->name('obra>update');
 //Pedidos
 Route::get('/mostrar_pedidos','PedidosController@mostrar')->name('pedidos');  
-Route::get('/agregar','PedidosController@agregar')->name('agregar_pedido');
-Route::post('/','PedidosController@crear_pedido')->name('crear_pedido');
+Route::get('/agregar_pedido','PedidosController@agregar')->name('agregar_pedido');
+Route::post('/agregar_pedido','PedidosController@crear_pedido')->name('crear_pedido');
 Route::get('/editar/{id}','PedidosController@editar')->name('editar_pedido');
 Route::put('/editar/{id}','PedidosController@update')->name('update_pedido');
 Route::delete('/editar/{id}','PedidosController@eliminar')->name('eliminar_pedido');

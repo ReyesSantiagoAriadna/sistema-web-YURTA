@@ -1,5 +1,4 @@
 @extends('panel')
-
 @section('contenido')
     @if(session('mensaje'))
         <div class="alert-success">{{session('mensaje')}}
@@ -8,7 +7,7 @@
             </button>
         </div>       
     @endif
-    <form action="{{route('material_update',$material->id)}}" method="POST">
+    <form action="{{route('materiales_update',$material->id)}}" method="POST">
         @method('PUT')
         @csrf
         <div class="container">
