@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class UsuarioController extends Controller
 {
-
+    public $successStatus = 200;
     public function __construct()
     {
         $this->middleware('auth');
@@ -64,4 +66,7 @@ class UsuarioController extends Controller
         $usuarioEliminar->delete();
         return back()->with('mensaje','Registro eliminado');
     }
+
+
+
 }

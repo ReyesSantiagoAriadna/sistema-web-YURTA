@@ -15,6 +15,14 @@ class MaterialController extends Controller
         $materiales = App\Material::all();
         $proveedores = App\Proveedor::all();
         return view('materiales.mostrar', compact('materiales','proveedores'));
+
+        $data = App\Material::select('proveedor.razon_social', 'categories.nameCategory')
+            ->join('categories', 'users.idUser', '=', 'categories.user_id')
+            ->get();
+
+        return $data;
+        // $materiales = App\Material::all();
+       // return view('materiales.mostrar', compact('materiales'));
     }
  
     public function agregar(){

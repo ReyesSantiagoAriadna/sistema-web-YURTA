@@ -46,7 +46,9 @@
                                 <td>{{$item->encargado}}</td>
                                 <td>{{$item->tipo_obra}}</td>
                                 <th>
-                                    <a href="{{route('obra_editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
+{{--                                    <a href="{{route('obra_editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>--}}
+                                    <a href="{{route('obra_update',$item)}}" class="btn btn-warning btn-sm">Editar</a>
+
                                     <form  class="d-inline" action="{{route('obra.eliminar',$item)}}" method="POST">
                                         @method('DELETE')
                                         @csrf
