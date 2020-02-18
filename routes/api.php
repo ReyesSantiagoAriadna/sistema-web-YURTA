@@ -15,7 +15,4 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 });
 
 
-
-Route::get('usuario/{id}','Api\ApiController@getUser');
-Route::get('usuarios','Api\ApiController@getUsers')->name('getAllUsers');
 Route::post('login', 'Api\ApiController@authenticate')->name('login');
