@@ -35,7 +35,7 @@ class ProveedorController extends Controller
         $proveedor->direccion = $request->direccion;
 
         $proveedor->save();
-        return view('proveedor',compact('proveedores'))->with('mensaje','Proveedor agregado correctamente');
+        return back()->with('mensaje','Proveedor agregado correctamente');
     }
 
     public function editar($id){
@@ -49,7 +49,8 @@ class ProveedorController extends Controller
         $proveedorActualizar->telefono = $request->telefono;
         $proveedorActualizar->direccion = $request->direccion;
         $proveedorActualizar->save();
-        return back()->with('mensaje', 'Proveedor Actualizado');
+        $proveedores = App\PRoveedor::all();
+        return view('proveedores.mostrar', compact('proveedores'))->with('mensaje', 'Proveedor Actualizado');
     }
 
     public function eliminar($id){

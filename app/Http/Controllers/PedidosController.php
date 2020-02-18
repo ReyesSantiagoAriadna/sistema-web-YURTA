@@ -17,7 +17,8 @@ class PedidosController extends Controller
     }
 
     public function agregar(){ 
-        return view('pedidos.agregar');
+        $obras = App\Obra::all();
+        return view('pedidos.agregar', compact('obras'));
     }
 
     public function crear_pedido(Request $request){
@@ -32,8 +33,9 @@ class PedidosController extends Controller
     }
 
     public function editar($id){
+        $obras = App\Obra::all();
         $pedido = App\Pedido::findOrFail($id);
-        return view('pedidos.editar', compact('pedido'));
+        return view('pedidos.editar', compact('pedido','obras'));
     }
 
     public function update(Request $request, $id){
@@ -43,7 +45,8 @@ class PedidosController extends Controller
         $pedidoActualizado->estado = $request->estado;
         $pedidoActualizado->obra = $request->obra;
         $pedidoActualizado->save();
-        return back()->with('mensaje','Pedido actualizado');
+        $pedidos = App\Pedido::all();
+        return view('pedidos.mostrar',compact('pedidos'))->with('mensaje','Pedido actualizado');
     }
 
     public function eliminar($id){

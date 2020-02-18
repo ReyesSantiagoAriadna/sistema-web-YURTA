@@ -10,7 +10,7 @@
                             <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar pedido">
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href=" ">Agregar</a>
+                            <a class="btn btn-primary" href="{{route('agregar_pedido')}}">Agregar</a>
                         </div>
                     </div>
                 </div>

@@ -8,9 +8,9 @@ class ObraController extends Controller{
     public function __construct(){
         $this->middleware('auth');
     }
-    public function mostrar(){
-        $obra = App\Obra::all();
-        return view('obras.mostrar', compact('obra'));
+    public function mostrar(){ 
+        $obras = App\Obra::all(); 
+        return view('obras.mostrar', compact('obras'));
     }
     public function agregar(){
         $usuarios = App\User::all();
@@ -40,10 +40,47 @@ class ObraController extends Controller{
        // return view('obras.editar',['obra'=>$obra,'usuarios'=>$usuarios,'tipos'=>$tipos]);
     }
 
+    public function update(Request $request, $id){
+        $obras = App\Obra::all();
+        $obraActualizada = App\Obra::find($id);
+        $obraActualizada->descripcion = $request->descripcion;
+        $obraActualizada->lat=$request->lat;
+        $obraActualizada->lng=$request->lng;
+        $obraActualizada->fech_ini=$request->fech_ini;
+        $obraActualizada->dependencia=$request->dependencia;
+        $obraActualizada->encargado=$request->encargado;
+        $obraActualizada->tipo_obra=$request->tipo;
+
+        $obraActualizada->save();
+        return view('obras.mostrar', compact('obras'))->with('mensaje','Obra Actualizada');
+    }
+
     public function eliminar($id){
         $obraElimnar = App\Obra::findOrFail($id);
         $obraElimnar->delete();
 
         return back()->with('mensaje','Obra eliminada');
     }
+
+    public function agregar_material(){ 
+        $obras = App\Obra::all();
+        $materiales = App\Material::all();
+        return view('obras.agregar_material', compact('obras','materiales')); 
+   }
+
+   public function crear_material_obra(Request $request){
+       $material_obra = new App\MaterialObra;
+       $material_obra->cantidad = $request->cantidad;
+       $material_obra->id_obra = $request->id_obra;
+       $material_obra->mat_obra = $request->mat_obra;
+       $material_obra->save();
+
+       return back()->with('mensaje','Material agregado');
+   }
+
+   public function mostrar_material_obra($id){
+    $obra = App\Obra::findOrFail($id);
+    $materiales_obra = App\MAterialObra::all();
+    return view('obras.mostrar_materiales', compact('obra','materiales_obra'));
+}
 }

@@ -55,7 +55,8 @@ class MaterialController extends Controller
         $materialActualiza->precio_unitario = $request->precio_unitario;
         $materialActualiza->proveedor = $request->proveedor;
         $materialActualiza->save();
-        return back()->with('mensaje','Material Actializado');
+        $materiales = App\Material::all();
+        return view('materiales.mostrar',compact('materiales'))->with('mensaje','Material Actializado');
     }
 
     public function eliminar($id){

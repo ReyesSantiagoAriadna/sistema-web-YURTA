@@ -1,9 +1,6 @@
 @extends('panel')
 
-@section('contenido')
-
-    <h1>Pedido {{$pedido->id}}</h1>
-
+@section('contenido') 
     @if(session('mensaje'))
         <div class="alert-success">{{session('mensaje')}}</div>
     @endif
@@ -59,12 +56,16 @@
             <label for="obra" class="col-md-4 col-form-label text-md-right">{{ __('Obra') }}</label>
 
             <div class="col-md-6">
-                <input id="obra" type="number" class="form-control{{ $errors->has('obra') ? ' is-invalid' : '' }}" name="obra" value="{{ $pedido->obra }}" required autofocus>
-
+                <select name="obra" class="form-control" id="select-obra" required autofocus>
+                    <option value="value="{{ $pedido->obra }}""></option>
+                    @foreach ($obras as $obra)
+                        <option value="{{$obra->id}}" {{$pedido->obra==$obra->id ? 'selected' : ''}}>{{$obra->descripcion}}</option>
+                    @endforeach
+                </select>
                 @if ($errors->has('obra'))
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('obra') }}</strong>
-                                    </span>
+                    <strong>{{ $errors->first('obra') }}</strong>
+                </span>
                 @endif
             </div>
         </div>

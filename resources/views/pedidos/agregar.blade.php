@@ -59,14 +59,18 @@
                                 </span>
                             @endif
                         </div>
-                    </div>
+                    </div> 
 
                     <div class="form-group row">
                         <label for="obra" class="col-md-4 col-form-label text-md-right">{{ __('Obra') }}</label>
 
                         <div class="col-md-6">
-                            <input id="obra" type="text" class="form-control{{ $errors->has('obra') ? ' is-invalid' : '' }}" name="obra" value="{{ old('obra') }}" required autofocus>
-
+                             <select name="obra" class="form-control" id="select-obra" required autofocus>
+                                <option value="">Seleccione la obrar</option>
+                                @foreach ($obras as $obra)
+                                    <option value="{{$obra['id']}}">{{$obra['descripcion']}}</option>
+                                @endforeach
+                            </select>
                             @if ($errors->has('obra'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('obra') }}</strong>

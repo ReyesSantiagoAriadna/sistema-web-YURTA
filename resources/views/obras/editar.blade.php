@@ -13,7 +13,8 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('obra>add') }}">
+                    <form action="{{route('obra_update',$obra->id)}}" method="POST">
+                        @method('PUT')
                         @csrf
                         <div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de obra') }}</label>
@@ -105,10 +106,10 @@
                             </div>
                             <div class="form-group">
                                 <label>Lat</label>
-                                <input name="lat" type="text" class="form-control input-group-sm" id="lat" value="">
+                            <input name="lat" type="text" class="form-control input-group-sm" id="lat" value="{{$obra->lat}}">
                             </div>
                             <div class="form-group">
-                                <input name="lng" type="text" class="form-control input-group-sm" id="lng" value="">
+                                <input name="lng" type="text" class="form-control input-group-sm" id="lng" value="{{$obra->lng}}">
                             </div>
                         </div>
 
@@ -116,8 +117,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Agregar') }}
+                                <button type="submit" class="btn btn-warning">
+                                    Actualizar
                                 </button>
                             </div>
                         </div>
