@@ -2,15 +2,13 @@
 namespace App\Http\Controllers;
 use App;
 use Illuminate\Http\Request;
-use SebastianBergmann\Environment\Console;
-
 class ObraController extends Controller{
     public function __construct(){
         $this->middleware('auth');
     }
     public function mostrar(){
-        $obra = App\Obra::all();
-        return view('obras.mostrar', compact('obra'));
+        $obras = App\Obra::all();
+        return view('obras.mostrar', compact('obras'));
     }
     public function agregar(){
         $usuarios = App\User::all();
@@ -37,6 +35,19 @@ class ObraController extends Controller{
         $usuarios= App\User::all();
         $obra = App\Obra::findOrFail($id);
         return view('obras.editar', compact('obra','tipos','usuarios'));
-       // return view('obras.editar',['obra'=>$obra,'usuarios'=>$usuarios,'tipos'=>$tipos]);
+    }
+
+    public function update(Request $request,$id){
+        $obra = App\Obra::find($id);
+        $obra->descripcion = $request->descripcion;
+        $obra->lat = $request->lat;
+        $obra->lng = $request->lng;
+        $obra->fech_ini = $request->fech_ini;
+        $obra->dependencia = $request->dependencia;
+        $obra->encargado = $request->encargado;
+        $obra->tipo_obra = $request->tipo;
+        $obra->save();
+        $obras = App\Obra::all();
+        return view('obras.mostrar', compact('obras'));
     }
 }

@@ -58,4 +58,4 @@ Route::get('/mostrar_obras','ObraController@mostrar')->name('obras');
 Route::get('/agregar_obra','ObraController@agregar')->name('obra>agregar');
 Route::post('/agregar_obra','ObraController@add')->name('obra>add');
 Route::get('/editar_obra/{id}','ObraController@editar')->name('obra>editar');
-//Route::put('/editar_obra/{id}','ObraControlle@update')->name('obra>update');
+Route::put('/editar_obra/{id}','ObraController@update')->name('obra_update');

@@ -106,14 +106,12 @@
                                     <div id="map-canvas"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input name="lat"  type="hidden"  class="form-control input-group-sm" id="lat" value="">
+                                    <input name="lat"  type="text"  class="form-control input-group-sm" id="lat" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input name="lng" type="hidden" class="form-control input-group-sm" id="lng" value="">
+                                    <input name="lng" type="text" class="form-control input-group-sm" id="lng" value="">
                                 </div>
                         </div>
-
-
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

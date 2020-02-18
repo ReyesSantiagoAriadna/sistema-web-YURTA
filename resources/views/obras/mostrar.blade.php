@@ -36,7 +36,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($obra as $item)
+                        @foreach ($obras as $item)
                             <tr>
                                 <td scope="row">{{$item->id}}</td>
                                 <td>

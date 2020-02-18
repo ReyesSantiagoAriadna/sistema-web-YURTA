@@ -13,14 +13,14 @@ class CreateProveedorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('proveedor', function (Blueprint $table) {
+       /* Schema::create('proveedor', function (Blueprint $table) {
             $table->increments('id');
             $table->string('razon_social');
             $table->string('telefono');
             $table->string('correo');
             $table->string('direccion');
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
