@@ -1,183 +1,297 @@
-@extends('panel')
-@section('contenido')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card">
-                <div class="card-body">
-                    @if(session('mensaje'))
-                        <div class="alert alert-success">
-                            {{session('mensaje')}}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+{{--            CUADRO DE DIALOGO PARA ACTUALIZAR REGISTRO--}}
+<div id="formModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn btn-danger btn-circle" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Record</h4>
+            </div>
+            <div class="modal-body">
+                <span id="form_result"></span>
+                <form method="post" id="sample_form" class="form-horizontal">
+                    @csrf
+                    <label>Descripción</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">description</i></span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" required>
                         </div>
-                    @endif
+                    </div>
 
-                    <form action="{{route('obra_update',$obra->id)}}" method="POST">
-                        @method('PUT')
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="tipo" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de obra') }}</label>
-
-                            <div class="col-md-6">
-                                <select name="tipo" class="form-control" id="tipo" required autofocus>
-                                    @foreach ($tipos as $tipo)
-                                        <option value="{{$tipo->id}}" {{$obra->tipo_obra==$tipo->id ? 'selected' : ''}}>{{$tipo->descripcion}}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('tipo'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('tipo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    <label>Fecha de inicio</label>
+                    <div class="input-group input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">date_range</i>
+                    </span>
+                        <div class="form-line">
+                            <input  name="fech_ini" id="fech_ini" dtype="text" class="  datepicker form-control" placeholder="Fecha de inicio" required>
                         </div>
+                    </div>
 
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Descripcion') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="descripcion" type="text" class="form-control{{ $errors->has('descripcion') ? ' is-invalid' : '' }}" name="descripcion" value="{{$obra->descripcion}}" required autofocus>
-
-                                @if ($errors->has('descripcion'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('descripcion') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    <label>Dependencia</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">store_mall_directory</i></span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Dependencia" id="dependencia" name="dependencia" required>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="fech_ini" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de inicio') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="fech_ini" type="date" class="form-control{{ $errors->has('fech_ini') ? ' is-invalid' : '' }}" name="fech_ini" value="{{ $obra->fech_ini }}" required>
-
-                                @if ($errors->has('fech_ini'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('fech_ini') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    <label>Residente</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">people</i></span>
+                        <div class="form-line">
+                            <select name="encargado" class="form-control"  id="encargado" required autofocus>
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="dependencia" class="col-md-4 col-form-label text-md-right">{{ __('Dependencia') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="dependencia" type="text" class="form-control{{ $errors->has('dependencia') ? ' is-invalid' : '' }}" name="dependencia" value="{{ $obra->dependencia }}" required>
-
-                                @if ($errors->has('dependencia'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('dependencia') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    <label>Tipo</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">merge_type</i></span>
+                        <div class="form-line">
+                            <select name="tipo" class="form-control"  id="tipo" required autofocus>
+                            </select>
                         </div>
+                    </div>
 
-
-                        <div class="form-group row">
-                            <label for="encargado" class="col-md-4 col-form-label text-md-right">{{ __('Residente') }}</label>
-
-                            <div class="col-md-6">
-                                <select name="encargado" class="form-control" id="select-encargado" required autofocus>
-                                    @foreach ($usuarios as $usuario)
-                                        <option value="{{$usuario->id}}" {{$obra->encargado==$usuario->id ? 'selected' : ''}}>{{$usuario->name}}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('encargado'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('encargado') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    <label>Ubicación</label>
+                    <div class="input-group input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">search</i>
+                    </span>
+                        <div class="form-line">
+                            <input type="text" id="searchmap"  class="form-control" placeholder="buscar">
                         </div>
+                    </div>
 
-
-                        <div class="form-group row">
-                            <label for="ubicacion" class="col-md-4 col-form-label text-md-right">{{ __('Ubicación') }}</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"></span>
+                        <div class="form-line">
+                            <div  id="map-canvas"></div>
                         </div>
-                        <div class="form-group row m-auto">
+                    </div>
 
-                            <div class="form-group">
-                                <input type="text" id="searchmap" placeholder="buscar">
-                                <div id="map-canvas"></div>
-                            </div>
-                            <div class="form-group">
-                                <label>Lat</label>
-                            <input name="lat" type="text" class="form-control input-group-sm" id="lat" value="{{$obra->lat}}">
-                                <input name="lat" type="text" class="form-control input-group-sm" id="lat" value="{{$obra->lat}}">
-                            </div>
-                            <div class="form-group">
-                                <input name="lng" type="text" class="form-control input-group-sm" id="lng" value="{{$obra->lng}}">
-                            </div>
-                        </div>
+                    <input name="lat"  type="hidden"  class="form-control input-group-sm" id="lat" value="">
+                    <input name="lng" type="hidden" class="form-control input-group-sm" id="lng" value="">
+
+
+                    <br />
+                    <div class="form-group" align="center">
+                        <input type="hidden" name="action" id="action" value="Add" />
+                        <input type="hidden" name="hidden_id" id="hidden_id" />
+                        <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Editar" />
+                    </div>
 
 
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-warning">
-                                    Actualizar
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Actualizar') }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <script>
-                            var _lat = document.getElementById("lat").value;
-                            var _lng = document.getElementById("lng").value;
-
-                            console.log("lat",_lat);
-
-                            var map= new google.maps.Map(document.getElementById('map-canvas'),{
-                                center:{
-                                    lat:parseFloat(document.getElementById("lat").value),
-                                    lng:parseFloat(document.getElementById("lng").value),
-                                },
-                                zoom:15
-                            });
-
-                            var marker = new google.maps.Marker({
-                                position:{
-                                    lat:parseFloat(document.getElementById("lat").value),
-                                    lng:parseFloat(document.getElementById("lng").value),
-                                },
-                                map: map,
-                                draggable:true
-                            });
-
-                            var searchBox= new google.maps.places.SearchBox(document.getElementById('searchmap'));
-
-                            google.maps.event.addListener(searchBox,'places_changed',function () {
-                                var places=searchBox.getPlaces();
-                                var bounds = new google.maps.LatLngBounds();
-                                var i,place;
-
-                                for(i=0; place=places[i];i++){
-                                    bounds.extend(place.geometry.location);
-                                    marker.setPosition(place.geometry.location);
-                                }
-
-                                map.fitBounds(bounds);
-                                map.setZoom(15);
-
-                            });
-                            google.maps.event.addListener(marker,'position_changed',function () {
-                                var lat = marker.getPosition().lat();
-                                var lng = marker.getPosition().lng();
-                                $('#lat').val(lat);
-                                $('#lng').val(lng);
-
-                            });
-                        </script>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-@endsection
+</div>
 
+{{--            CUADRO DE DIALOGO PARA CONFIRMAR ELIMINACION DEL REGISTRO--}}
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Confirmación</h2>
+            </div>
+            <div class="modal-body">
+                <h4 align="center" style="margin:0;">¿Estas seguro de eliminar este registro?</h4>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" name="ok_button" id="ok_button"  data-token="{{ csrf_token() }}" class="btn btn-danger">OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    ﻿$(document).ready( function() {
+        $('#tabla-obras').dataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        } );
+
+
+        var id;
+
+        var encargado,tipo_obra;
+//obtencion de registro a editar
+        $(document).on('click', '.edit', function(){
+            id = $(this).attr('id');
+            encargado = document.getElementById("enc");
+            tipo_obra = document.getElementById("tip").value;
+            $('#form_result').html('');
+            $.ajax({
+                url :"/edit_obra/"+id,
+                dataType:"json",
+                success:function(data) {
+                    $('#descripcion').val(data.result.descripcion);
+                    $('#fech_ini').val(data.result.fech_ini);
+                    $('#dependencia').val(data.result.dependencia);
+                    $('#lat').val(data.result.lat);
+                    $('#lng').val(data.result.lng);
+
+                    $.get('find_obra',{id,id},function (obra) {
+                        encargado = obra.encargado;
+                        tipo_obra = obra.tipo_obra;
+                    });
+
+                    $.get('residentes',function (encargados) {
+                        $('#encargado').empty();
+                        $.each(encargados,function(key, registro) {
+                            $('#encargado').append("<option value='" + registro.id + "'" + (encargado == registro.id ? 'selected' : '') + ">" + registro.name +"</option>");
+                        });
+                    });
+
+
+                    $.get('tipos',function (tipos) {
+                        $('#tipo').empty();
+                        $.each(tipos,function(key, registro) {
+                            $('#tipo').append("<option value='" + registro.id + "'" + (tipo_obra == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
+                        });
+                    });
+
+
+                    ///MAPA
+                    var _lat = document.getElementById("lat").value;
+                    var _lng = document.getElementById("lng").value;
+
+                    //console.log("lat",_lat);
+
+                    var map= new google.maps.Map(document.getElementById('map-canvas'),{
+                        center:{
+                            lat:parseFloat(document.getElementById("lat").value),
+                            lng:parseFloat(document.getElementById("lng").value),
+                        },
+                        zoom:15
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position:{
+                            lat:parseFloat(document.getElementById("lat").value),
+                            lng:parseFloat(document.getElementById("lng").value),
+                        },
+                        map: map,
+                        draggable:true
+                    });
+
+                    var searchBox= new google.maps.places.SearchBox(document.getElementById('searchmap'));
+
+                    google.maps.event.addListener(searchBox,'places_changed',function () {
+                        var places=searchBox.getPlaces();
+                        var bounds = new google.maps.LatLngBounds();
+                        var i,place;
+
+                        for(i=0; place=places[i];i++){
+                            bounds.extend(place.geometry.location);
+                            marker.setPosition(place.geometry.location);
+                        }
+
+                        map.fitBounds(bounds);
+                        map.setZoom(15);
+
+                    });
+                    google.maps.event.addListener(marker,'position_changed',function () {
+                        var lat = marker.getPosition().lat();
+                        var lng = marker.getPosition().lng();
+                        $('#lat').val(lat);
+                        $('#lng').val(lng);
+
+                    });
+
+
+                    $('#hidden_id').val(id);
+                    $('.modal-title').text('Editar Registro');
+                    $('#action_button').val('Editar');
+                    $('#action').val('Editar');
+                    $('#formModal').modal('show');
+                }
+            })
+        });
+        //actualizacion de registro
+        $('#sample_form').on('submit', function(event){
+            event.preventDefault();
+            if($('#action').val() == "Editar") {
+                $.ajax({
+                    url:"/update_obra",
+                    method:"POST",
+                    data:new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType:"json",
+                    success:function(data) {
+                        var html = '';
+                        if(data.errors){
+                            html = '<div class="alert alert-danger">';
+                            for(var count = 0; count < data.errors.length; count++) {
+                                html += '<p>' + data.errors[count] + '</p>';
+                            }
+                            html += '</div>';
+                        }
+                        if(data.success) {
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#sample_form')[0].reset();
+                            $('#tabla').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
+                    }
+                });
+            }
+        });
+
+
+        var user_id ;
+//confirmacion para eliminar
+        $(document).on('click', '.delete', function(){
+            user_id = $(this).attr('id');
+            $('.modal-title').text('Eliminar Registro');
+            $('#confirmModal').modal('show');
+        });
+
+//eliminacion de registro
+        $('#ok_button').click(function(){
+            var token = $(this).data('token');
+            $.ajax({
+                url:"/eliminar_obra/"+user_id,
+                type: 'post',
+                data: {_method: 'delete', _token :token},
+                beforeSend:function(){
+                    $('#ok_button').text('Eliminando...');
+                },
+                success:function(data){
+                    setTimeout(function(){
+                        $('#confirmModal').modal('hide');
+                        $('#tablauser').DataTable().ajax.reload();
+                        alert('Registro Eliminado');
+                    }, 200);
+                }
+            })
+        });
+
+
+    } );
+
+
+</script>
+<script>
+
+</script>
+<!-- Autosize Plugin Js -->
+<script src="plugins/autosize/autosize.js"></script>
+<!-- Moment Plugin Js -->
+<script src="plugins/momentjs/moment.js"></script>
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script src="plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="js/pages/forms/basic-form-elements.js"></script>
+
+<script>
+    $('#fech_ini').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false,});
+</script>

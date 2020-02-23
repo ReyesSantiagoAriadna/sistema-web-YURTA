@@ -1,54 +1,78 @@
-@extends('panel')
+<?php $nav_proveedores = 'active'; ?>
+<?php $nav_proveedores_mostrar = 'active'; ?>
+@extends('admin_panel')
 @section('contenido')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-auto mr-auto">
-                            <a class="fa fa-filter"></a>
-                            <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar usuario">
-                        </div>
-                        <div class="col-auto">
-                            <a class="btn btn-primary" href="{{route('proveedor>agregar')}}">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <table id="tabla-proveedores" class="table"> 
-                        <thead class="thead-dark">
-                          <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Razon Social</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                     @foreach ($proveedores as $item)          
-                          <tr>
-                          <th scope="row">{{$item->id}}</th>
-                            <td>
-                              {{$item->razon_social}}
-                            </td>
+    <div class="block-header">
+        <h2> PROVEEDORES</h2>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2>
+
+            </h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another action</a></li>
+                        <li><a href="javascript:void(0);">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+            <ol class="breadcrumb breadcrumb-col-orange">
+                <li><a href="javascript:void(0);"><i class="material-icons">people</i> Proveedores</a></li>
+                <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
+            </ol>
+
+            <div class="table-responsive">
+                <table id="tabla-proveedores" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Razón Social</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Razón Social</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($proveedores as $item)
+                        <tr>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->razon_social}}</td>
                             <td>{{$item->telefono}}</td>
                             <td>{{$item->direccion}}</td>
                             <td>
-                              <a href="{{route('proveedor>editar', $item)}}" class="btn btn-warning btn-sm">Editar</a>
-                            
-                              <form action="{{route('eliminar_proveedor', $item)}}" class="d-inline" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                              </form>
+                                <button  title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
+                                         class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">mode_edit</i>
+                                </button>
+                                <button title="Eliminar" data-toggle="tooltip"  data-placement="top"  type="button" name="edit" id="{{$item->id}}"
+                                        class="delete btn btn-danger btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">delete</i>
+                                </button>
+
                             </td>
-                          </tr>
-                    @endforeach    
-                        </tbody>
-                     </table>          
-                </div>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
+            @include('proveedores.editar')
         </div>
     </div>
 @endsection

@@ -107,8 +107,8 @@
                                                                        aria-hidden="true"></i>Proveedores</a>
                 </li>
                 <li>
-                    <a href="{{route('material')}}" class="waves-effect"><i class="fa fa-fw"><i class="fas fa-boxes"
-                                                                                                          aria-hidden="true"></i></i>Materiales</a>
+                    {{--<a href="{{route('material')}}" class="waves-effect"><i class="fa fa-fw"><i class="fas fa-boxes"
+                        --}}                                                                                  aria-hidden="true"></i></i>Materiales</a>
                 </li>
                 <li>
                     <a href="{{route('obras')}}" class="waves-effect"><i class="fas fa-building fa-fw"

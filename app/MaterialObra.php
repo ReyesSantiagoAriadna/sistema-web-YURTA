@@ -9,4 +9,10 @@ class MaterialObra extends Model{
     protected $primarykey = 'id';
     public $timestamps = false;
     protected $fillable = ['id','cantidad','id_obra','mat_obra'];
+
+
+    public function material()
+    {
+        return $this->hasMany('Material');
+    }
 }

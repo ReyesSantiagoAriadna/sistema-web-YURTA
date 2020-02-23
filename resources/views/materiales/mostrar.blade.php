@@ -1,50 +1,67 @@
-@extends('panel')
+<?php $nav_materiales = 'active'; ?>
+<?php $nav_materiales_mostrar = 'active'; ?>
+@extends('admin_panel')
 @section('contenido')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-auto mr-auto">
-                            <a class="fa fa-filter"></a>
-                            <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar usuario">
-                        </div>
-                        <div class="col-auto">
-                            <a class="btn btn-primary" href="{{route('material_agregar')}}">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
+    <div class="block-header">
+        <h2>MATERIALES</h2>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2>
 
-                    @if(session('mensaje'))
-                    <div class="alert-success">{{session('mensaje')}}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>       
-                @endif
+            </h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another action</a></li>
+                        <li><a href="javascript:void(0);">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+            <ol class="breadcrumb breadcrumb-col-orange">
+                <li><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
+                <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
+            </ol>
 
-                    <table id="tabla-materiales" class="table"> 
-                        <thead class="thead-dark">
-                          <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Unidad</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Existencia</th>
-                            <th scope="col">Precion unitario</th>
-                            <th scope="col">Proveedor</th>
-                            <th scope="col">Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                     @foreach ($materiales as $item)          
-                          <tr>
-                          <th scope="row">{{$item->id}}</th>
-                            <td>
-                              {{$item->descripcion}}
-                            </td>
+            <div class="table-responsive">
+                <table id="tabla-materiales" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Unidad</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Existencias</th>
+                        <th>Precio compra</th>
+                        <th>Proveedor</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Unidad</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Existencias</th>
+                        <th>Precio compra</th>
+                        <th>Proveedor</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($materiales as $item)
+                        <tr>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->descripcion}}</td>
                             <td>{{$item->unidad}}</td>
                             <td>{{$item->tipo}}</td>
                             <td>{{$item->marca}}</td>
@@ -52,20 +69,22 @@
                             <td>{{$item->precio_unitario}}</td>
                             <td>{{$item->proveedor}}</td>
                             <td>
-                              <a href="{{route('material_editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
-                            
-                              <form action="{{route('material_eliminar',$item)}}" class="d-inline" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                              </form>
+                                <button value="{{$item->proveedor}}" title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
+                                         class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">mode_edit</i>
+                                </button>
+                                <button title="Eliminar" data-toggle="tooltip"  data-placement="top"  type="button" name="edit"  id="{{$item->id}}"
+                                        class="delete btn btn-danger btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">delete</i>
+                                </button>
+
                             </td>
-                          </tr>
-                    @endforeach    
-                        </tbody>
-                     </table>          
-                </div>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
+            @include('materiales.editar')
         </div>
     </div>
 @endsection

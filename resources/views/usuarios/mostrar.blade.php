@@ -1,57 +1,87 @@
-@extends('panel')
+<?php $nav_empleados = 'active'; ?>
+<?php $nav_empleados_mostrar = 'active'; ?>
+@extends('admin_panel')
 @section('contenido')
-    @if(session('mensaje'))
-        <div class="alert-success">{{session('mensaje')}}</div>
-    @endif
+    <div class="block-header">
+        <h2>EMPLEADOS</h2>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-auto mr-auto">
-                            <a class="fa fa-filter"></a>
-                            <input type="text" class="form-control pull-right" style="width:90%" id="search" placeholder="Buscar usuario">
-                        </div>
-                        <div class="col-auto">
-                            <a class="btn btn-primary" href="/agregar_usuario">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <table id="tabla-usuarios" class="table">
-                        <thead class="thead-dark">
+            </h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another action</a></li>
+                        <li><a href="javascript:void(0);">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+            <ol class="breadcrumb breadcrumb-col-orange">
+                <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Empleados</a></li>
+                <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
+            </ol>
+
+            <div class="table-responsive">
+                <table id="tabla-empleado" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Telefono</th>
+                        <th>Puesto</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Telefono</th>
+                        <th>Puesto</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($usuarios as $item)
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Puesto</th>
-                            <th scope="col">Acciones</th>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->email}}</td>
+                            <td>{{$item->telefono}}</td>
+                            <td>{{$item->puesto}}</td>
+                            <td>
+                                <button  title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
+                                         class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">mode_edit</i>
+                                </button>
+                                <button title="Eliminar" data-toggle="tooltip"  data-placement="top"  type="button" name="edit" id="{{$item->id}}"
+                                        class="delete btn btn-danger btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">delete</i>
+                                </button>
+
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($usuarios as $item)
-                            <tr>
-                                <th scope="row">{{$item->id}}</th>
-                                <th scope="row">{{$item->name}}</th>
-                                <th scope="row">{{$item->email}}</th>
-                                <th scope="row">{{$item->telefono}}</th>
-                                <th scope="row">{{$item->puesto}}</th>
-                                <th>
-                                    <a href="{{route('usuarios>editar',$item)}}" class="btn btn-warning btn-sm">Editar</a>
-                                    <form  class="d-inline" action="{{route('usuarios.eliminar',$item)}}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                                    </form>
-                                </th>
-                            </tr>
-                        @endforeach
-                    </table>
-                </div>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
+
+            @include('usuarios.editar')
         </div>
     </div>
+    <script>$(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })</script>
+    <script src="js\script.js" rel="stylesheet"></script>
 @endsection
 

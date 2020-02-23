@@ -4,7 +4,10 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Material;
+use App\MaterialObra;
 use App\Obra;
+use App\Pedido;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -19,44 +22,92 @@ use Illuminate\Support\Facades\Validator;
 class ApiController extends Controller
 {
     public function obras(Request $request){
-        $id = $request->only('id');
-        $obras = Obra::where('encargado', '=', $id)->get();
-        return $obras;
+        $id = $request->id;
+        return response()->json($consulta=Obra::select('*')->get()->
+        where('encargado',"=",$id));
     }
 
+    public function almacen(Request $request){
+        $id = $request->id;
+        $result = Material::select('descripcion')
+            ->join('materiales_obra', 'materiales_obra.mat_obra', '=', 'material.id')
+            ->where('materiales_obra.id_obra',$id)
+            ->get();
+        return response()->json($result);
+    }
+
+    public function pedidos(Request $request){
+        $id_obra = $request->id;
+        return response()->json($consulta=Pedido::select('*')->get()->
+        where('obra',"=",$id_obra));
+    }
+
+
+    public function det_pedido(Request $request){
+        $pedido = $request->id;
+        $result = Material::select('descripcion')
+            ->join('det_ped', 'det_ped.ped_material', '=', 'material.id')
+            ->where('det_ped.id_pedido',$pedido)
+            ->get();
+        return response()->json($result);
+    }
     public function usuarios(){
-        $usuarios = User::all();
-        return $usuarios;
+        return response()->json($consulta=User::select('*')->get());
     }
 
-    public function authenticate(Request $request){
+    public function login(Request $request)
+    {
         $credentials = $request->only('email', 'password');
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response([
+                'status' => 'error',
+                'error' => 'invalid.credentials',
+                'msg' => 'Invalid Credentials.'
+            ], 400);
         }
-        //return response()->json(compact('token'));
+
         $response = compact('token');
         $response['user']=Auth::user();
+
+        /*return response([
+            'user'=> 'user',
+            'status' => 'success',
+            'token' => $token
+        ]);*/
         return $response;
     }
 
-    public function getAuthenticatedUser()
-    {
+    public function logout(Request $request) {
+        $this->validate($request, ['token' => 'required']);
         try {
-            if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
-            }
-        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
-        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
+            JWTAuth::invalidate($request->input('token'));
+            return response([
+                'status' => 'success',
+                'msg' => 'You have successfully logged out.'
+            ]);
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response([
+                'status' => 'error',
+                'msg' => 'Failed to logout, please try again.'
+            ]);
         }
-        return response()->json(compact('user'));
+    }
+
+    public function refresh()
+    {
+        return response([
+            'status' => 'success'
+        ]);
+    }
+
+    public function user(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        return response([
+            'status' => 'success',
+            'data' => $user
+        ]);
     }
 }

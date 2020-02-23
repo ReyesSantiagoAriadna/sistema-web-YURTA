@@ -1,126 +1,209 @@
-@extends('panel')
-@section('contenido')
-    @if(session('mensaje'))
-        <div class="alert-success">{{session('mensaje')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>       
-    @endif
-    <form action="{{route('materiales_update',$material->id)}}" method="POST">
-        @method('PUT')
-        @csrf
-        <div class="container">
-            <div class="form-group row">
-                <label for="descripcion" class="col-md-4 col-form-label text-md-right">{{ __('Descripcion') }}</label>
-
-                <div class="col-md-6">
-                    <input id="descripcion" type="text" class="form-control{{ $errors->has('descripcion') ? ' is-invalid' : '' }}" name="descripcion" value="{{ $material->descripcion }}" required >
-
-                    @if ($errors->has('descripcion'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('descripcion') }}</strong>
-                                    </span>
-                    @endif
-                </div>
+{{--            CUADRO DE DIALOGO PARA ACTUALIZAR REGISTRO--}}
+<div id="formModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn btn-danger btn-circle" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Record</h4>
             </div>
+            <div class="modal-body">
+                <span id="form_result"></span>
+                <form method="post" id="sample_form" class="form-horizontal">
+                    @csrf
+                    <label>Descripción</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">description</i></span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" required>
+                        </div>
+                    </div>
+                    <label>Unidad</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">flag</i></span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
+                        </div>
+                    </div>
 
-            <div class="form-group row">
-                <label for="unidad" class="col-md-4 col-form-label text-md-right">{{ __('Unidad') }}</label>
+                    <label>Tipo</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">merge_type</i></span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Tipo" id="tipo" name="tipo" required>
+                        </div>
+                    </div>
 
-                <div class="col-md-6">
-                    <input id="unidad" type="text" class="form-control{{ $errors->has('unidad') ? ' is-invalid' : '' }}" name="unidad" value="{{ $material->unidad }}" required autofocus>
+                    <label>Marca</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">branding_watermark</i></span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Marca" id="marca" name="marca" required>
+                        </div>
+                    </div>
 
-                    @if ($errors->has('unidad'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('unidad') }}</strong>
-                                    </span>
-                    @endif
-                </div>
-            </div>
+                    <label>Existencias</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">assignment</i></span>
+                        <div class="form-line">
+                            <input type="number" class="form-control" placeholder="Existencias" id="existencias" name="existencias" required>
+                        </div>
+                    </div>
 
-            <div class="form-group row">
-                <label for="tipo" class="col-md-4 col-form-label text-md-right">{{ __('Tipo') }}</label>
-
-                <div class="col-md-6">
-                    <input id="tipo" type="text" class="form-control{{ $errors->has('tipo') ? ' is-invalid' : '' }}" name="tipo" value="{{ $material->tipo}}" required>
-                    @if ($errors->has('tipo'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('tipo') }}</strong>
-                                    </span>
-                    @endif
-                </div>
-            </div>
+                    <label>Precio de compra</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">monetization_on</i></span>
+                        <div class="form-line">
+                            <input type="number" class="form-control" placeholder="Precio de compra" id="precio_unitario" name="precio_unitario" required>
+                        </div>
+                    </div>
 
 
+                    <label>Proveedor</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">people</i></span>
+                        <div class="form-line">
+                            <select name="proveedor" class="form-control"  id="proveedores" required autofocus>
+                            </select>
+                        </div>
+                    </div>
 
-            <div class="form-group row">
-                <label for="marca" class="col-md-4 col-form-label text-md-right">{{ __('Marca') }}</label>
 
-                <div class="col-md-6">
-                    <input id="marca" type="text" class="form-control{{ $errors->has('marca') ? ' is-invalid' : '' }}" name="marca" value="{{ $material->marca }}" required autofocus>
 
-                    @if ($errors->has('marca'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('marca') }}</strong>
-                                    </span>
-                    @endif
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="existencias" class="col-md-4 col-form-label text-md-right">{{ __('Existencias') }}</label>
-
-                <div class="col-md-6">
-                    <input id="existencias" type="number" class="form-control{{ $errors->has('existencias') ? ' is-invalid' : '' }}" name="existencias" value="{{ $material->existencias }}" required autofocus>
-
-                    @if ($errors->has('existencias'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('existencias') }}</strong>
-                                    </span>
-                    @endif
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="precio_unitario" class="col-md-4 col-form-label text-md-right">{{ __('Precio unitario') }}</label>
-
-                <div class="col-md-6">
-                    <input id="precio_unitario" type="number" class="form-control{{ $errors->has('precio_unitario') ? ' is-invalid' : '' }}" name="precio_unitario" value="{{ $material->precio_unitario }}" required autofocus>
-
-                    @if ($errors->has('precio_unitario'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('precio_unitario') }}</strong>
-                                    </span>
-                    @endif
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="proveedor" class="col-md-4 col-form-label text-md-right">{{ __('Proveedor') }}</label>
-
-                <div class="col-md-6">
-                    <select name="proveedor" class="form-control" id="select-proveedor" required autofocus>
-                        <option value="value="{{ $material->existencias }}""></option>
-                        @foreach ($proveedores as $proveedor)
-                            <option value="{{$proveedor->id}}" {{$material->proveedor==$proveedor->id ? 'selected' : ''}}>{{$proveedor->razon_social}}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('proveedor'))
-                        <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('proveedor') }}</strong>
-                    </span>
-                    @endif
-                </div>
-            </div>
-
-            <div class="form-group row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-warning">
-                        Actualizar
-                    </button>
-                </div>
+                    <br />
+                    <div class="form-group" align="center">
+                        <input type="hidden" name="action" id="action" value="Add" />
+                        <input type="hidden" name="proveedor_id" id="proveedor_id" />
+                        <input type="hidden" name="hidden_id" id="hidden_id" />
+                        <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Editar" />
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
-@endsection
+    </div>
+</div>
+
+{{--            CUADRO DE DIALOGO PARA CONFIRMAR ELIMINACION DEL REGISTRO--}}
+<div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Confirmación</h2>
+            </div>
+            <div class="modal-body">
+                <h4 align="center" style="margin:0;">¿Estas seguro de eliminar este registro?</h4>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" name="ok_button" id="ok_button"  data-token="{{ csrf_token() }}" class="btn btn-danger">OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    ﻿$(document).ready( function() {
+        $('#tabla-materiales').dataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        } );
+
+        var id;
+        var provider;
+//obtencion de registro a editar
+        $(document).on('click', '.edit', function(){
+            id = $(this).attr('id');
+            provider = $(this).attr('value');
+            $('#form_result').html('');
+            $.ajax({
+                url :"/edit_material/"+id,
+                dataType:"json",
+                success:function(data) {
+                    $('#descripcion').val(data.result.descripcion);
+                    $('#unidad').val(data.result.unidad);
+                    $('#tipo').val(data.result.tipo);
+                    $('#marca').val(data.result.marca);
+                    $('#existencias').val(data.result.existencias);
+                    $('#precio_unitario').val(data.result.precio_unitario);
+
+                    // window.alert(provider);
+                    //obtener los proveedores a travez de ajax
+                    $.get('proveedores',function (proveedores) {
+                        $('#proveedores').empty();
+                        $.each(proveedores,function(key, registro) {
+                            $('#proveedores').append("<option value='" + registro.id + "'" + (provider == registro.id ? 'selected' : '') + ">" + registro.razon_social +"</option>");
+                        });
+                    });
+
+                    $('#hidden_id').val(id);
+                    $('.modal-title').text('Editar Registro');
+                    $('#action_button').val('Editar');
+                    $('#action').val('Editar');
+                    $('#formModal').modal('show');
+                }
+            })
+        });
+        //actualizacion de registro
+        $('#sample_form').on('submit', function(event){
+            event.preventDefault();
+            if($('#action').val() == "Editar") {
+                $.ajax({
+                    url:"/update_material",
+                    method:"POST",
+                    data:new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType:"json",
+                    success:function(data) {
+                        var html = '';
+                        if(data.errors){
+                            html = '<div class="alert alert-danger">';
+                            for(var count = 0; count < data.errors.length; count++) {
+                                html += '<p>' + data.errors[count] + '</p>';
+                            }
+                            html += '</div>';
+                        }
+                        if(data.success) {
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#sample_form')[0].reset();
+                            $('#tabla').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
+                    }
+                });
+            }
+        });
+
+
+        var user_id ;
+//confirmacion para eliminar
+        $(document).on('click', '.delete', function(){
+            user_id = $(this).attr('id');
+            $('.modal-title').text('Eliminar Registro');
+            $('#confirmModal').modal('show');
+        });
+
+//eliminacion de registro
+        $('#ok_button').click(function(){
+            var token = $(this).data('token');
+            $.ajax({
+                url:"/eliminar_material/"+user_id,
+                type: 'post',
+                data: {_method: 'delete', _token :token},
+                beforeSend:function(){
+                    $('#ok_button').text('Eliminando...');
+                },
+                success:function(data){
+                    setTimeout(function(){
+                        $('#confirmModal').modal('hide');
+                        $('#tablauser').DataTable().ajax.reload();
+                        alert('Registro Eliminado');
+                    }, 200);
+                }
+            })
+        });
+    } );
+</script>

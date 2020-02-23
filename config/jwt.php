@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'secret' => env('jRpdgJbzntznlcrelzLldvLy5ZiBLMwLaccn1D4Zw6drbTtX7ZeSVn0ECfmyIBmk'),
+    'secret' => env('JWT_SECRET'),
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +97,6 @@ return [
     | Some people may want this behaviour for e.g. a mobile app.
     | This is not particularly recommended, so make sure you have appropriate
     | systems in place to revoke the token if necessary.
-    | Notice: If you set this to null you should remove 'exp' element from 'required_claims' list.
     |
     */
 

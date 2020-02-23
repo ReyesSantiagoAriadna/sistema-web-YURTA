@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App;
 
@@ -16,11 +17,11 @@ class MaterialController extends Controller
         $proveedores = App\Proveedor::all();
         return view('materiales.mostrar', compact('materiales','proveedores'));
 
-        $data = App\Material::select('proveedor.razon_social', 'categories.nameCategory')
+        /*$data = App\Material::select('proveedor.razon_social', 'categories.nameCategory')
             ->join('categories', 'users.idUser', '=', 'categories.user_id')
-            ->get();
+            ->get();*/
 
-        return $data;
+
         // $materiales = App\Material::all();
        // return view('materiales.mostrar', compact('materiales'));
     }
@@ -70,8 +71,29 @@ class MaterialController extends Controller
     public function eliminar($id){
         $materialEliminar = App\Material::findOrFail($id);
         $materialEliminar->delete();
+    }
 
-        return back()->with('mensaje','Material Eliminado');
+
+
+    public function edit($id){
+        if(request()->ajax()) {
+            $data = App\Material::findOrfail($id);
+            return response()->json(['result' => $data]);
+        }
+    }
+
+
+    public function updateMaterial(Request $request){
+        $materialActualiza = App\Material::find($request->hidden_id);
+        $materialActualiza->descripcion = $request->descripcion;
+        $materialActualiza->unidad = $request->unidad;
+        $materialActualiza->tipo = $request->tipo;
+        $materialActualiza->marca = $request->marca;
+        $materialActualiza->existencias = $request->existencias;
+        $materialActualiza->precio_unitario = $request->precio_unitario;
+        $materialActualiza->proveedor = $request->proveedor;
+        $materialActualiza->save();
+        return response()->json(['success' => 'Registro Actualizado']);
     }
     
 }

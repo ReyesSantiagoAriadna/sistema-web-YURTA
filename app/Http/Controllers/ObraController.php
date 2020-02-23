@@ -7,11 +7,22 @@ class ObraController extends Controller{
         $this->middleware('auth');
     }
 
-    
+    public function view(){
+        $result = App\Obra::join('users', 'obra.encargado',   '=', 'users.id')
+            ->join('tipo', 'obra.tipo_obra', '=', 'tipo.id')
+            ->select('obra.*', 'users.name', 'tipo.descripcion')
+            ->get();
+        return $result;
+    }
     public function mostrar(){
-        $obras = App\Obra::all();
+        $obras = App\Obra::join('users', 'obra.encargado',   '=', 'users.id')
+            ->join('tipo', 'obra.tipo_obra', '=', 'tipo.id')
+            ->select('obra.*', 'users.name', 'tipo.descripcion')
+            ->get();
         return view('obras.mostrar', compact('obras'));
     }
+
+
     public function agregar(){
         $usuarios = App\User::all();
         $tipos = App\TipoObra::all();
@@ -26,7 +37,7 @@ class ObraController extends Controller{
         $obra->fech_ini=$request->fech_ini;
         $obra->dependencia=$request->dependencia;
         $obra->encargado=$request->encargado;
-        $obra->tipo_obra=$request->tipo;
+        $obra->tipo_obra=$request->tipo_obra;
         $obra->save();
         $obras=App\Obra::all();
         return view('obras.mostrar',['obras'=>$obras])->with('mensaje','Registro agregado');
@@ -96,4 +107,30 @@ class ObraController extends Controller{
     $materiales_obra = App\MAterialObra::all();
     return view('obras.mostrar_materiales', compact('obra','materiales_obra'));
 }
+
+    public function edit($id){
+        if(request()->ajax()) {
+            $data = App\Obra::findOrfail($id);
+            return response()->json(['result' => $data]);
+        }
+    }
+
+    public function updateObra(Request $request){
+        $obra = App\Obra::find($request->hidden_id);
+        $obra->descripcion = $request->descripcion;
+        $obra->lat = $request->lat;
+        $obra->lng = $request->lng;
+        $obra->fech_ini = $request->fech_ini;
+        $obra->dependencia = $request->dependencia;
+        $obra->encargado = $request->encargado;
+        $obra->tipo_obra = $request->tipo;
+        $obra->save();
+        return response()->json(['success' => 'Registro Actualizado']);
+    }
+    public function find_obra(Request $request){
+        if ($request->ajax()) {
+            $obra = App\Obra::find($request->id);
+            return response()->json($obra);
+        }
+    }
 }

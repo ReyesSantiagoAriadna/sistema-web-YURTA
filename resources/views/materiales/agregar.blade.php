@@ -1,134 +1,111 @@
-@extends('panel')
+<?php $nav_materiales = 'active'; ?>
+<?php $nav_materiales_agregar = 'active'; ?>
+@extends('admin_panel')
 @section('contenido')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card">
-                <div class="card-body">
-                    @if(session('mensaje'))
-                    <div class="alert alert-success">
-                        {{session('mensaje')}}
-
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                    </div>
-                    @endif 
-
-                    <form method="POST" action="{{ route('material_add') }}">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Descripcion') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="descripcion" type="text" class="form-control{{ $errors->has('descripcion') ? ' is-invalid' : '' }}" name="descripcion" value="{{ old('descripcion') }}" required autofocus>
-
-                                @if ($errors->has('descripcion'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('descripcion') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="unidad" class="col-md-4 col-form-label text-md-right">{{ __('Unidad') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="unidad" type="text" class="form-control{{ $errors->has('unidad') ? ' is-invalid' : '' }}" name="unidad" value="{{ old('unidad') }}" required>
-
-                                @if ($errors->has('unidad'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('unidad') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="tipo" class="col-md-4 col-form-label text-md-right">{{ __('Tipo') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="tipo" type="text" class="form-control{{ $errors->has('tipo') ? ' is-invalid' : '' }}" name="tipo" required>
-
-                                @if ($errors->has('tipo'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('tipo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div> 
-
-                        <div class="form-group row">
-                            <label for="marca" class="col-md-4 col-form-label text-md-right">{{ __('Marca') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="marca" type="text" class="form-control{{ $errors->has('marca') ? ' is-invalid' : '' }}" name="marca" value="{{ old('marca') }}" required autofocus>
-
-                                @if ($errors->has('marca'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('marca') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <label for="existencias" class="col-md-4 col-form-label text-md-right">{{ __('Existencias') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="existencias" type="number" class="form-control{{ $errors->has('existencias') ? ' is-invalid' : '' }}" name="existencias" value="{{ old('existencias') }}" required autofocus>
-
-                                @if ($errors->has('existencias'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('existencias') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="precio_unitario" class="col-md-4 col-form-label text-md-right">{{ __('Precio unitario') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="precio_unitario" type="number" class="form-control{{ $errors->has('precio_unitario') ? ' is-invalid' : '' }}" name="precio_unitario" value="{{ old('precio_unitario') }}" required autofocus>
-
-                                @if ($errors->has('precio_unitario'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('precio_unitario') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="proveedor" class="col-md-4 col-form-label text-md-right">{{ __('Proveedor') }}</label>
-
-                            <div class="col-md-6">
-                                 <select name="proveedor" class="form-control" id="select-proveedor" required autofocus>
-                                    <option value="">Seleccione el proveedor</option>
-                                    @foreach ($proveedores as $proveedor)
-                                        <option value="{{$proveedor['id']}}">{{$proveedor['razon_social']}}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('proveedor'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('proveedor') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="card">
+        <div class="header">
+            <h2>
+                MATERIAL
+            </h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another action</a></li>
+                        <li><a href="javascript:void(0);">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </div>
-@endsection
+        <div class="body">
+            <ol class="breadcrumb breadcrumb-col-orange">
+                <li><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
+                <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
+            </ol>
+            <form method="POST" action="{{ route('material_agregar') }}">
+                @csrf
+                <h2 class="card-inside-title">Datos del material</h2>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">description</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" required>
+                    </div>
+                </div>
 
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">flag</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="tel" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
+                    </div>
+                </div>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">merge_type</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Tipo" id="tipo" name="tipo" required>
+                    </div>
+                </div>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">branding_watermark</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" placeholder="Marca" id="marca" name="marca" required>
+                    </div>
+                </div>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">assignment</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="number" class="form-control" placeholder="Existencias" id="existencias" name="existencias" required>
+                    </div>
+                </div>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">monetization_on</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="number" class="form-control" placeholder="Precio de compra" id="precio_unitario"
+                               name="precio_unitario" required>
+                    </div>
+                </div>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">people</i>
+                    </span>
+                    <div class="form-line">
+                        <select name="proveedor" class="form-control" id="proveedor" required autofocus>
+                            <option value="">Seleccione el proveedor</option>
+                            @foreach ($proveedores as $proveedor)
+                                <option value="{{$proveedor['id']}}">{{$proveedor['razon_social']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>
+            </form>
+
+        </div>
+    {{--        <div class="row clearfix js-sweetalert">
+                <button class="btn btn-primary waves-effect" data-type="success">CLICK ME</button>
+            </div>
+            <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+
+            <script src="../../js/pages/ui/dialogs.js"></script>--}}
+
+@endsection

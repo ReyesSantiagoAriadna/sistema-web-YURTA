@@ -14,5 +14,5 @@ class Material extends Model
 
     protected $fillable = ['id','descripcion','unidad','tipo','marca','existencias','precio_unitario','proveedor'];
 
-  
+
 }

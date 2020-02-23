@@ -46,4 +46,12 @@ class TipoObraController extends Controller{
         $tipos=App\TipoObra::all();
         return view('tipo_obra.mostrar',['tipo'=>$tipos])->with('mensaje','Registro actualizado');
     }
+
+
+    public function tipos(Request $request){
+        if ($request->ajax()) {
+            $tipos = App\TipoObra::all();
+            return response()->json($tipos);
+        }
+    }
 }

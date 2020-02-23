@@ -10,9 +10,23 @@ class PedidosController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    
-    public function mostrar(){ 
-        $pedidos = App\Pedido::all();
+
+
+    public function view(){
+        $result = App\Pedido::join('obra', 'pedido.obra',   '=', 'obra.id')
+            ->join('users', 'obra.encargado', '=', 'users.id')
+            ->select('pedido.*','obra.id', 'obra.descripcion','users.name')
+            ->get();
+        return $result;
+    }
+
+
+
+    public function mostrar(){
+        $pedidos = App\Pedido::join('obra', 'pedido.obra',   '=', 'obra.id')
+            ->join('users', 'obra.encargado', '=', 'users.id')
+            ->select('pedido.*', 'obra.descripcion','users.name')
+            ->get();
         return view('pedidos.mostrar', compact('pedidos'));
     }
 
@@ -53,5 +67,9 @@ class PedidosController extends Controller
         $pedidoEliminar = App\Pedido::findOrFail($id);
         $pedidoEliminar->delete();
         return back()->with('mensaje','Pedido eliminado');
+    }
+    public static function countPedidos(){
+        $pedidos = App\Pedido::where('estado',1)->count();
+        return $pedidos;
     }
 }
