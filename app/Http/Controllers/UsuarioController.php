@@ -79,32 +79,6 @@ class UsuarioController extends Controller
 
 
     public function update1(Request $request){
-        /*$name = $request->name;
-        $email = $request->email;
-        $telefono=$request->telefono;
-        $puesto=$request->puesto;
-
-        $rules= array(
-            'name'=>'requerid',
-            'email'=>'requerid',
-            'telefono'=>'requerid',
-            'puesto'=>'requerid',
-        );
-        $error=Validator::make($request->all(),$rules);
-        if($error->fails()){
-            return response()->json(['error'=>$error->errors()->all()]);
-        }
-
-        $form_data=array(
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'telefono'=>$request->telefono,
-            'puesto'=>$request->puesto,
-        );
-
-        User::whereId($request->hidden_id)->update($form_data);*/
-
-
         $usuarioUpdate=User::findOrfail($request->hidden_id);
         $usuarioUpdate->name=$request->name;
         $usuarioUpdate->email=$request->email;
@@ -130,6 +104,4 @@ class UsuarioController extends Controller
         $usuarioUpdate->save();
         return back()->with('mensaje','Datos actualizados');
     }
-
-
 }

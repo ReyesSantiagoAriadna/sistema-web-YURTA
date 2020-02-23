@@ -84,12 +84,23 @@ Route::post('/agregar_obra','ObraController@add')->name('obra>add');
 
 Route::get('/editar_obra/{id}','ObraController@editar')->name('obra_editar');
 Route::put('/editar_obra/{id}','ObraController@update')->name('obra_update');
+
 Route::delete('/eliminar_obra/{id}','ObraController@eliminar')->name('obra.eliminar');
+
+
+
+Route::get('/agregar_material_obra{id}','ObraController@material')->name('obra.material');
+Route::post('/agregar_material_obra{id}','ObraController@agregarMaterial')->name('obra.agregar.material');
+
 
 
 Route::get('/edit_obra/{id}','ObraController@edit');
 Route::post('/update_obra','ObraController@updateObra');
 Route::get('/find_obra','ObraController@find_obra');
+
+Route::get('/detalle_obra','ObraController@detalle')->name('obra.detalle');
+
+Route::get('/detail{id}', 'ObraController@detail' )->name('detail');
 
 //Route::put('/editar_obra/{id}','ObraControlle@update')->name('obra>update');
 //material-obras
@@ -107,9 +118,8 @@ Route::delete('/editar/{id}','PedidosController@eliminar')->name('eliminar_pedid
 Route::get('/editar_obra/{id}','ObraController@editar')->name('obra>editar');
 Route::put('/editar_obra/{id}','ObraController@update')->name('obra_update');
 
-
+Route::get('/detalle_pedido{id}', 'PedidosController@detalle' )->name('pedido.detalle');
 
 /*rutas prueba*/
-
-Route::view('/calendar','prueba');
+Route::view('/vista','obras.detalle');
 Route::get('/pruebas/view','PedidosController@view');

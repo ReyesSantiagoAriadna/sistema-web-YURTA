@@ -63,6 +63,21 @@
                             <td>{{$item->name}}</td>
                             <td>{{$item->descripcion}}</td>
                             <td>
+                                {{--<a href="{{route('detail',$item)}}" title="Ver"  class=" btn bg-green btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">visibility</i>
+                                </a>--}}
+
+                               {{-- <button   title="Ver" data-toggle="tooltip"  data-placement="top" type="submit" name="edit" id="{{$item->id}}"
+                                      class="edit btn bg-green btn-circle waves-effect waves-circle waves-float">
+                                <i class="material-icons">visibility</i>
+                                </button>--}}
+                                <a title="Add" href="{{route('obra.agregar.material',$item)}}"   class="btn bg-green btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">add_box</i>
+                                </a>
+
+                                <a title="Ver" href="{{route('detail',$item)}}"   class="btn bg-green btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">visibility</i>
+                                </a>
                                 <button   title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
                                         class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">
                                     <i class="material-icons">mode_edit</i>

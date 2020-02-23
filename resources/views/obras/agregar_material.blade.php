@@ -1,83 +1,93 @@
-@extends('panel')
+<?php $nav_obras = 'active'; ?>
+<?php $nav_obras_mostrar = 'active'; ?>
+<?php $nav_obras_agregar_material = 'active'; ?>
+@extends('admin_panel')
 @section('contenido')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card">
-                <div class="card-body">
-                    @if(session('mensaje'))
-                    <div class="alert alert-success">
-                        {{session('mensaje')}}
+    <div class="block-header">
+        <h2>AGREGAR MATERIAL</h2>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2>
+            </h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another action</a></li>
+                        <li><a href="javascript:void(0);">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+            <ol class="breadcrumb breadcrumb-col-orange">
+                <li><a href="javascript:void(0);"><i class="material-icons">local_convenience_store</i> Obras</a></li>
+                <li ><i class="material-icons">visibility</i> Mostrar</li>
+                <li class="active"><i class="material-icons">add_box</i> Agregar Material</li>
+            </ol>
 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                    </div>
-                    @endif 
-
-                    <form method="POST" action="{{ route('material_obra_add') }}">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="cantidad" class="col-md-4 col-form-label text-md-right">{{ __('Cantidad') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="cantidad" type="number" class="form-control{{ $errors->has('cantidad') ? ' is-invalid' : '' }}" name="cantidad" value="{{ old('cantidad') }}" required autofocus>
-
-                                @if ($errors->has('cantidad'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('cantidad') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-            
-                        <div class="form-group row">
-                            <label for="id_obra" class="col-md-4 col-form-label text-md-right">{{ __('Obra') }}</label>
-
-                            <div class="col-md-6">
-                                 <select name="id_obra" class="form-control" id="select-obras" required autofocus>
-                                    <option value="">Seleccione la obra</option>
-                                    @foreach ($obras as $obra)
-                                        <option value="{{$obra['id']}}">{{$obra['descripcion']}}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('id_obra'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('id_obra') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                                <label for="mat_obra" class="col-md-4 col-form-label text-md-right">{{ __('Materiales') }}</label>
-    
-                                <div class="col-md-6">
-                                     <select name="mat_obra" class="form-control" id="select-materiales" required autofocus>
-                                        <option value="">Seleccione el material</option>
-                                        @foreach ($materiales as $material)
-                                            <option value="{{$material['id']}}">{{$material['descripcion']}}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('mat_obra'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('mat_obra') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                        </div>
-
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="table-responsive">
+                <table id="tabla-materiales" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Unidad</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Precio compra</th>
+                        <th>Agregar</th>
+                        <th>Cantidad</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Unidad</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Precio compra</th>
+                        <th>Agregar</th>
+                        <th>Cantidad</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($materiales as $item)
+                        <tr>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->descripcion}}</td>
+                            <td>{{$item->unidad}}</td>
+                            <td>{{$item->tipo}}</td>
+                            <td>{{$item->marca}}</td>
+                            <td>{{$item->precio_unitario}}</td>
+                            <td>
+                                <input type="checkbox" name="c1[]" id="{{$item->id}}" value="{{$item->id}}"  class="filled-in chk-col-orange">
+                                <label for="{{$item->id}}"></label>
+                            </td>
+                            <td>
+                                <input name="c2[]" id="c2" type="number" class="form-control"   min="1" max="{{$item->existencias}}" >
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
+
         </div>
     </div>
-@endsection
+    <script>
+        ﻿$(document).ready( function() {
+            $('#tabla-materiales').dataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            } );
+        });
+    </script>
 
+@endsection

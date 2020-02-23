@@ -133,4 +133,51 @@ class ObraController extends Controller{
             return response()->json($obra);
         }
     }
+
+
+    public function detalle(){
+        return view('obras.detalle');
+    }
+
+
+    public function detail(Request $request){
+        $materiales =
+            App\MaterialObra::join('material', 'materiales_obra.mat_obra',   '=', 'material.id')
+            ->where('id_obra',$request->id)
+            ->get();
+        //
+        $obra=App\Obra::findOrfail($request->id);
+
+       /* $detail = App\Obra::join('users','obra.encargado','=','users.id')
+        ->where('obra.encargado',$obra->encargado)->
+            where('obra.id',$obra->id)
+            ->select('obra.*','users.name')->get();*/
+        //$obra = App\Obra::join('users','obra.encargado','=','users.id')
+            //->findOrfail($request->id)
+            //->where('obra.id',$request->id)
+            //->select('obra.*','users.name')
+            ///->get();
+        return view('obras.detalle', compact('obra','materiales'));
+        //return view('obras.detalle',['obra'=>$detail,'materiales'=>$materiales_obra]);
+        //return $detail;
+    }
+    //obtencion del material
+    public function material(Request $request){
+        $obra = $request->id;
+        $materiales = App\Material::all();
+        return view('obras.agregar_material',compact('obra','materiales'));
+    }
+    //inserccion y actualizacion
+    public function agregarMaterial(Request $request){
+
+    }
+
 }
+
+/*
+ *   $obra = App\Obra::join('users','obra.encargado','=','users.id')
+            //->findOrfail($request->id)
+            ->where('obra.id',$request->id)
+            ->select('obra.*','users.name')
+            ->get();
+ * */

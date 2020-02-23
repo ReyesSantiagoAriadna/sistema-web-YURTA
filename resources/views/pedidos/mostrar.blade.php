@@ -81,19 +81,17 @@
                             <td>{{$item->obra}}</td>
                             <td>{{$item->descripcion}}</td>
                             <td>{{$item->name}}</td>
-
                             <td>{{$item->fecha_p}}</td>
                             <td>{{$item->estado}}</td>
                             <td>{{$item->fecha_conf}}</td>
                             <td>
-                                <button  title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
+                               {{-- <button  title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
                                          class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">
                                     <i class="material-icons">mode_edit</i>
-                                </button>
-                                <button title="Eliminar" data-toggle="tooltip"  data-placement="top"  type="button" name="edit" id="{{$item->id}}"
-                                        class="delete btn btn-danger btn-circle waves-effect waves-circle waves-float">
-                                    <i class="material-icons">delete</i>
-                                </button>
+                                </button>--}}
+                                <a title="Ver" href="{{route('pedido.detalle',$item)}}"   class="btn bg-green btn-circle waves-effect waves-circle waves-float">
+                                    <i class="material-icons">visibility</i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

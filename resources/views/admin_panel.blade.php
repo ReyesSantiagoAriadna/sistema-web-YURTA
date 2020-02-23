@@ -377,7 +377,15 @@
                     </a>
                     <ul class="ml-menu">
                         <li class="{{ $nav_obras_mostrar or ''  }}">
-                            <a href="{{route('obras')}}">Mostrar</a>
+                            <a href="{{route('obras')}}" >Mostrar</a>
+                            <ul class="ml-menu">
+                                <li class="{{ $nav_obras_mostrar_detalle or ''  }}">
+                                    <a>Detalle</a>
+                                </li>
+                                <li class="{{ $nav_obras_mostrar_agregar_material or ''  }}">
+                                   <a>Agregar material</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="{{ $nav_obras_agregar or ''  }}">
                             <a href="{{route('obra.agregar')}}">Nuevo</a>

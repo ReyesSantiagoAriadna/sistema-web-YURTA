@@ -72,4 +72,17 @@ class PedidosController extends Controller
         $pedidos = App\Pedido::where('estado',1)->count();
         return $pedidos;
     }
+
+    public function detalle(Request $request){
+        $materiales = App\DetallePedido::join('material','det_ped.ped_material','=','material.id')
+            ->where('det_ped.id_pedido',$request->id)
+            ->get();
+
+
+        $materiales =
+            App\MaterialObra::join('material', 'materiales_obra.mat_obra',   '=', 'material.id')
+                ->where('det_ped.id_pedido',$request->id)
+                ->get();
+        return $materiales;
+    }
 }
