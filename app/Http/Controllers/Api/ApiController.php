@@ -8,6 +8,7 @@ use App\Material;
 use App\MaterialObra;
 use App\Obra;
 use App\Pedido;
+use App\TipoObra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,19 +24,31 @@ class ApiController extends Controller
 {
     public function obras(Request $request){
         $id = $request->id;
-        $response['obras']= Obra::select('*')
+        $response['obras']= Obra::select('id','descripcion','lat','lng','fech_ini','dependencia','tipo_obra')
         ->where('encargado',"=",$id)->get();
         return $response;
         //return response()->json('obra'=>[$consulta=]);
     }
 
+    public function tiposObra(){
+        $response['tiposobra'] = TipoObra::select('id','descripcion')->get();
+        return $response;
+    }
+    public function materiales(){
+        $response['materiales']=Material::
+        select('id','descripcion','unidad','tipo','marca','precio_unitario')
+        ->get();
+        return $response;
+    }
+
     public function almacen(Request $request){
-        $id = $request->id;
-        $result = Material::select('descripcion')
-            ->join('materiales_obra', 'materiales_obra.mat_obra', '=', 'material.id')
-            ->where('materiales_obra.id_obra',$id)
+        $obra = $request->id;
+        $result = Material::where('materiales_obra.id_obra',$obra)
+            ->join('materiales_obra', 'material.id', '=', 'materiales_obra.mat_obra')
+            ->select('material.id','material.descripcion','material.unidad','material.tipo','material.marca','materiales_obra.cantidad')
             ->get();
-        return response()->json($result);
+        $response['materiales'] = $result;
+        return response()->json($response);
     }
 
     public function pedidos(Request $request){

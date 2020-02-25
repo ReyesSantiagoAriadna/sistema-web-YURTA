@@ -8,11 +8,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('obras','Api\ApiController@obras')->name('obras');
+    Route::get('materiales','Api\ApiController@materiales')->name('materiales');
     Route::get('almacen','Api\ApiController@almacen')->name('almacen');
     Route::get('pedidos','Api\ApiController@pedidos')->name('pedidos');
     Route::get('det_pedido','Api\ApiController@det_pedido')->name('det_pedido');
+    Route::get('tipos_obra','Api\ApiController@tiposObra')->name('tipos_obra');
+
+
+
     Route::post('logout', 'Api\ApiController@logout')->name('logout');
 });
 
@@ -20,6 +26,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 Route::get('login', 'Api\ApiController@login');
 Route::get('obras','Api\ApiController@obras')->name('obras');
+
+
 
 //Route::post('login', 'Api\ApiController@authenticate')->name('login');
 /*
