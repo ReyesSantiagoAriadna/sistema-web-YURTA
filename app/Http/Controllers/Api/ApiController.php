@@ -68,7 +68,9 @@ class ApiController extends Controller
         //$response = compact('token');
         $response['usuario']=Auth::user();
 
-        return Auth::user();
+
+
+        return $response;
     }
 
     public function logout(Request $request) {
