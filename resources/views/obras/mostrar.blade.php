@@ -8,7 +8,6 @@
     <div class="card">
         <div class="header">
             <h2>
-
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
@@ -63,18 +62,6 @@
                             <td>{{$item->name}}</td>
                             <td>{{$item->descripcion}}</td>
                             <td>
-                                {{--<a href="{{route('detail',$item)}}" title="Ver"  class=" btn bg-green btn-circle waves-effect waves-circle waves-float">
-                                    <i class="material-icons">visibility</i>
-                                </a>--}}
-
-                               {{-- <button   title="Ver" data-toggle="tooltip"  data-placement="top" type="submit" name="edit" id="{{$item->id}}"
-                                      class="edit btn bg-green btn-circle waves-effect waves-circle waves-float">
-                                <i class="material-icons">visibility</i>
-                                </button>--}}
-                                <a title="Add" href="{{route('obra.agregar.material',$item)}}"   class="btn bg-green btn-circle waves-effect waves-circle waves-float">
-                                    <i class="material-icons">add_box</i>
-                                </a>
-
                                 <a title="Ver" href="{{route('detail',$item)}}"   class="btn bg-green btn-circle waves-effect waves-circle waves-float">
                                     <i class="material-icons">visibility</i>
                                 </a>
@@ -88,7 +75,6 @@
                                     <i class="material-icons">delete</i>
                                 </button>
                             </td>
-
                             <input type="hidden" id="enc" name="enc" value="{{$item->encargado}}">
                             <input type="hidden" id="tip" name="tip" value="{{$item->tipo}}">
                         </tr>

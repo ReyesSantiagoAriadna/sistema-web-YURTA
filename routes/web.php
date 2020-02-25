@@ -58,7 +58,6 @@ Route::post('/agregar_tipo_obra','TipoObraController@agregar')->name('tipo_obra.
 Route::get('/editar_tipo_obra{id}', 'TipoObraController@editar' )->name('tipo_obra.editar');
 Route::put('/editar_tipo_obra/{id}','TipoObraController@update')->name('tipo_obra.update');
 Route::delete('/eliminar_tipo_obra/{id}','TipoObraController@eliminar')->name('tipo_obra.eliminar');
-
 Route::get('/tipos','TipoObraController@tipos');
 
 
@@ -84,19 +83,21 @@ Route::post('/agregar_obra','ObraController@add')->name('obra>add');
 
 Route::get('/editar_obra/{id}','ObraController@editar')->name('obra_editar');
 Route::put('/editar_obra/{id}','ObraController@update')->name('obra_update');
-
 Route::delete('/eliminar_obra/{id}','ObraController@eliminar')->name('obra.eliminar');
-
-
-
 Route::get('/agregar_material_obra{id}','ObraController@material')->name('obra.material');
 Route::post('/agregar_material_obra{id}','ObraController@agregarMaterial')->name('obra.agregar.material');
+
+
+
+Route::get('/presupuesto','ObraController@presupuesto')->name('obra.presupuesto');
 
 
 
 Route::get('/edit_obra/{id}','ObraController@edit');
 Route::post('/update_obra','ObraController@updateObra');
 Route::get('/find_obra','ObraController@find_obra');
+
+Route::get('/obras_ubicacion','ObraController@ubicacion');
 
 Route::get('/detalle_obra','ObraController@detalle')->name('obra.detalle');
 

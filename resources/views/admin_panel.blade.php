@@ -148,7 +148,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);">
+                                    <a href="javascript:void(0);" >
                                         <div class="icon-circle bg-red">
                                             <i class="material-icons">delete_forever</i>
                                         </div>
@@ -350,7 +350,7 @@
             <ul class="list">
                 <li class="header">MENÚ</li>
                 <li class="{{ $nav_inicio or ''  }}">
-                    <a href="{{route('home')}}">
+                    <a href="{{route('home')}}" >
                         <i class="material-icons ">home</i>
                         <span>Inicio</span>
                     </a>
@@ -369,10 +369,9 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="{{ $nav_obras or ''  }}">
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons ">local_convenience_store</i>
+                    <a href="javascript:void(0);" class=" menu-toggle ">
+                        <i class="material-icons">local_convenience_store</i>
                         <span>Obras</span>
                     </a>
                     <ul class="ml-menu">
@@ -390,12 +389,15 @@
                         <li class="{{ $nav_obras_agregar or ''  }}">
                             <a href="{{route('obra.agregar')}}">Nuevo</a>
                         </li>
-                        <li>
-                            <a href="pages/maps/yandex.html">Tipos</a>
+
+                        <li class="{{ $nav_obras_presupuesto or ''  }}">
+                            <a href="{{route('obra.presupuesto')}}">Presupuesto</a>
+                        </li>
+                        <li class="{{ $nav_obras_tipos or ''  }}">
+                            <a href="{{route('tipo_obras.mostrar')}}">Tipos</a>
                         </li>
                     </ul>
                 </li>
-
                 <li class="{{ $nav_materiales or ''  }}">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons ">ev_station</i>

@@ -55,27 +55,18 @@ class ApiController extends Controller
         return response()->json($consulta=User::select('*')->get());
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $credentials = $request->only('email', 'password');
-
-        if (!$token = JWTAuth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)){
             return response([
                 'status' => 'error',
                 'error' => 'invalid.credentials',
                 'msg' => 'Invalid Credentials.'
             ], 400);
         }
-
-        $response = compact('token');
+        //$response = compact('token');
         $response['user']=Auth::user();
-
-        /*return response([
-            'user'=> 'user',
-            'status' => 'success',
-            'token' => $token
-        ]);*/
-        return $response;
+        return Auth::user();
     }
 
     public function logout(Request $request) {

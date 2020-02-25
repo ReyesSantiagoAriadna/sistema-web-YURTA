@@ -24,8 +24,11 @@ class TipoObraController extends Controller{
         $tipo=new App\TipoObra();
         $tipo->descripcion=$request->descripcion;
         $tipo->save();
-        $tipos=App\TipoObra::all();
-        return view('tipo_obra.mostrar',['tipo'=>$tipos])->with('mensaje','Registro agregado');
+
+
+
+        //$tipos=App\TipoObra::all();
+        //return view('tipo_obra.mostrar',['tipo'=>$tipos])->with('mensaje','Registro agregado');
     }
 
     public function  editar($id){

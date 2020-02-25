@@ -39,8 +39,12 @@ class ObraController extends Controller{
         $obra->encargado=$request->encargado;
         $obra->tipo_obra=$request->tipo_obra;
         $obra->save();
-        $obras=App\Obra::all();
-        return view('obras.mostrar',['obras'=>$obras])->with('mensaje','Registro agregado');
+        //$obras=App\Obra::all();
+        //return view('obras.mostrar',['obras'=>$obras])->with('mensaje','Registro agregado');
+
+
+        $materiales = App\Material::all();
+        return view('obras.agregar_material',compact('obra','materiales'));
     }
 
     public function editar($id){
@@ -93,13 +97,22 @@ class ObraController extends Controller{
    }
 
    public function crear_material_obra(Request $request){
-       $material_obra = new App\MaterialObra;
-       $material_obra->cantidad = $request->cantidad;
-       $material_obra->id_obra = $request->id_obra;
-       $material_obra->mat_obra = $request->mat_obra;
-       $material_obra->save();
+       $material = $request->input('cantidades');
+       $cantidad = $_POST['c2'];
+       $id_obra = $request->input('obra');
 
-       return back()->with('mensaje','Material agregado');
+       for ($i=0; $i < sizeof($material); $i++) {
+           if($material[$i] != 0 && $cantidad[$i]){
+               $material_obra = new App\MaterialObra;
+               $material_obra->id_obra = $id_obra;
+               $material_obra->cantidad = $cantidad[$i];
+               $material_obra->mat_obra = $material[$i];
+               $this->disminuir_existencias($material[$i],$cantidad[$i]);
+               $material_obra->save();
+           }
+       }
+
+       return view('obras')->back()->with('mensaje','Material agregado');
    }
 
    public function mostrar_material_obra($id){
@@ -172,6 +185,27 @@ class ObraController extends Controller{
 
     }
 
+    function disminuir_existencias($id,$cantidad){
+        $materialUpdate = App\Material::find($id);
+        $total = $materialUpdate->existencias - $cantidad;
+        $materialUpdate->existencias = $total;
+        $materialUpdate->save();
+    }
+
+
+    public function ubicacion(){
+        if(request()->ajax()) {
+            $data = App\Obra::all();
+            return response()->json(['result' => $data]);
+        }
+    }
+
+
+    public function presupuesto(){
+        $obras = App\Obra::all();
+        $materiales =App\Material::all();
+        return view('obras.presupuesto',compact('obras','materiales'));
+    }
 }
 
 /*
