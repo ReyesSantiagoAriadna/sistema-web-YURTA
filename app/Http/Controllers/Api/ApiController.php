@@ -67,9 +67,14 @@ class ApiController extends Controller
             ], 400);
         }
 
-        //$response['usuario']=Auth::user();
+        $response['usuario']=Auth::user();
         return response()->json([
-            'name' => 'verificado'
+            'id' =>Auth::user()->id,
+            'name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'telefono'=>Auth::user()->telefono,
+            'puesto'=>Auth::user()->puesto,
+            'api_token' =>Auth::user()->api_token
         ]);
     }
 
