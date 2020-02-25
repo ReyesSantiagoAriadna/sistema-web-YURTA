@@ -58,7 +58,7 @@ class ApiController extends Controller
     }
 
     public function login(Request $request){
-        $credentials = $request->only('email', 'password');
+       $credentials = $request->only('email', 'password');
         if (!$token = JWTAuth::attempt($credentials)){
             return response([
                 'status' => 'error',
@@ -67,10 +67,9 @@ class ApiController extends Controller
             ], 400);
         }
 
-        //$response = compact('token');
         //$response['usuario']=Auth::user();
         return response()->json([
-            'name' => Auth::user()->name
+            'name' => 'verificado'
         ]);
     }
 
