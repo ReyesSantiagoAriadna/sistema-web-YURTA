@@ -64,13 +64,12 @@ class ApiController extends Controller
                 'msg' => 'Invalid Credentials.'
             ], 400);
         }
-
+        $response = Auth::user()->name;
         //$response = compact('token');
-        $response['usuario']=Auth::user();
-
-
-
-        return $response;
+        //$response['usuario']=Auth::user();
+        return response()->json([
+            'name' => Auth::user()->name,
+        ]);
     }
 
     public function logout(Request $request) {
