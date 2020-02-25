@@ -23,8 +23,10 @@ class ApiController extends Controller
 {
     public function obras(Request $request){
         $id = $request->id;
-        return response()->json($consulta=Obra::select('*')->get()->
-        where('encargado',"=",$id));
+        $response['obras']= Obra::select('*')
+        ->where('encargado',"=",$id)->get();
+        return $response;
+        //return response()->json('obra'=>[$consulta=]);
     }
 
     public function almacen(Request $request){
@@ -64,7 +66,7 @@ class ApiController extends Controller
                 'msg' => 'Invalid Credentials.'
             ], 400);
         }
-        $response = Auth::user()->name;
+
         //$response = compact('token');
         //$response['usuario']=Auth::user();
         return response()->json([

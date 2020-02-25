@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::post('login', 'Api\ApiController@login');
 
 
+Route::get('obras','Api\ApiController@obras')->name('obras');
 
 //Route::post('login', 'Api\ApiController@authenticate')->name('login');
 /*
