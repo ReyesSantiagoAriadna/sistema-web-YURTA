@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
 Route::get('login', 'Api\ApiController@login');
-Route::get('obras','Api\ApiController@obras')->name('obras');
+//Route::get('obras','Api\ApiController@obras')->name('obras');
 
 
 

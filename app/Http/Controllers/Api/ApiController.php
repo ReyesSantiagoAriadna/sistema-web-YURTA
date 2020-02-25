@@ -45,7 +45,8 @@ class ApiController extends Controller
         $obra = $request->id;
         $result = Material::where('materiales_obra.id_obra',$obra)
             ->join('materiales_obra', 'material.id', '=', 'materiales_obra.mat_obra')
-            ->select('material.id','material.descripcion','material.unidad','material.tipo','material.marca','materiales_obra.cantidad')
+            ->select('material.id','material.descripcion','material.unidad'
+                ,'material.tipo','material.marca','materiales_obra.cantidad','materiales_obra.id_obra')
             ->get();
         $response['materiales'] = $result;
         return response()->json($response);
