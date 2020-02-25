@@ -68,7 +68,7 @@ class ApiController extends Controller
         //$response = compact('token');
         //$response['usuario']=Auth::user();
         return response()->json([
-            'name' => Auth::user()->name,
+            'name' => Auth::user()->name
         ]);
     }
 

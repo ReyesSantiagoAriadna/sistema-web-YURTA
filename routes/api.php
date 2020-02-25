@@ -16,7 +16,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Api\ApiController@logout')->name('logout');
 });
 
-Route::get('login', 'Api\ApiController@login');
+Route::post('login', 'Api\ApiController@login');
 
 
 
