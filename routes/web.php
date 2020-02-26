@@ -119,7 +119,9 @@ Route::delete('/editar/{id}','PedidosController@eliminar')->name('eliminar_pedid
 Route::get('/editar_obra/{id}','ObraController@editar')->name('obra>editar');
 Route::put('/editar_obra/{id}','ObraController@update')->name('obra_update');
 
-Route::get('/detalle_pedido{id}', 'PedidosController@detalle' )->name('pedido.detalle');
+Route::get('/detalle_pedido{id}', 'PedidosController@detalle' )->name('pedido.detalle'); 
+Route::post('/confirmar_material', 'PedidosController@confirmarMaterial' )->name('confirmar.material'); 
+Route::post('/confirmar_pedido', 'PedidosController@confirmarPedido' )->name('confirmar.pedido'); 
 
 /*rutas prueba*/
 Route::view('/vista','obras.detalle');

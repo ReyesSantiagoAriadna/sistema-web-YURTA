@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use DB;
 
 class PedidosController extends Controller
 { 
@@ -73,16 +74,129 @@ class PedidosController extends Controller
         return $pedidos;
     }
 
-    public function detalle(Request $request){
-        $materiales = App\DetallePedido::join('material','det_ped.ped_material','=','material.id')
-            ->where('det_ped.id_pedido',$request->id)
-            ->get();
-
-
-        $materiales =
-            App\MaterialObra::join('material', 'materiales_obra.mat_obra',   '=', 'material.id')
-                ->where('det_ped.id_pedido',$request->id)
-                ->get();
-        return $materiales;
+    public function detalle($id){
+        $id_pedido=$id;
+          $data =  DB::table('material')
+        ->join('det_ped', 'det_ped.material', '=', 'material.id')
+        ->join('pedido', 'pedido.id', '=', 'det_ped.id_pedido')
+        ->join('obra','obra.id','=','pedido.obra')
+        ->select('material.descripcion', 'det_ped.cantidad', 'material.id','obra.descripcion as des_obra', 'obra.id as id_obra')
+        ->where('pedido.id', '=', $id_pedido)
+        ->get();  
+        return view('pedidos.confirmarPedido', compact('data','id_pedido')); 
     }
+ 
+    public function confirmarMaterial(Request $request){ 
+        $id_pedido = $request->input('id_pedido'); 
+        $ids_materiales = $_POST['ids_material'];
+        $cantidades = $_POST['cantidades']; 
+        $aDatos = null;
+        $aCantidades= null; 
+ 
+        for ($i=0; $i < sizeof($ids_materiales); $i++) {  
+            $material = App\Material::find($ids_materiales[$i]);  
+            if($material->existencias >= $cantidades[$i]){ 
+                $aDatos[$i] = $material; 
+                $aCantidades[$i] = $cantidades[$i];  
+            }else{
+                //echo "no entra";
+                return back()->with('mensaje','No hay suficiente material');
+            } 
+        }
+  
+        return view('pedidos.detalleConfirmacion', compact('id_pedido','aDatos'))->with('aCantidades',$aCantidades);  
+    }  
+ 
+    public function confirmarPedido(Request $request){
+        $id_pedido = $request->input('id_pedido'); 
+        $ids_materiales = $_POST['ids_material'];
+        $cantidades = $_POST['cantidades'];   
+ 
+        
+       for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
+         
+            $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]);
+            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]);
+         // echo "--".$ids_materiales[$i];
+        //} 
+         //
+        
+        }
+        return $this->mostrar();
+    }
+
+    function disminuir_existencias($id,$cantidad){ 
+        $total = 0;
+        $material = App\Material::find($id);  
+        $total = $material->existencias - $cantidad; 
+        $material->existencias = $total;
+        $material->save();   
+ 
+    }
+
+    public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 
+        $obra_pedido = App\Pedido::find($id);  
+        $obras_material = App\MaterialObra::where('id_obra',$obra_pedido->obra)                        
+        ->get(); 
+       
+       /* for ($i=0; $i < sizeof($obras_material); $i++) {  
+             if($obras_material[$i]->id_obra == $obra_pedido->obra){
+                 if($obras_material[$i]->mat_obra == $material){
+                    $obras_material[$i]->cantidad = $obras_material[$i]->cantidad + $cantidad;
+                    $obras_material[$i]->save();                      
+                 }
+             }else{
+                 echo "no existe";
+             } 
+        } */
+
+        if(count($obras_material) >= 1) {                    
+           for ($i=0; $i < sizeof($obras_material); $i++) {  
+                if($obras_material[$i]->id_obra == $obra_pedido->obra){
+                if($obras_material[$i]->mat_obra == $material){
+                     $obras_material[$i]->cantidad +=  $cantidad;
+                     $obras_material[$i]->save();                      
+                 }
+                } 
+                     
+                }
+        } else {
+           for ($i=0; $i < sizeof($materiales) ; $i++) {  
+                $material_obra = new App\MaterialObra;
+                $material_obra->id_obra = $obra_pedido->obra;
+                $material_obra->cantidad = $cantidad;
+                $material_obra->mat_obra = $materiales[$i]; 
+                $material_obra->save(); 
+            }
+        }   
+ 
 }
+ 
+ 
+} 
+
+
+/*  $this->pedido_agregar_materia($id_pedido, $ids_materiales[$i], $cantidades[$i]);  
+           if(count($obras_material) == 0){
+                $material_obra = new App\MaterialObra;
+                $material_obra->id_obra = $pedido->obra;
+                $material_obra->cantidad = $cantidades[$i];
+                $material_obra->mat_obra = $ids_materiales[$i]; 
+                $material_obra->save();
+            }else{
+                if($obras_material[$i]->mat_obra == $ids_materiales[$i]){
+                    $obras_material[$i]->cantidad = $obras_material->cantidad + $cantidades[$i];
+                    $obras_material->save();
+            }
+
+          /*  if(empty($obras_material)){ 
+                    $material_obra = new App\MaterialObra;
+                    $material_obra->id_obra = $pedido->obra;
+                   // $material_obra->cantidad = $cantidades[$i];
+                    $material_obra->mat_obra = $ids_materiales[$i]; 
+                    $material_obra->save(); 
+          } else{   
+            if($obras_material[$i]->mat_obra == $ids_materiales[$i]){
+                $obras_material[$i]->cantidad = $obras_material->cantidad + $cantidades[$i];
+                $obras_material->save();
+            }*/
