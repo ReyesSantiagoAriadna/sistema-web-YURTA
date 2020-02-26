@@ -91,7 +91,7 @@
                                 </button>--}}
                                 <a title="Ver" href="{{route('pedido.detalle',$item)}}"   class="btn bg-green btn-circle waves-effect waves-circle waves-float">
                                     <i class="material-icons">visibility</i>
-                                </a>
+                                </a>  
                             </td>
                         </tr>
                     @endforeach
