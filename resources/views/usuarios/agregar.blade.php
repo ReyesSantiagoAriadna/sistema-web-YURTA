@@ -86,6 +86,16 @@
                     </div>
                 </div>
                 <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>
+
+                <b>Mobile Phone Number</b>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">phone_iphone</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control mobile-phone-number" placeholder="Ex: +00 (000) 000-00-00">
+                    </div>
+                </div>
             </form>
         </div>
 @endsection
