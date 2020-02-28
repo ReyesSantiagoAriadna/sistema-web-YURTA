@@ -111,8 +111,8 @@ class ObraController extends Controller{
                $material_obra->save();
            }
        }
-
-       return view('obras')->back()->with('mensaje','Material agregado');
+       
+       return view('obras.mostrar')->with('mensaje','Material agregado');
    }
 
    public function mostrar_material_obra($id){
