@@ -24,14 +24,7 @@
             </ul>
         </div>
         <div class="body">
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <div class="input-group-lg">
-                        <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Empleados</a></li>
-                </div>
-                <div class="input-group-lg"> 
-                        <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
-                </div>
-            </ol>
+            
             <ol class="breadcrumb breadcrumb-bg-orange">
                 <li><a href="javascript:void(0);"><i class="material-icons">library_books</i> Library</a></li>
                 <li><a href="javascript:void(0);"><i class="material-icons">archive</i> Data</a></li>
