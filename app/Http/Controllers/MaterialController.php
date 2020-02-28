@@ -25,6 +25,11 @@ class MaterialController extends Controller
         // $materiales = App\Material::all();
        // return view('materiales.mostrar', compact('materiales'));
     }
+
+    public static function countMateriales(){
+        $materiales = App\Material::all()->count();
+        return $materiales;
+    }
  
     public function agregar(){
         $proveedores = App\Proveedor::all();
