@@ -28,6 +28,23 @@
                 <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Empleados</a></li>
                 <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
             </ol>
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <li><a href="javascript:void(0);"><i class="material-icons">home</i> Home</a></li>
+                    </span>
+                </div>
+                <li><a href="javascript:void(0);"><i class="material-icons">library_books</i> Library</a></li>
+                <li><a href="javascript:void(0);"><i class="material-icons">archive</i> Data</a></li>
+                <li><a href="javascript:void(0);"><i class="material-icons">attachment</i> File</a></li>
+                <li class="active"><i class="material-icons">extension</i> Extensions</li>
+            </ol>
+
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon">
+                    <li><a href="javascript:void(0);"><i class="material-icons">home</i> Home</a></li>
+                </span>
+            </div>
 
             <div class="table-responsive">
                 <table id="tabla-empleado" class="display" style="width:100%">
