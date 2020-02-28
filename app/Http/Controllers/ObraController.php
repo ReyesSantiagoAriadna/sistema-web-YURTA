@@ -112,7 +112,7 @@ class ObraController extends Controller{
            }
        }
        
-       return view('obras.mostrar')->with('mensaje','Material agregado');
+       return $this->mostrar();
    }
 
    public function mostrar_material_obra($id){
