@@ -25,6 +25,13 @@
                 <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Empleados</a></li>
                 <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
             </ol>
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Home</a></li>
+                <li><a href="javascript:void(0);"><i class="material-icons">add_circle</i> Library</a></li>
+                <li><a href="javascript:void(0);"><i class="material-icons">archive</i> Data</a></li>
+                <li><a href="javascript:void(0);"><i class="material-icons">attachment</i> File</a></li>
+                <li class="active"><i class="material-icons">extension</i> Extensions</li>
+            </ol>
             <form method="POST" action="{{ route('usuarios.add') }}">
                 @csrf
                 <h2 class="card-inside-title">Datos del empleado</h2>
@@ -98,4 +105,6 @@
                 </div>
             </form>
         </div>
+
+        <script src="../../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
 @endsection
