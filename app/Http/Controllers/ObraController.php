@@ -112,8 +112,9 @@ class ObraController extends Controller{
            }
        }
 
-       return view('obras')->back()->with('mensaje','Material agregado');
-   }
+     //  return view('obras')->back()->with('mensaje','Material agregado');
+       return $this->mostrar();
+    }
 
    public function mostrar_material_obra($id){
     $obra = App\Obra::findOrFail($id);
