@@ -124,4 +124,70 @@ class ApiController extends Controller
             'data' => $user
         ]);
     }
+
+
+    public function obrasAlmacen(Request $request){
+        $id = $request->id;
+
+        $response['almacenes']=
+            Obra::where('encargado',"=",$id)
+                ->join('materiales_obra', 'obra.id', '=', 'materiales_obra.id_obra')
+                ->join('material','materiales_obra.mat_obra','=','material.id')
+                ->select('materiales_obra.id_obra as id_obra'
+                    ,'materiales_obra.mat_obra as material_id','material.descripcion as material_descripcion'
+                ,'material.unidad as material_unidad','material.tipo as material_tipo'
+                    ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad')
+                ->get();
+        return $response;
+    }
+
+    public function obrasPedidos(Request $request){
+        $empleado = $request->id;
+        $response['pedidos']=
+            Obra::where('encargado',"=",$empleado)
+            ->join('pedido','obra.id','=','pedido.obra')
+            ->select('pedido.id','pedido.fecha_p','pedido.fecha_conf','pedido.estado','pedido.obra')
+            ->get();
+        return $response;
+    }
+
+    public function detallesPedidos(Request $request){
+        $empleado = $request->id;
+        $response['det_pedidos']=
+            Obra::where('encargado',"=",$empleado)
+                ->join('pedido','obra.id','=','pedido.obra')
+                ->join('det_ped','pedido.id','=','det_ped.id_pedido')
+                ->join('material','det_ped.material','=','material.id')
+                ->select('det_ped.cantidad','det_ped.id_pedido','det_ped.material as id_material',
+                    'material.descripcion','material.unidad','material.marca')
+                ->get();
+        return $response;
+    }
 }
+
+
+/*
+ * Obra::where('encargado',"=",$id)
+                ->join('materiales_obra', 'obra.id', '=', 'materiales_obra.id_obra')
+                ->join('material','materiales_obra.mat_obra','=','material.id')
+                ->select('obra.id as obra_id','obra.descripcion as obra_descripcion',
+                        'obra.lat as obra_lat','obra.lng as obra_lng','obra.fech_ini as obra_fech_ini'
+                    ,'obra.dependencia as obra_dependencia','obra.encargado as obra_encargado',
+                    'obra.tipo_obra as obra_tipo_obra','materiales_obra.id_obra as material_id_obra'
+                    ,'materiales_obra.mat_obra as material_id','material.descripcion as material_descripcion'
+                ,'material.unidad as material_unidad','material.tipo as material_tipo'
+                    ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad')
+                ->get();
+ *
+ * */
+
+
+/*rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+ * */

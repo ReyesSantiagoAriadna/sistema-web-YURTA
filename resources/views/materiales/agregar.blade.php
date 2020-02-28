@@ -2,6 +2,8 @@
 <?php $nav_materiales_agregar = 'active'; ?>
 @extends('admin_panel')
 @section('contenido')
+
+
     <div class="card">
         <div class="header">
             <h2>
@@ -25,7 +27,9 @@
                 <li><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
                 <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
             </ol>
-            <form method="POST" action="{{ route('material_agregar') }}">
+
+            <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="send1()">
+            <form method="POST" action="{{ route('material_agregar') }}" id="formenvio_1">
                 @csrf
                 <h2 class="card-inside-title">Datos del material</h2>
                 <div class="input-group input-group-lg">
@@ -97,15 +101,65 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">add_photo_aternate</i>
+                    </span>
+                    <div class="form-line">
+                       {{-- <input type="file" class="form-control" placeholder="Imagen" id="upload-file-selector"
+                           accept="image/x-png,image/gif,image/jpeg"     name="file" required>--}}
+                        <input type="file" id="upload-file-selector" required>
+                    </div>
+                </div>
+
+                <input type="hidden" name="url" id="url">
+{{--                <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>--}}
             </form>
 
         </div>
-    {{--        <div class="row clearfix js-sweetalert">
-                <button class="btn btn-primary waves-effect" data-type="success">CLICK ME</button>
-            </div>
-            <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-app.js"></script>
 
-            <script src="../../js/pages/ui/dialogs.js"></script>--}}
 
+
+        <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-storage.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyB3_eHqhTh_OHewWL1Mg3YvxDMMWrn9w_Q",
+                authDomain: "yurta-b4d1d.firebaseapp.com",
+                databaseURL: "https://yurta-b4d1d.firebaseio.com",
+                projectId: "yurta-b4d1d",
+                storageBucket: "yurta-b4d1d.appspot.com",
+                messagingSenderId: "1091299166428",
+                appId: "1:1091299166428:web:133c7801c3c5509b350c19",
+                measurementId: "G-6VYB96F10Z"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
+        <script type="text/javascript">
+
+                function send1(){
+
+                console.log("Entrando a Send1");
+                var ref = firebase.storage().ref();
+                var button = document.getElementById("upload-file-selector");
+
+                const file = button.files[0];
+                const name = (+new Date()) + '-' + file.name;
+                const metadata = { contentType: file.type };
+                const task = ref.child(name).put(file, metadata);
+                task
+                    .then(snapshot => snapshot.ref.getDownloadURL())
+                    .then( (url) => {
+                        console.log('url:',url);
+                        document.getElementById("url").value = url;
+                        $("#formenvio_1").submit();
+                    } ).catch(console.error);
+            }
+
+        </script>
 @endsection

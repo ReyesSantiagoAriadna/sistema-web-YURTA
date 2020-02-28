@@ -12,6 +12,10 @@
 
     <title>Yurta App</title>
     <!-- Favicon-->
+
+
+
+
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOoifiSc2LnrhQwCJLy7xuaYgEo3xAE5s&libraries=places"
@@ -64,6 +68,8 @@
     <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="css/themes/all-themes.css" rel="stylesheet" />
+
+
 </head>
 
 <body class="theme-red">
