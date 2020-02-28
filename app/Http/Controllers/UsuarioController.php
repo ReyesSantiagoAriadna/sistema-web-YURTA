@@ -21,7 +21,7 @@ class UsuarioController extends Controller
     }
 
     public static function countUsuarios(){
-        $usuarios = App\User::all()->count();
+        $usuarios = User::all()->count();
         return $usuarios;
     }
 
