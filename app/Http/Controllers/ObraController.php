@@ -206,6 +206,10 @@ class ObraController extends Controller{
         $materiales =App\Material::all();
         return view('obras.presupuesto',compact('obras','materiales'));
     }
+
+    public function materialObra($id){
+        return App\MaterialObra::where('id_obra', $id)->get();
+    }
 }
 
 /*
