@@ -13,6 +13,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('almacen','Api\ApiController@almacen')->name('almacen');
     Route::get('pedidos','Api\ApiController@pedidos')->name('pedidos');
     Route::get('det_pedido','Api\ApiController@det_pedido')->name('det_pedido');
+
     //**
     Route::get('obras','Api\ApiController@obras')->name('obras');
     Route::get('materiales','Api\ApiController@materiales')->name('materiales');
