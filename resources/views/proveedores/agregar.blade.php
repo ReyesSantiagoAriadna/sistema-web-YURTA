@@ -43,7 +43,7 @@
                         <i class="material-icons">phone</i>
                     </span>
                     <div class="form-line">
-                        <input type="tel" class="form-control" placeholder="Teléfono" id="telefono" name="telefono" required>
+                        <input type="text"  class="form-control" placeholder="Teléfono 951 --- --- ---" id="telefono" name="telefono" required>
                     </div>
                 </div>
 
