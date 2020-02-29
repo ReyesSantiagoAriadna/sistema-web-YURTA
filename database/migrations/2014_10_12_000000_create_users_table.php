@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('telefono');
             $table->string('puesto');
             $table->string('api_token',60)->nullable()->unique();
-            $table->string('url_avatar');
+            $table->string('url_avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
