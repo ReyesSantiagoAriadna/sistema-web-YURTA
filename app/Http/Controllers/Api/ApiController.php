@@ -133,8 +133,6 @@ class ApiController extends Controller
     }
 
 
-
-
     //apis consultadas
     public function obrasAlmacen(Request $request){
         $encargado = $request->id;

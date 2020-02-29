@@ -50,6 +50,7 @@ Route::get('/edit_proveedor/{id}','ProveedorController@edit');
 Route::post('/update_proveedor','ProveedorController@updateProveedor')->name('proveedor_update');
 
 Route::get('/proveedores','ProveedorController@proveedores');
+Route::get('/tipos_materiales','ProveedorController@tiposMateriales');
 
 
 //TIPOS DE OBRA//

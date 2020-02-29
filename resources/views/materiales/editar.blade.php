@@ -67,6 +67,15 @@
                         </div>
                     </div>
 
+                    <label>Tipo</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">people</i></span>
+                        <div class="form-line">
+                            <select name="tipos" class="form-control"  id="tipos" required autofocus>
+                            </select>
+                        </div>
+                    </div>
+
 
 
                     <br />
@@ -128,6 +137,10 @@
                     $('#existencias').val(data.result.existencias);
                     $('#precio_unitario').val(data.result.precio_unitario);
 
+                    //valores del obejto a editar
+                    var tipo =  document.getElementById("tipo").value;
+                    var unidad = document.getElementById("unidad").value;
+
                     // window.alert(provider);
                     //obtener los proveedores a travez de ajax
                     $.get('proveedores',function (proveedores) {
@@ -136,6 +149,16 @@
                             $('#proveedores').append("<option value='" + registro.id + "'" + (provider == registro.id ? 'selected' : '') + ">" + registro.razon_social +"</option>");
                         });
                     });
+
+                    $.get('tipos_materiales',function (tipos_materiales) {
+                            console.log("tipos",tipos_materiales);
+                        $.each(tipos_materiales,function(key, registro) {
+                            $('#tipos').append("<option value='" + registro.id + "'" + (tipo == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
+                        });
+                    });
+
+
+                
 
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Editar Registro');
