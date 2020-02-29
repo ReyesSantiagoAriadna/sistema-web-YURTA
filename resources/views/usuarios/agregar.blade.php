@@ -41,7 +41,12 @@
                     </span>
                     <div class="form-line">
                         <input type="text" class="form-control" placeholder="Nombre" id="name" name="name" required>
+                        
                     </div>
+                    <small>
+                        <label id="alert-name" class="font-bold col-pink" for="name">* Campo Obligatorio</label>
+                    </small>
+                   
                 </div>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -94,7 +99,6 @@
                 </div>
                 <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>
 
-                <b>Mobile Phone Number</b>
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">phone_iphone</i>
@@ -103,8 +107,9 @@
                         <input type="text" class="form-control mobile-phone-number" placeholder="Ex: +00 (000) 000-00-00">
                     </div>
                 </div>
+            </div>
             </form>
         </div>
 
-        <script src="plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+
 @endsection
