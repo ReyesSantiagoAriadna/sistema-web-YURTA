@@ -45,7 +45,7 @@ class UsuarioController extends Controller
         $usuario->telefono=$request->telefono;
         $usuario->puesto=$request->puesto;
         $usuario->api_token=Str::random(60);
-
+        $usuario->url_avatar=$request->url;
         $usuario->save();
 
        // return view()->with('mensaje','Registro agregado');

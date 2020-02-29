@@ -12,6 +12,7 @@ class MaterialController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function mostrar(){
         $materiales = App\Material::all();
         $proveedores = App\Proveedor::all();
@@ -37,7 +38,7 @@ class MaterialController extends Controller
     }
 
     public function crear_material(Request $request){ 
-        $materiales = App\Material::all();
+
 
         $materialNuevo = new App\Material;
         $materialNuevo->descripcion = $request->descripcion;
@@ -47,10 +48,15 @@ class MaterialController extends Controller
         $materialNuevo->existencias = $request->existencias;
         $materialNuevo->precio_unitario = $request->precio_unitario;
         $materialNuevo->proveedor = $request->proveedor;
+        $materialNuevo->url_imagen=$request->url;
+
 
         $materialNuevo->save();
+        $materiales = App\Material::all();
 
-        return back()->with('mensaje', 'Material agregado correctamente');
+        return back()->with('mensaje','agregado');
+
+        //return view('materiales.mostrar',compact('materiales'))->with('mensaje','Registro agregado');
     }
 
     public function editar($id){
@@ -70,7 +76,7 @@ class MaterialController extends Controller
         $materialActualiza->proveedor = $request->proveedor;
         $materialActualiza->save();
         $materiales = App\Material::all();
-        return view('materiales.mostrar',compact('materiales'))->with('mensaje','Material Actializado');
+        return view('materiales.mostrar',compact('materiales'))->with('mensaje','Material Actualizado');
     }
 
     public function eliminar($id){

@@ -36,17 +36,18 @@ class ApiController extends Controller
     }
     public function materiales(){
         $response['materiales']=Material::
-        select('id','descripcion','unidad','tipo','marca','precio_unitario')
+        select('id','descripcion','unidad','tipo','marca','precio_unitario','url_imagen')
         ->get();
         return $response;
     }
+
 
     public function almacen(Request $request){
         $obra = $request->id;
         $result = Material::where('materiales_obra.id_obra',$obra)
             ->join('materiales_obra', 'material.id', '=', 'materiales_obra.mat_obra')
             ->select('material.id','material.descripcion','material.unidad'
-                ,'material.tipo','material.marca','materiales_obra.cantidad','materiales_obra.id_obra')
+                ,'material.tipo','material.marca','materiales_obra.cantidad','materiales_obra.id_obra','material.url_imagen')
             ->get();
         $response['materiales'] = $result;
         return response()->json($response);
@@ -88,7 +89,8 @@ class ApiController extends Controller
             'email' => Auth::user()->email,
             'telefono'=>Auth::user()->telefono,
             'puesto'=>Auth::user()->puesto,
-            'api_token' =>Auth::user()->api_token
+            'api_token' =>Auth::user()->api_token,
+            'url_avatar'=>Auth::user()->url_avatar
         ]);
     }
 
@@ -109,15 +111,14 @@ class ApiController extends Controller
         }
     }
 
-    public function refresh()
-    {
+
+    public function refresh(){
         return response([
             'status' => 'success'
         ]);
     }
 
-    public function user(Request $request)
-    {
+    public function user(Request $request){
         $user = User::find(Auth::user()->id);
         return response([
             'status' => 'success',
@@ -126,6 +127,9 @@ class ApiController extends Controller
     }
 
 
+
+
+    //apis
     public function obrasAlmacen(Request $request){
         $id = $request->id;
 
@@ -136,10 +140,12 @@ class ApiController extends Controller
                 ->select('materiales_obra.id_obra as id_obra'
                     ,'materiales_obra.mat_obra as material_id','material.descripcion as material_descripcion'
                 ,'material.unidad as material_unidad','material.tipo as material_tipo'
-                    ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad')
+                    ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad',
+                    'material.url_imagen')
                 ->get();
         return $response;
     }
+
 
     public function obrasPedidos(Request $request){
         $empleado = $request->id;
@@ -159,7 +165,7 @@ class ApiController extends Controller
                 ->join('det_ped','pedido.id','=','det_ped.id_pedido')
                 ->join('material','det_ped.material','=','material.id')
                 ->select('det_ped.cantidad','det_ped.id_pedido','det_ped.material as id_material',
-                    'material.descripcion','material.unidad','material.marca')
+                    'material.descripcion','material.unidad','material.marca','material.url_imagen')
                 ->get();
         return $response;
     }

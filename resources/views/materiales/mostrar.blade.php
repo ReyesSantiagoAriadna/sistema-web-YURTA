@@ -4,6 +4,18 @@
 @section('contenido')
     <div class="block-header">
         <h2>MATERIALES</h2>
+        @if(session('mensaje'))
+            <div class="alert-success">
+                <label>{{session('mensaje')}}</label>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"/>
+                <span aria-hidden="true">&times</span>
+            </div>
+        @endif
+        @if(session()->has('mensaje'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
     </div>
     <div class="card">
         <div class="header">
