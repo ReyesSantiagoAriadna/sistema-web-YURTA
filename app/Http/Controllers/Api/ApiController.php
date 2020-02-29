@@ -24,7 +24,9 @@ class ApiController extends Controller
 {
     public function obras(Request $request){
         $id = $request->id;
-        $response['obras']= Obra::select('id','descripcion','lat','lng','fech_ini','dependencia','tipo_obra')
+        $response['obras']=Obra::
+            join('tipo','obra.tipo_obra','=','tipo.id')
+            ->select('obra.id','obra.descripcion','lat','lng','fech_ini','fech_fin','dependencia','tipo_obra','tipo.descripcion as tipo_descripcion')
         ->where('encargado',"=",$id)->get();
         return $response;
         //return response()->json('obra'=>[$consulta=]);
@@ -36,7 +38,10 @@ class ApiController extends Controller
     }
     public function materiales(){
         $response['materiales']=Material::
-        select('id','descripcion','unidad','tipo','marca','precio_unitario','url_imagen')
+            join('tipo_material','material.tipo','=','tipo_material.id')
+            ->join('unidad_material','material.unidad','=','unidad_material.id')
+            ->select('material.id','material.descripcion','unidad_material.descripcion as unidad'
+            ,'tipo_material.descripcion as tipo','marca','precio_unitario','url_imagen')
         ->get();
         return $response;
     }
@@ -112,6 +117,7 @@ class ApiController extends Controller
     }
 
 
+
     public function refresh(){
         return response([
             'status' => 'success'
@@ -129,17 +135,20 @@ class ApiController extends Controller
 
 
 
-    //apis
+    //apis consultadas
     public function obrasAlmacen(Request $request){
-        $id = $request->id;
+        $encargado = $request->id;
 
         $response['almacenes']=
-            Obra::where('encargado',"=",$id)
+            Obra::where('encargado',"=",$encargado)
                 ->join('materiales_obra', 'obra.id', '=', 'materiales_obra.id_obra')
                 ->join('material','materiales_obra.mat_obra','=','material.id')
+                ->join('tipo_material','material.tipo','=','tipo_material.id')
+                ->join('unidad_material','material.unidad','=','unidad_material.id')
                 ->select('materiales_obra.id_obra as id_obra'
                     ,'materiales_obra.mat_obra as material_id','material.descripcion as material_descripcion'
-                ,'material.unidad as material_unidad','material.tipo as material_tipo'
+                ,'unidad_material.descripcion as material_unidad'
+                    ,'tipo_material.descripcion as material_tipo'
                     ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad',
                     'material.url_imagen')
                 ->get();
