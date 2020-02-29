@@ -28,7 +28,7 @@
                 <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
             </ol>
 
-            <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="send1()">
+            <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="upload()">
             <form method="POST" action="{{ route('material_agregar') }}" id="formenvio_1">
                 @csrf
                 <h2 class="card-inside-title">Datos del material</h2>
@@ -118,10 +118,8 @@
 
         </div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
+
         <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-app.js"></script>
-
-
-
         <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-storage.js"></script>
 
         <script>
@@ -138,9 +136,32 @@
             };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
-            firebase.analytics();
+           // firebase.analytics();
         </script>
-        <script type="text/javascript">
+        <script>
+            var vselect
+            $("#upload-file-selector").on("change",function (event) {
+               vselect= event.target.files[0];
+               console.log("sel",vselect.name);
+            });
+            
+            function upload() {
+                var filename = vselect.name;
+                var sreference = firebase.storage().ref('/materiales/'+filename);
+                var upTask = sreference.put(vselect);
+
+                upTask.on('state_changed',function (snapshot) {
+
+                },function (error) {
+
+                    },function () {
+                        var dowurl =upTask.snapshot.downloadURL;
+                        console.log(dowurl);
+                    }
+                );
+            }
+        </script>
+        {{--<script type="text/javascript">
 
                 function send1(){
 
@@ -152,14 +173,14 @@
                 const name = (+new Date()) + '-' + file.name;
                 const metadata = { contentType: file.type };
                 const task = ref.child(name).put(file, metadata);
-                task
+                /*task
                     .then(snapshot => snapshot.ref.getDownloadURL())
                     .then( (url) => {
                         console.log('url:',url);
                         document.getElementById("url").value = url;
                         $("#formenvio_1").submit();
-                    } ).catch(console.error);
+                    } ).catch(console.error);*/
             }
 
-        </script>
+        </script>--}}
 @endsection
