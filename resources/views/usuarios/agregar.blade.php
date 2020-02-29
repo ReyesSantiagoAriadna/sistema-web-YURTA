@@ -176,7 +176,7 @@
 
         <script type="text/javascript">
             function saveimg(){
-                var ref = firebase.storage().ref();
+                var ref = firebase.storage().ref('/usuarios/');
                 var button = document.getElementById("upload-file-selector");
                 const file = button.files[0];
                 const name = (+new Date()) + '-' + file.name;
