@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
-
+use Response;
 class ProveedorController extends Controller
 {
     public function __construct()
@@ -87,7 +87,14 @@ class ProveedorController extends Controller
     public function proveedores(Request $request){
         if ($request->ajax()) {
             $proveedores = App\Proveedor::all();
-            return response()->json($proveedores);
+           return response()->json($proveedores);
+        }
+    }
+    
+    public function tiposMateriales(Request $request){
+        if($request->ajax()){
+            $tipos_materiales = App\MaterialTipo::all();
+            return response()->json($tipos_materiales);
         }
     }
 }
