@@ -11,14 +11,12 @@ class CreatePedidoTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('pedido', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('fecha_p');
             $table->date('fecha_conf');
-            $table->string('estado');
-
+            $table->string('estado')->default('0');
             $table->bigInteger('obra')->unsigned()->index();
             $table->foreign('obra')
                 ->references('id')->on('obra')->onDelete('cascade');

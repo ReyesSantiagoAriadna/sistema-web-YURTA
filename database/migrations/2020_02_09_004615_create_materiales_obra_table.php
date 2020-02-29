@@ -16,7 +16,7 @@ class CreateMaterialesObraTable extends Migration
         Schema::create('materiales_obra', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('cantidad');
-
+            $table->integer('cantidad_minima')->default('3');
             $table->bigInteger('id_obra')->unsigned()->index();
             $table->foreign('id_obra')
                 ->references('id')->on('obra')->onDelete('cascade');
