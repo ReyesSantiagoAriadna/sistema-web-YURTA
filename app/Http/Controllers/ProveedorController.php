@@ -23,19 +23,18 @@ class ProveedorController extends Controller
     }
 
     public function crear_proveedores(Request $request){ 
-
-      /*  $request->validate([
-            'razon_social'=>'required',
-            'telefono'=>'required',
-            'email' => 'required',
-            'direccion'=>'required'
-        ]);*/
+ 
         $proveedores = App\Proveedor::all();
         $proveedor = new App\Proveedor;
         $proveedor->razon_social = $request->razon_social;
         $proveedor->telefono = $request->telefono;
         $proveedor->email = $request->email;
         $proveedor->direccion = $request->direccion;
+
+        if ($v->fails())
+        {
+            return redirect()->back()->withInput()->withErrors($v->errors());
+        }
 
         echo 'success';
         $notificacion = array(            

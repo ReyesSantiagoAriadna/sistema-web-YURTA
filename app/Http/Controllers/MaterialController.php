@@ -16,7 +16,10 @@ class MaterialController extends Controller
     public function mostrar(){
         $materiales = App\Material::all();
         $proveedores = App\Proveedor::all();
-        return view('materiales.mostrar', compact('materiales','proveedores'));
+        $tipos = App\MaterialTipo::all();
+        $unidades = App\MaterialUnidad::all();
+
+        return view('materiales.mostrar', compact('materiales','proveedores','tipos','unidades'));
 
         /*$data = App\Material::select('proveedor.razon_social', 'categories.nameCategory')
             ->join('categories', 'users.idUser', '=', 'categories.user_id')
@@ -33,8 +36,10 @@ class MaterialController extends Controller
     }
  
     public function agregar(){
-        $proveedores = App\Proveedor::all();
-        return view('materiales.agregar', compact('proveedores'));
+        $proveedores = App\Proveedor::all(); 
+        $tipos = App\MaterialTipo::all();
+        $unidades = App\MaterialUnidad::all();
+        return view('materiales.agregar', compact('proveedores', 'tipos', 'unidades'));
     }
 
     public function crear_material(Request $request){ 
@@ -79,6 +84,7 @@ class MaterialController extends Controller
         return view('materiales.mostrar',compact('materiales'))->with('mensaje','Material Actualizado');
     }
 
+    
     public function eliminar($id){
         $materialEliminar = App\Material::findOrFail($id);
         $materialEliminar->delete();
@@ -90,6 +96,20 @@ class MaterialController extends Controller
         if(request()->ajax()) {
             $data = App\Material::findOrfail($id);
             return response()->json(['result' => $data]);
+        }
+    }
+
+    public function tipos(Request $request){
+        if($request->ajax()){
+            $tipos = App\MaterialTipo::all();
+            return reponse()->json($tipos);
+        }
+    }
+
+    public function unidades(Request $request){
+        if($request->ajax()){
+            $unidades = App\MaterialUnidad::all();
+            return reponse()->json($unides);
         }
     }
 

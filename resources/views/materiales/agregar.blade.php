@@ -41,15 +41,18 @@
                                id="descripcion" name="descripcion" required>
                     </div>
                 </div>
-
-
-
+ 
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">merge_type</i>
                     </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" placeholder="Tipo" id="tipo" name="tipo" required>
+                        <select name="tipo" class="form-control" id="tipo" required autofocus>
+                            <option value="">Seleccione el tipo de material</option>
+                            @foreach ($tipos as $tipo)
+                                <option value="{{$tipo['id']}}">{{$tipo['descripcion']}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -61,29 +64,23 @@
                         <input type="text" class="form-control" placeholder="Marca" id="marca" name="marca" required>
                     </div>
                 </div>
+                
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">flag</i>
                     </span>
                     <div class="form-line">
-                        <input type="tel" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
-                    </div>
-                </div>
-
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon">
-                        <i class="material-icons">people</i>
-                    </span>
-                    <div class="form-line">
                         <select name="unidad" class="form-control" id="unidad" required autofocus>
-                            <option value="">Seleccione el tipo de material</option>
-                            @foreach ($tipos as $tipo)
-                                <option value="{{$tipo['id']}}">{{$tipo['descripcion']}}</option>
+                            <option value="">Seleccione la unidad de medida del material</option>
+                            @foreach ($unidades as $unidad)
+                                <option value="{{$unidad['id']}}">{{$unidad['descripcion']}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
+
+                
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">assignment</i>
@@ -135,7 +132,7 @@
 
 
                 <input type="hidden" name="url" id="url">
-{{--                <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>--}}
+                <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>
             </form>
             <br>
             <br>

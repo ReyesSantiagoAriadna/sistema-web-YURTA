@@ -52,6 +52,7 @@ Route::post('/update_proveedor','ProveedorController@updateProveedor')->name('pr
 Route::get('/proveedores','ProveedorController@proveedores');
 
 
+
 //TIPOS DE OBRA//
 Route::get('/mostrar_tipo_obras','TipoObraController@mostrar')->name('tipo_obras.mostrar');
 Route::post('/agregar_tipo_obra','TipoObraController@agregar')->name('tipo_obra.agregar');
@@ -70,6 +71,8 @@ Route::get('/editar_material/{id}','MaterialController@editar')->name('material_
 Route::put('/editar_material/{id}','MaterialController@update')->name('materiales_update');
 Route::delete('/eliminar_material/{id}','MaterialController@eliminar')->name('material_eliminar');
 
+Route::get('/unidades','MaterialController@unidades');
+Route::get('/tipos','MaterialController@tipos');
 //--
 
 

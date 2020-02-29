@@ -20,16 +20,16 @@
                     <label>Unidad</label>
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">flag</i></span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
+                        <div class="form-line"> 
+                            <select name="unidad" class="form-control"  id="unidades" required autofocus></select>
                         </div>
                     </div>
 
                     <label>Tipo</label>
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">merge_type</i></span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Tipo" id="tipo" name="tipo" required>
+                        <div class="form-line"> 
+                            <select name="tipo" class="form-control"  id="tipos" required autofocus></select>
                         </div>
                     </div>
 
@@ -62,8 +62,7 @@
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">people</i></span>
                         <div class="form-line">
-                            <select name="proveedor" class="form-control"  id="proveedores" required autofocus>
-                            </select>
+                            <select name="proveedor" class="form-control"  id="proveedores" required autofocus></select>
                         </div>
                     </div>
 
@@ -122,8 +121,21 @@
                 dataType:"json",
                 success:function(data) {
                     $('#descripcion').val(data.result.descripcion);
-                    $('#unidad').val(data.result.unidad);
-                    $('#tipo').val(data.result.tipo);
+
+                    $.get('unidades',function (unidades) {
+                        $('#unidades').empty();
+                        $.each(unidades,function(key, registro) {
+                            $('#unidades').append("<option value='" + registro.id + "'" + (provider == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
+                        });
+                    });
+
+                     $.get('tipos',function (tipos) {
+                        $('#tipos').empty();
+                        $.each(tipos,function(key, registro) {
+                            $('#tipos').append("<option value='" + registro.id + "'" + (provider == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
+                        });
+                    });
+
                     $('#marca').val(data.result.marca);
                     $('#existencias').val(data.result.existencias);
                     $('#precio_unitario').val(data.result.precio_unitario);
