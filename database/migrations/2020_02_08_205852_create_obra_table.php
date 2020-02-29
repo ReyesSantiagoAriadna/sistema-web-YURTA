@@ -19,6 +19,7 @@ class CreateObraTable extends Migration
             $table->double('lat', 20, 10);
             $table->double('lng', 20, 10);
             $table->date('fech_ini');
+            $table->date('fech_fin');
             $table->string('dependencia');
 
             $table->bigInteger('encargado')->unsigned()->index();

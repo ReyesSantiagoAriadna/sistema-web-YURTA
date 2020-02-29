@@ -16,7 +16,8 @@ class Proveedor extends Model
         return $this->hasMany(Material::class);
     }
 
-    protected $fillable = ['id','razon_social','telefono','direccion'];
+
+    protected $fillable = ['id','razon_social','email','telefono','direccion'];
 
   
 }
