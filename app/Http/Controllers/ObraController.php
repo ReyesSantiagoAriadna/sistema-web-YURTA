@@ -111,8 +111,8 @@ class ObraController extends Controller{
                $material_obra->save();
            }
        }
-
-       return view('obras')->back()->with('mensaje','Material agregado');
+       
+       return $this->mostrar();
    }
 
    public function mostrar_material_obra($id){
@@ -205,6 +205,10 @@ class ObraController extends Controller{
         $obras = App\Obra::all();
         $materiales =App\Material::all();
         return view('obras.presupuesto',compact('obras','materiales'));
+    }
+
+    public function materialObra($id){
+        return App\MaterialObra::where('id_obra', $id)->get();
     }
 }
 

@@ -57,7 +57,7 @@
                 </div>
 
                     <div class="table-responsive">
-                        <table id="tabla-materiales" class="display" style="width:100%">
+                        <table id="tabla-materiales" class="display" style="width:100%" >
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -82,7 +82,7 @@
                                 <th>Total</th>
                             </tr>
                             </tfoot>
-                            <tbody>
+                            <tbody id="result">
 
                             </tbody>
                         </table>
@@ -136,7 +136,35 @@
         </div>
     </div>
 
+          
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $(function(){
+           $('#proveedor').on('change', onSelectTabla);
+       });
+
+       function onSelectTabla() {
+           var obra_id = $(this).val();
+           //ajax
+           $.get('/materialPresupuesto/'+obra_id+, function (data){
+               var html_table = '';
+               for(var i=0; i<data.length; i++){
+                    html_table += '<tr>' +
+                                '<td>'+data[$i].id+ '</td>' +
+                                '<td>'+Descripción+'</td>'+
+                                '<td>'+Unidad+'</td>'+
+                                '<td>'+Tipo+'+</td>'+
+                                '<td>'+Marca+'</td>'+
+                                '<td>'+Precio compra+'</td>'+
+                                '<td>'+Cantidad+'</td>'+
+                                '<td>'+Total+'</td>'+
+                                '</tr>';
+                     $('#result').html(html_table);           
+               }
+           });
+       }
+   </script> 
 
     <script>
 
@@ -155,8 +183,10 @@
             $('#form_result').html('');
             $('#formModal').modal('show');
         });
-    </script>
+    </script> 
 @endsection
+ 
+
 
 
 

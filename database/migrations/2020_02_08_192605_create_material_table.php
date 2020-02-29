@@ -23,7 +23,7 @@ class CreateMaterialTable extends Migration
             $table->double('precio_unitario', 8, 2);
             $table->bigInteger('proveedor')->unsigned()->index();
             $table->timestamps();
-
+            
 
             $table->foreign('proveedor')
                 ->references('id')->on('proveedor')->onDelete('cascade');

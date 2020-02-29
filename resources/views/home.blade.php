@@ -37,7 +37,7 @@
                     </div>
                     <div class="content">
                         <div class="text">MATERIALES</div>
-                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
+                        <div class="number count-to" data-from="0" data-to="{{\App\Http\Controllers\MaterialController::countMateriales()}}" data-speed="1000" data-fresh-interval="20"></div>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="content">
                         <div class="text">EMPLEADOS</div>
-                        <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
+                        <div class="number count-to" data-from="0" data-to="{{\App\Http\Controllers\UsuarioController::countUsuarios()}}" data-speed="1000" data-fresh-interval="20"></div>
                     </div>
                 </div>
             </div>

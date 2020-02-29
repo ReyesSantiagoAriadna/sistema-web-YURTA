@@ -19,6 +19,12 @@ class UsuarioController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public static function countUsuarios(){
+        $usuarios = User::all()->count();
+        return $usuarios;
+    }
+
     public function inicio(){
         $usuarios=User::all();
         return view('usuarios.mostrar',['usuarios'=>$usuarios]);

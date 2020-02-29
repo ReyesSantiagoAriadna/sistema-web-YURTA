@@ -90,6 +90,7 @@ Route::post('/agregar_material_obra{id}','ObraController@agregarMaterial')->name
 
 
 Route::get('/presupuesto','ObraController@presupuesto')->name('obra.presupuesto');
+Route::get('/materialPresupuesto/{id}', 'ObraController@materialObra')->name('presupuesto.materialObra');
 
 
 
