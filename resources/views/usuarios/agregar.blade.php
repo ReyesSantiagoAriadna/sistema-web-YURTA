@@ -106,5 +106,5 @@
             </form>
         </div>
 
-        <script src="../../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+        <script src="plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
 @endsection
