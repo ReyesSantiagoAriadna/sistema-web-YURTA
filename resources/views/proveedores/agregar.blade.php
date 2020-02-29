@@ -4,6 +4,7 @@
 @section('contenido')
     <div class="card">
         <div class="header">
+            <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
             <h2>
                 PROVEEDOR
             </h2>
@@ -72,6 +73,29 @@
         </div>
         <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
 
-        <script src="../../js/pages/ui/dialogs.js"></script>--}}
+        <script src="../../js/pages/ui/dialogs.js"></script>--}} 
+
+<script>
+	@if(Session::has('message'))
+		var type="{{Session::get('alert-type','info')}}"
+
+	
+		switch(type){
+			case 'info':
+		         toastr.info("{{ Session::get('message') }}");
+		         break;
+	        case 'success':
+	            toastr.success("{{ Session::get('message') }}");
+	            break;
+         	case 'warning':
+	            toastr.warning("{{ Session::get('message') }}");
+	            break;
+	        case 'error':
+		        toastr.error("{{ Session::get('message') }}");
+		        break;
+		}
+	@endif
+</script>
+
 
 @endsection

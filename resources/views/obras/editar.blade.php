@@ -28,6 +28,16 @@
                         </div>
                     </div>
 
+                    <label>Fecha de termino</label>
+                    <div class="input-group input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">date_range</i>
+                    </span>
+                        <div class="form-line">
+                            <input  name="fech_fin" id="fech_fin" dtype="text" class="  datepicker form-control" placeholder="Fecha de inicio" required>
+                        </div>
+                    </div>
+
                     <label>Dependencia</label>
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">store_mall_directory</i></span>
@@ -134,6 +144,7 @@
                 success:function(data) {
                     $('#descripcion').val(data.result.descripcion);
                     $('#fech_ini').val(data.result.fech_ini);
+                    $('#fech_fin').val(data.result.fech_fin);
                     $('#dependencia').val(data.result.dependencia);
                     $('#lat').val(data.result.lat);
                     $('#lng').val(data.result.lng);

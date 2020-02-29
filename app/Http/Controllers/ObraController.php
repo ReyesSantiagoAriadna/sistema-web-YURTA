@@ -35,6 +35,7 @@ class ObraController extends Controller{
         $obra->lat=$request->lat;
         $obra->lng=$request->lng;
         $obra->fech_ini=$request->fech_ini;
+        $obra->fech_fin=$request->fech_fin;
         $obra->dependencia=$request->dependencia;
         $obra->encargado=$request->encargado;
         $obra->tipo_obra=$request->tipo_obra;

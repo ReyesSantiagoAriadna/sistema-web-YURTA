@@ -36,7 +36,7 @@
                 @csrf
                 <h1 class="card-inside-title">Datos del empleado</h1>
                 <div style="float:left">
-                    <label id="alert-name" class="font-bold col-pink" for="name">* Campo Obligatorio</label>
+                    <label id="alert-name" class="font-bold col-pink" for="name">* Campos Obligatorios</label>
                 </div>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -48,9 +48,9 @@
                     </div>
                     <small>
                         <label id="alert-name" class="font-bold col-pink" for="name">*</label>
-                    </small>
-                   
+                    </small>                   
                 </div>
+
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">email</i>
@@ -59,7 +59,7 @@
                         <input type="email" class="form-control" placeholder="Correo" id="email" name="email" required>
                     </div>
                     <small>
-                        <label id="alert-name" class="font-bold col-pink" for="name">*</label>
+                        <label id="alert-name" class="font-bold col-pink" for="email">*</label>
                     </small>
                 </div>
 
@@ -77,7 +77,7 @@
                         @endif
                     </div>
                     <small>
-                        <label id="alert-name" class="font-bold col-pink" for="name">* Campo Obligatorio</label>
+                        <label id="alert-name" class="font-bold col-pink" for="password">*</label>
                     </small>
                 </div>
                 <div class="input-group input-group-lg">
@@ -88,7 +88,7 @@
                         <input type="password" class="form-control" placeholder="Confirmar la contraseña" id="password-confirm" name="password_confirmation" required>
                     </div>
                     <small>
-                        <label id="alert-name" class="font-bold col-pink" for="name">* Campo Obligatorio</label>
+                        <label id="alert-name" class="font-bold col-pink" for="password-confirm">*</label>
                     </small>
                 </div>
 
@@ -100,7 +100,7 @@
                         <input type="tel" class="form-control" placeholder="Teléfono" id="telefono" name="telefono" required>
                     </div>
                     <small>
-                        <label id="alert-name" class="font-bold col-pink" for="name">* Campo Obligatorio</label>
+                        <label id="alert-name" class="font-bold col-pink" for="telefono">*</label>
                     </small>
                 </div>
 
@@ -118,7 +118,7 @@
                         </select>   
                     </div>
                     <small>
-                        <label id="alert-name" class="font-bold col-pink" for="name">* Campo Obligatorio</label>
+                        <label id="alert-name" class="font-bold col-pink" for="puesto">*</label>
                     </small>
                 </div>
               <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>

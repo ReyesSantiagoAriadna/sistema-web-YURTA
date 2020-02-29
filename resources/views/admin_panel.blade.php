@@ -362,12 +362,14 @@
                         <span>Empleados</span>
                     </a>
                     <ul class="ml-menu">
-                        <li class="{{ $nav_empleados_mostrar or ''  }}">
-                            <a  href="{{route('usuarios')}}">Mostrar</a>
-                        </li>
                         <li class="{{ $nav_empleados_agregar or ''  }}">
                             <a href="{{route('usuarios.add')}}">Nuevo</a>
                         </li>
+
+                        <li class="{{ $nav_empleados_mostrar or ''  }}">
+                            <a  href="{{route('usuarios')}}">Mostrar</a>
+                        </li>
+                       
                     </ul>
                 </li>
                 <li class="{{ $nav_obras or ''  }}">
@@ -376,6 +378,9 @@
                         <span>Obras</span>
                     </a>
                     <ul class="ml-menu">
+                        <li class="{{ $nav_obras_agregar or ''  }}">
+                            <a href="{{route('obra.agregar')}}">Nuevo</a>
+                        </li>
                         <li class="{{ $nav_obras_mostrar or ''  }}">
                             <a href="{{route('obras')}}" >Mostrar</a>
                             <ul class="ml-menu">
@@ -387,9 +392,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="{{ $nav_obras_agregar or ''  }}">
-                            <a href="{{route('obra.agregar')}}">Nuevo</a>
-                        </li>
+                        
 
                         <li class="{{ $nav_obras_presupuesto or ''  }}">
                             <a href="{{route('obra.presupuesto')}}">Presupuesto</a>
@@ -405,12 +408,13 @@
                         <span>Materiales</span>
                     </a>
                     <ul class="ml-menu">
-                        <li class="{{ $nav_materiales_mostrar or ''  }}">
-                            <a href="{{route('materiales')}}">Mostrar</a>
-                        </li>
                         <li class="{{ $nav_materiales_agregar or ''  }}">
                             <a href="{{route('material_agregar')}}">Nuevo</a>
                         </li>
+                        <li class="{{ $nav_materiales_mostrar or ''  }}">
+                            <a href="{{route('materiales')}}">Mostrar</a>
+                        </li>
+                        
                     </ul>
                 </li>
 
@@ -420,12 +424,13 @@
                         <span>Proveedores</span>
                     </a>
                     <ul class="ml-menu">
-                        <li class="{{ $nav_proveedores_mostrar or ''  }}">
-                            <a href="{{route('proveedores')}}">Mostrar</a>
-                        </li>
                         <li class="{{ $nav_proveedores_agregar or ''  }}">
                             <a href="{{route('proveedor>agregar')}}">Nuevo</a>
                         </li>
+                        <li class="{{ $nav_proveedores_mostrar or ''  }}">
+                            <a href="{{route('proveedores')}}">Mostrar</a>
+                        </li>
+                        
                     </ul>
                 </li>
 

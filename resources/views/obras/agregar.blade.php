@@ -51,7 +51,15 @@
                     </div>
                 </div>
 
-
+                <label>Fecha de termino</label>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">date_range</i>
+                    </span>
+                    <div class="form-line">
+                        <input  name="fech_fin" id="fech_fin" dtype="text" class="  datepicker form-control" placeholder="Fecha de termino" required>
+                    </div>
+                </div>
 
                 <label>Descripción</label>
                 <div class="input-group input-group-lg">
@@ -161,5 +169,9 @@
     <script>
         $('#fech_ini').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false,});
     </script>
+
+<script>
+    $('#fech_fin').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false,});
+</script>
 
 @endsection

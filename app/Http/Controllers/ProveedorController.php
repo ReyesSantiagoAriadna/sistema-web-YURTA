@@ -36,9 +36,15 @@ class ProveedorController extends Controller
         $proveedor->telefono = $request->telefono;
         $proveedor->email = $request->email;
         $proveedor->direccion = $request->direccion;
+
+        echo 'success';
+        $notificacion = array(            
+            'message' => 'Proveedor agregado correctamente ',
+            'alert-typo' => 'success'
+        );
                 
         $proveedor->save();
-        return back()->with('mensaje','Proveedor agregado correctamente');
+        return back()->with('notificacion');
     }
 
     public function editar($id){

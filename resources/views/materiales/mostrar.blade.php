@@ -46,11 +46,11 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Descripción</th>
-                        <th>Unidad</th>
+                        <th>Descripción</th>                        
                         <th>Tipo</th>
                         <th>Marca</th>
                         <th>Existencias</th>
+                        <th>Unidad</th>
                         <th>Precio compra</th>
                         <th>Proveedor</th>
                         <th>Acciones</th>
@@ -59,11 +59,11 @@
                     <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Descripción</th>
-                        <th>Unidad</th>
+                        <th>Descripción</th>                        
                         <th>Tipo</th>
                         <th>Marca</th>
                         <th>Existencias</th>
+                        <th>Unidad</th>
                         <th>Precio compra</th>
                         <th>Proveedor</th>
                         <th>Acciones</th>
@@ -73,11 +73,11 @@
                     @foreach($materiales as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->descripcion}}</td>
-                            <td>{{$item->unidad}}</td>
+                            <td>{{$item->descripcion}}</td>                            
                             <td>{{$item->tipo}}</td>
                             <td>{{$item->marca}}</td>
                             <td>{{$item->existencias}}</td>
+                            <td>{{$item->unidad}}</td>
                             <td>{{$item->precio_unitario}}</td>
                             <td>{{$item->proveedor}}</td>
                             <td>

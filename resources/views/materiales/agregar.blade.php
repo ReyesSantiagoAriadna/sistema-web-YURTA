@@ -69,6 +69,21 @@
                         <input type="tel" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
                     </div>
                 </div>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">people</i>
+                    </span>
+                    <div class="form-line">
+                        <select name="unidad" class="form-control" id="unidad" required autofocus>
+                            <option value="">Seleccione el tipo de material</option>
+                            @foreach ($tipos as $tipo)
+                                <option value="{{$tipo['id']}}">{{$tipo['descripcion']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">assignment</i>
