@@ -86,7 +86,6 @@ class ObraController extends Controller{
     public function eliminar($id){
         $obraElimnar = App\Obra::findOrFail($id);
         $obraElimnar->delete();
-
         return back()->with('mensaje','Obra eliminada');
     }
 

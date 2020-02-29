@@ -28,7 +28,7 @@
                 <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
             </ol>
 
-            <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="send1()">
+
             <form method="POST" action="{{ route('material_agregar') }}" id="formenvio_1">
                 @csrf
                 <h2 class="card-inside-title">Datos del material</h2>
@@ -37,18 +37,12 @@
                         <i class="material-icons">description</i>
                     </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" required>
+                        <input type="text" class="form-control" placeholder="Descripción"
+                               id="descripcion" name="descripcion" required>
                     </div>
                 </div>
 
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon">
-                        <i class="material-icons">flag</i>
-                    </span>
-                    <div class="form-line">
-                        <input type="tel" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
-                    </div>
-                </div>
+
 
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -67,13 +61,20 @@
                         <input type="text" class="form-control" placeholder="Marca" id="marca" name="marca" required>
                     </div>
                 </div>
-
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">flag</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="tel" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
+                    </div>
+                </div>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">assignment</i>
                     </span>
                     <div class="form-line">
-                        <input type="number" class="form-control" placeholder="Existencias" id="existencias" name="existencias" required>
+                        <input type="number" class="form-control" placeholder="Cantidad" id="existencias" name="existencias" required>
                     </div>
                 </div>
 
@@ -103,30 +104,35 @@
 
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
-                        <i class="material-icons">add_photo_aternate</i>
+                        <i class="material-icons">add_a_photo</i>
                     </span>
                     <div class="form-line">
-                       {{-- <input type="file" class="form-control" placeholder="Imagen" id="upload-file-selector"
-                           accept="image/x-png,image/gif,image/jpeg"     name="file" required>--}}
-                        <input type="file" id="upload-file-selector" required>
+                        <input type="file" id="upload-file-selector" class="form-control"  onchange="readURL(this);" required>
                     </div>
                 </div>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                    </span>
+                    <div class="form-line">
+                        <img id="blah" src="#" alt="imagen" />
+                    </div>
+                </div>
+
 
                 <input type="hidden" name="url" id="url">
 {{--                <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>--}}
             </form>
-
+            <br>
+            <br>
+            <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="saveimg()">
         </div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-app.js"></script>
 
-
-
-        <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-storage.js"></script>
-
+        <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-storage.js"></script>
         <script>
             // Your web app's Firebase configuration
-            var firebaseConfig = {
+            const firebaseConfig = {
                 apiKey: "AIzaSyB3_eHqhTh_OHewWL1Mg3YvxDMMWrn9w_Q",
                 authDomain: "yurta-b4d1d.firebaseapp.com",
                 databaseURL: "https://yurta-b4d1d.firebaseio.com",
@@ -138,16 +144,28 @@
             };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
-            firebase.analytics();
+            // firebase.analytics();
         </script>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#blah')
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+        </script>
+
         <script type="text/javascript">
-
-                function send1(){
-
-                console.log("Entrando a Send1");
-                var ref = firebase.storage().ref();
+                function saveimg(){
+                var ref = firebase.storage().ref('/materiales/');
                 var button = document.getElementById("upload-file-selector");
-
                 const file = button.files[0];
                 const name = (+new Date()) + '-' + file.name;
                 const metadata = { contentType: file.type };

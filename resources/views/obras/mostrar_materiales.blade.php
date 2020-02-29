@@ -17,8 +17,8 @@
                 <div class="card-body">
                     @if(session('mensaje'))
                         <div class="alert-success">{{session('mensaje')}}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"/>
+                                <span aria-hidden="true">&times</span>
                         </div>
                     @endif
  

@@ -12,7 +12,8 @@ class Material extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['id','descripcion','unidad','tipo','marca','existencias','precio_unitario','proveedor'];
+    protected $fillable = ['id','descripcion','unidad','tipo','marca','existencias','precio_unitario'
+        ,'proveedor','url_imagen'];
 
 
 }

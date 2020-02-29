@@ -48,6 +48,15 @@
 
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
+                        <i class="material-icons">email</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="email" class="form-control" placeholder="Correo" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
                         <i class="material-icons">add_location</i>
                     </span>
                     <div class="form-line">

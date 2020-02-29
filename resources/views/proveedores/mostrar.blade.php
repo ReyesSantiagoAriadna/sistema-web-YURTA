@@ -36,6 +36,7 @@
                         <th>#</th>
                         <th>Razón Social</th>
                         <th>Teléfono</th>
+                        <th>Email</th>
                         <th>Dirección</th>
                         <th>Acciones</th>
                     </tr>
@@ -45,6 +46,7 @@
                         <th>#</th>
                         <th>Razón Social</th>
                         <th>Teléfono</th>
+                        <th>Email</th>
                         <th>Dirección</th>
                         <th>Acciones</th>
                     </tr>
@@ -55,6 +57,7 @@
                             <td>{{$item->id}}</td>
                             <td>{{$item->razon_social}}</td>
                             <td>{{$item->telefono}}</td>
+                            <td>{{$item->email}}</td>
                             <td>{{$item->direccion}}</td>
                             <td>
                                 <button  title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"

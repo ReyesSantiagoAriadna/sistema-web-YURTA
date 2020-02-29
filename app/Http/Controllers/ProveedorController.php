@@ -24,17 +24,19 @@ class ProveedorController extends Controller
 
     public function crear_proveedores(Request $request){ 
 
-        $request->validate([
+      /*  $request->validate([
             'razon_social'=>'required',
             'telefono'=>'required',
+            'email' => 'required',
             'direccion'=>'required'
-        ]);
+        ]);*/
         $proveedores = App\Proveedor::all();
         $proveedor = new App\Proveedor;
         $proveedor->razon_social = $request->razon_social;
         $proveedor->telefono = $request->telefono;
+        $proveedor->email = $request->email;
         $proveedor->direccion = $request->direccion;
-
+                
         $proveedor->save();
         return back()->with('mensaje','Proveedor agregado correctamente');
     }
@@ -48,9 +50,10 @@ class ProveedorController extends Controller
         $proveedorActualizar = App\Proveedor::find($id);
         $proveedorActualizar->razon_social = $request->razon_social;
         $proveedorActualizar->telefono = $request->telefono;
+        $proveedorActualizar->email = $request->email;
         $proveedorActualizar->direccion = $request->direccion;
         $proveedorActualizar->save();
-        $proveedores = App\PRoveedor::all();
+        $proveedores = App\Proveedor::all();
         return view('proveedores.mostrar', compact('proveedores'))->with('mensaje', 'Proveedor Actualizado');
     }
 

@@ -125,5 +125,5 @@ Route::post('/confirmar_material', 'PedidosController@confirmarMaterial' )->name
 Route::post('/confirmar_pedido', 'PedidosController@confirmarPedido' )->name('confirmar.pedido'); 
 
 /*rutas prueba*/
-Route::view('/vista','obras.detalle');
+
 Route::get('/pruebas/view','PedidosController@view');

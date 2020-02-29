@@ -25,6 +25,14 @@
                         </div>
                     </div>
 
+                    <label>Correo</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">email</i></span>
+                        <div class="form-line">
+                            <input type="email" class="form-control" placeholder="Correo" id="email" name="email" required>
+                        </div>
+                    </div>
+
                     <label>Dirección</label>
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">add_location</i></span>
@@ -86,6 +94,7 @@
                 success:function(data) {
                     $('#razon_social').val(data.result.razon_social);
                     $('#telefono').val(data.result.telefono);
+                    $('#email').val(data.result.email);
                     $('#direccion').val(data.result.direccion);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Editar Registro');

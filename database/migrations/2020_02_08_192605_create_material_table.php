@@ -22,15 +22,12 @@ class CreateMaterialTable extends Migration
             $table->integer('existencias');
             $table->double('precio_unitario', 8, 2);
             $table->bigInteger('proveedor')->unsigned()->index();
+            $table->string('url_imagen');
             $table->timestamps();
-            
 
             $table->foreign('proveedor')
                 ->references('id')->on('proveedor')->onDelete('cascade');
         });
-
-
-
     }
 
     /**
