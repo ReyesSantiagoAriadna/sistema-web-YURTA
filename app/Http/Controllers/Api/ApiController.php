@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
+use Illuminate\Http\Response;
 
 use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -156,25 +156,35 @@ class ApiController extends Controller
 
     public function obrasPedidos(Request $request){
         $empleado = $request->id;
-        $response['pedidos']=
+        $response=
             Obra::where('encargado',"=",$empleado)
             ->join('pedido','obra.id','=','pedido.obra')
             ->select('pedido.id','pedido.fecha_p','pedido.fecha_conf','pedido.estado','pedido.obra')
             ->get();
-        return $response;
+        $error=false;
+        if($response->isEmpty())
+            $error=true;
+        //return response()->json(['pedidos'=>$response,'error'=>$error]);
+        return response()->json(['pedidos'=>$response]);
     }
+
 
     public function detallesPedidos(Request $request){
         $empleado = $request->id;
-        $response['det_pedidos']=
+        $response=
             Obra::where('encargado',"=",$empleado)
                 ->join('pedido','obra.id','=','pedido.obra')
                 ->join('det_ped','pedido.id','=','det_ped.id_pedido')
-                ->join('material','det_ped.material','=','material.id')
-                ->select('det_ped.cantidad','det_ped.id_pedido','det_ped.material as id_material',
+                ->join('material','det_ped.ped_material','=','material.id')
+                ->select('det_ped.cantidad','det_ped.id_pedido','det_ped.ped_material as id_material',
                     'material.descripcion','material.unidad','material.marca','material.url_imagen')
                 ->get();
-        return $response;
+        $error=false;
+        if($response->isEmpty())
+            $error=true;
+       // return response()->json(['det_pedidos'=>$response,'error'=>$error]);
+
+        return response()->json(['det_pedidos'=>$response]);
     }
 }
 
