@@ -192,14 +192,22 @@ class ApiController extends Controller
 
     public function addPedido(Request $request){
         $status_default='0';
-        $date = '0000-00-00 00:00:00';
+
         $pedidoNuevo = new Pedido(); //Carbon::now('America/Montreal');;
        // $pedidoNuevo->fecha_p = Carbon::now('America/Chicago');
-        $pedidoNuevo->fecha_p = Carbon::now('America/Mexico_City');
+        $pedidoNuevo->fecha_p = Carbon::now('America/Mexico_City')->toDateString();
         $pedidoNuevo->fecha_conf = $request->fecha_conf;
         $pedidoNuevo->estado = $status_default;
         $pedidoNuevo->obra = $request->obra;
         $pedidoNuevo->save();
+
+        return response()->json([
+            'id' =>$pedidoNuevo->id,
+            'fecha_p' => $pedidoNuevo->fecha_p,
+            'fecha_conf' => $pedidoNuevo->fecha_conf,
+            'estado'=>$pedidoNuevo->estado,
+            'obra'=>$pedidoNuevo->obra
+        ]);
     }
 
     public function addDetallePedido(Request $request){
