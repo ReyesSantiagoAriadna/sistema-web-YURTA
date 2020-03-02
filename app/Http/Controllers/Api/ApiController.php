@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
+use PhpParser\Node\Stmt\TryCatch;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Response;
 
@@ -230,10 +231,18 @@ class ApiController extends Controller
             $detail->save();
         }*/
         //$response['values']="";
-        $request['detalles_pedido']->each(function($item, $key){
-         //   $response->compact( $item['id']);
 
-        });
+
+        try {
+            $request['detalles_pedido']->each(function($item, $key){
+
+
+            });
+        } catch (Exception $e) {
+            report($e);
+
+            return $e->getMessage();
+        }
 
        // return $response;
     }
