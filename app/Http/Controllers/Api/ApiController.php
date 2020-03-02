@@ -231,9 +231,9 @@ class ApiController extends Controller
         }*/
         //$response['values']="";
 
-        $pos1 = $request->input('detalles_pedido.0');
+        $pos1 = $request->input('detalles_pedido.0.cantidad');
 
-        return response()->json(['devolucion'=>$pos1->cantidad]);
+        return response()->json(['devolucion'=>$pos1]);
        /* try {
             $request['detalles_pedido']->each(function($item, $key){
 
