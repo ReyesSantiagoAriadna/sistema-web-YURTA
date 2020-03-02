@@ -24,14 +24,14 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
     Route::post('add_pedido','Api\ApiController@addPedido');
-    Route::post('add_det_pedido','Api\ApiController@addDetallePedido');
+
 
 
     Route::post('logout', 'Api\ApiController@logout')->name('logout');
 });
 
 
-
+Route::post('add_det_pedido','Api\ApiController@addDetallePedido');
 
 
 Route::get('login', 'Api\ApiController@login');

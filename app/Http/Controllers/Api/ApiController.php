@@ -211,11 +211,19 @@ class ApiController extends Controller
     }
 
     public function addDetallePedido(Request $request){
-        $detalle = new DetallePedido();
-        $detalle->cantidad = $request->cantidad;
-        $detalle->id_pedido = $request->id_pedido;
-        $detalle->ped_material = $request->id_material;
-        $detalle->save();
+       // $detalle = new DetallePedido();
+        //$detalle->cantidad = $request->cantidad;
+        //$detalle->id_pedido = $request->id_pedido;
+        //$detalle->ped_material = $request->id_material;
+        //$detalle->save();
+        $detalles = $_POST['detalles_pedido'];
+        for ($i=0; $i < sizeof($detalles); $i++) {
+            $detail = new DetallePedido();
+            $detail->cantidad = $detalles[i]->cantidad;
+            $detail->id_pedido = $detalles[i]->id_pedido;
+            $detail->ped_material = $detalles[i]->id_material;
+            $detail->save();
+        }
     }
 }
 
