@@ -229,13 +229,13 @@ class ApiController extends Controller
             $detail->ped_material = $detalles[i]->id_material;
             $detail->save();
         }*/
-        $response['values']="";
-        $request['detalles_pedido']->each(function($item, $key) use ($response){
-            $response->compact( $item['id']);
+        //$response['values']="";
+        $request['detalles_pedido']->each(function($item, $key){
+         //   $response->compact( $item['id']);
 
         });
 
-        return $response;
+       // return $response;
     }
 }
 
