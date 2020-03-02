@@ -232,8 +232,8 @@ class ApiController extends Controller
         }*/
         //$response['values']="";
 
-
-        try {
+        return response()->json(['entra'=>'entra']);
+       /* try {
             $request['detalles_pedido']->each(function($item, $key){
 
 
@@ -243,7 +243,7 @@ class ApiController extends Controller
             report($e);
 
             return response()->json(['mal'=>'mal']);
-        }
+        }*/
     }
 }
 
