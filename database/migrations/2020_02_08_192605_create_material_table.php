@@ -22,7 +22,9 @@ class CreateMaterialTable extends Migration
             $table->integer('cantidad_minima')->default('3')->nullable();
             $table->double('precio_unitario', 8, 2);
             $table->bigInteger('proveedor')->unsigned()->index();
-            $table->string('url_imagen')->nullable();
+            $table->string('url_imagen')
+                ->default('https://firebasestorage.googleapis.com/v0/b/yurta-b4d1d.appspot.com/o/materiales%2Fplace_holder_material.png?alt=media&token=4f97345f-922c-45cc-bb71-e45d9ba6be81')
+                ->nullable();
             $table->timestamps();
             $table->foreign('proveedor')
                 ->references('id')->on('proveedor')->onDelete('cascade');

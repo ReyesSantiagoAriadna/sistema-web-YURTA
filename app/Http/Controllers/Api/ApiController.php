@@ -4,17 +4,19 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\DetallePedido;
 use App\Material;
 use App\MaterialObra;
 use App\Obra;
 use App\Pedido;
 use App\TipoObra;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
+use Illuminate\Http\Response;
 
 use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -156,25 +158,76 @@ class ApiController extends Controller
 
     public function obrasPedidos(Request $request){
         $empleado = $request->id;
-        $response['pedidos']=
+        $response=
             Obra::where('encargado',"=",$empleado)
             ->join('pedido','obra.id','=','pedido.obra')
             ->select('pedido.id','pedido.fecha_p','pedido.fecha_conf','pedido.estado','pedido.obra')
             ->get();
-        return $response;
+        $error=false;
+        if($response->isEmpty())
+            $error=true;
+        //return response()->json(['pedidos'=>$response,'error'=>$error]);
+        return response()->json(['pedidos'=>$response]);
     }
+
 
     public function detallesPedidos(Request $request){
         $empleado = $request->id;
-        $response['det_pedidos']=
+        $response=
             Obra::where('encargado',"=",$empleado)
                 ->join('pedido','obra.id','=','pedido.obra')
                 ->join('det_ped','pedido.id','=','det_ped.id_pedido')
-                ->join('material','det_ped.material','=','material.id')
-                ->select('det_ped.cantidad','det_ped.id_pedido','det_ped.material as id_material',
+                ->join('material','det_ped.ped_material','=','material.id')
+                ->select('det_ped.cantidad','det_ped.id_pedido','det_ped.ped_material as id_material',
                     'material.descripcion','material.unidad','material.marca','material.url_imagen')
                 ->get();
-        return $response;
+        $error=false;
+        if($response->isEmpty())
+            $error=true;
+       // return response()->json(['det_pedidos'=>$response,'error'=>$error]);
+
+        return response()->json(['det_pedidos'=>$response]);
+    }
+
+
+    public function addPedido(Request $request){
+        $status_default='0';
+
+        $pedidoNuevo = new Pedido(); //Carbon::now('America/Montreal');;
+       // $pedidoNuevo->fecha_p = Carbon::now('America/Chicago');
+        $pedidoNuevo->fecha_p = Carbon::now('America/Mexico_City')->toDateString();
+        $pedidoNuevo->fecha_conf = $request->fecha_conf;
+        $pedidoNuevo->estado = $status_default;
+        $pedidoNuevo->obra = $request->obra;
+        $pedidoNuevo->save();
+
+        return response()->json([
+            'id' =>$pedidoNuevo->id,
+            'fecha_p' => $pedidoNuevo->fecha_p,
+            'fecha_conf' => $pedidoNuevo->fecha_conf,
+            'estado'=>$pedidoNuevo->estado,
+            'obra'=>$pedidoNuevo->obra
+        ]);
+    }
+
+    public function addDetallePedido(Request $request){
+       // $detalle = new DetallePedido();
+        //$detalle->cantidad = $request->cantidad;
+        //$detalle->id_pedido = $request->id_pedido;
+        //$detalle->ped_material = $request->id_material;
+        //$detalle->save();
+        $detalles = $request->detalles_pedido;
+        $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
+
+        return  $input;
+        /*for ($i=0; $i < sizeof($detalles); $i++) {
+            $detail = new DetallePedido();
+            $detail->cantidad = $detalles[i]->cantidad;
+            $detail->id_pedido = $detalles[i]->id_pedido;
+            $detail->ped_material = $detalles[i]->id_material;
+            $detail->save();
+        }*/
+
     }
 }
 
