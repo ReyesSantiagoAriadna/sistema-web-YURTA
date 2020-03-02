@@ -216,7 +216,7 @@ class ApiController extends Controller
         //$detalle->id_pedido = $request->id_pedido;
         //$detalle->ped_material = $request->id_material;
         //$detalle->save();
-        $detalles = $_POST['detalles_pedido'];
+        $detalles = $request->detalles_pedido;
         for ($i=0; $i < sizeof($detalles); $i++) {
             $detail = new DetallePedido();
             $detail->cantidad = $detalles[i]->cantidad;
