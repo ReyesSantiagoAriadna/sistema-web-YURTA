@@ -4,11 +4,13 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\DetallePedido;
 use App\Material;
 use App\MaterialObra;
 use App\Obra;
 use App\Pedido;
 use App\TipoObra;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -185,6 +187,27 @@ class ApiController extends Controller
        // return response()->json(['det_pedidos'=>$response,'error'=>$error]);
 
         return response()->json(['det_pedidos'=>$response]);
+    }
+
+
+    public function addPedido(Request $request){
+        $status_default='0';
+        $date = '0000-00-00 00:00:00';
+        $pedidoNuevo = new Pedido(); //Carbon::now('America/Montreal');;
+       // $pedidoNuevo->fecha_p = Carbon::now('America/Chicago');
+        $pedidoNuevo->fecha_p = Carbon::now('America/Mexico_City');
+        $pedidoNuevo->fecha_conf = $request->fecha_conf;
+        $pedidoNuevo->estado = $status_default;
+        $pedidoNuevo->obra = $request->obra;
+        $pedidoNuevo->save();
+    }
+
+    public function addDetallePedido(Request $request){
+        $detalle = new DetallePedido();
+        $detalle->cantidad = $request->cantidad;
+        $detalle->id_pedido = $request->id_pedido;
+        $detalle->ped_material = $request->id_material;
+        $detalle->save();
     }
 }
 

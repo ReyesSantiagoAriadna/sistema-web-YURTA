@@ -43,7 +43,6 @@ class PedidosController extends Controller
         $pedidoNuevo->estado = $request->estado;
         $pedidoNuevo->obra = $request->obra;
         $pedidoNuevo->save();
-
         return back()->with('mensaje','Pedido agregado');
     }
 
