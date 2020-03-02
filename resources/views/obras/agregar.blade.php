@@ -19,6 +19,16 @@
             </ul>
         </div>
         <div class="body">
+            @if(count($errors) > 0)
+            <div class="errors">
+                <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        @endif
+    
             <ol class="breadcrumb breadcrumb-col-orange">
                 <li><a href="javascript:void(0);"><i class="material-icons">local_convenience_store</i> Obras</a></li>
                 <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
@@ -26,6 +36,8 @@
             <form method="POST" action="{{ route('obra>add') }}">
                 @csrf
                 <h2 class="card-inside-title">Datos de la obra</h2>
+                <div id="alert-name" class="font-bold col-grey" for="name">* Campos Obligatorios</div>
+                
                 <label>Tipo de obra</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -39,6 +51,7 @@
                             @endforeach
                         </select>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <label>Fecha de inicio</label>
@@ -49,6 +62,7 @@
                     <div class="form-line">
                         <input  name="fech_ini" id="fech_ini" dtype="text" class="  datepicker form-control" placeholder="Fecha de inicio" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <label>Fecha de termino</label>
@@ -59,6 +73,7 @@
                     <div class="form-line">
                         <input  name="fech_fin" id="fech_fin" dtype="text" class="  datepicker form-control" placeholder="Fecha de termino" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <label>Descripción</label>
@@ -69,7 +84,9 @@
                     <div class="form-line">
                         <input type="text" class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
+
                 <label>Dependencia</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -79,7 +96,9 @@
                         <input type="text" class="form-control" placeholder="Dependencia" id="dependencia"
                                name="dependencia" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
+
                 <label>Residente de obra</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -93,7 +112,9 @@
                             @endforeach
                         </select>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
+
                 <label>Ubicación</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -109,7 +130,10 @@
                     <div class="form-line">
                         <div  id="map-canvas"></div>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
+                
+                
 
                 <input name="lat"  type="hidden"  class="form-control input-group-sm" id="lat" value="">
                 <input name="lng" type="hidden" class="form-control input-group-sm" id="lng" value="">
@@ -167,11 +191,13 @@
     <script src="js/pages/forms/basic-form-elements.js"></script>
 
     <script>
-        $('#fech_ini').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false,});
+        var date = new Date(); 
+        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
+        $('#fech_ini').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false, minDate: today });
     </script>
 
 <script>
-    $('#fech_fin').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false,});
+    $('#fech_fin').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false, minDate: moment()});
 </script>
 
 @endsection

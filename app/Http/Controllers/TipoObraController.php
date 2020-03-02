@@ -24,16 +24,12 @@ class TipoObraController extends Controller{
         $tipo=new App\TipoObra();
         $tipo->descripcion=$request->descripcion;
         $tipo->save();
-
-
-
-        //$tipos=App\TipoObra::all();
-        //return view('tipo_obra.mostrar',['tipo'=>$tipos])->with('mensaje','Registro agregado');
+ 
     }
 
     public function  editar($id){
         $tipo=App\TipoObra::findOrfail($id);
-        return view('tipo_obra.editar',['tipo'=>$tipo]);
+        return view('tipo_obra.editar',compact('tipo'));
     }
     public function update(Request $request,$id){
         $tipoUpdate=App\TipoObra::findOrfail($id);

@@ -2,8 +2,8 @@
 
 
 namespace App\Http\Controllers;
-
-
+ 
+use App\Http\Requests\UsersRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +37,7 @@ class UsuarioController extends Controller
     public function perfil(){
         return view('usuarios.perfil');
     }
-    public function add(Request $request){
+    public function add(UsersRequest $request){
         $usuario=new User();
         $usuario->name=$request->name;
         $usuario->email=$request->email;
@@ -58,7 +58,7 @@ class UsuarioController extends Controller
         $usuario=User::findOrfail($id);
         return view('usuarios.editar',['usuario'=>$usuario]);
     }
-    public function update(Request $request,$id){
+    public function update(UsersRequest $request,$id){
         $usuarioUpdate=User::findOrfail($id);
         $usuarioUpdate->name=$request->name;
         $usuarioUpdate->email=$request->email;

@@ -414,6 +414,12 @@
                         <li class="{{ $nav_materiales_mostrar or ''  }}">
                             <a href="{{route('materiales')}}">Mostrar</a>
                         </li>
+                        <li class="{{ $nav_materiales_mostrar_tipos or ''  }}">
+                            <a href="{{route('tipo_materiales')}}">Tipo de material</a>
+                        </li>
+                        <li class="{{ $nav_materiales_mostrar_unidades or ''  }}">
+                            <a href="{{route('unidad_materiales')}}">Unidad de material</a>
+                        </li>
                         
                     </ul>
                 </li>

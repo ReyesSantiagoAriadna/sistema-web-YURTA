@@ -2835,7 +2835,7 @@ section.content {
   border-radius: 2px; }
   .card .card-inside-title {
     margin-top: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     display: block;
     font-size: 15px;
     color: #000; }
@@ -5025,7 +5025,8 @@ section.content {
   .input-group .help-info {
     float: right;
     font-size: 12px;
-    margin-top: 5px;
+    margin-top: 2px;
+    padding: 0;
     color: #999; }
   .input-group label.error {
     font-size: 12px;

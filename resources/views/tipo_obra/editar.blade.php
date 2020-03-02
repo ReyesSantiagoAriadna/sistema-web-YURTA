@@ -101,6 +101,10 @@
                 "                                </tr>");
         });
 
+        $('#create_record').click(function){
+            var datos= $(#)
+        }
+
         $('#create_record').click(function(){
             $('.modal-title').text('Agregar Tipo de Obra');
             $('#action_button').val('Agregar');
