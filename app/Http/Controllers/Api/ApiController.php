@@ -217,13 +217,17 @@ class ApiController extends Controller
         //$detalle->ped_material = $request->id_material;
         //$detalle->save();
         $detalles = $request->detalles_pedido;
-        for ($i=0; $i < sizeof($detalles); $i++) {
+        $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
+
+        return  $input;
+        /*for ($i=0; $i < sizeof($detalles); $i++) {
             $detail = new DetallePedido();
             $detail->cantidad = $detalles[i]->cantidad;
             $detail->id_pedido = $detalles[i]->id_pedido;
             $detail->ped_material = $detalles[i]->id_material;
             $detail->save();
-        }
+        }*/
+
     }
 }
 
