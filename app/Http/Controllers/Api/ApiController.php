@@ -232,6 +232,13 @@ class ApiController extends Controller
         //$response['values']="";
 
         $pos1 = $request->input('detalles_pedido.0.cantidad');
+        $detalle = new DetallePedido();
+        $detalle->cantidad = $request->input('detalles_pedido.0.cantidad');
+        $detalle->id_pedido = $request->input('detalles_pedido.0.id_pedido');
+        $detalle->ped_material = $request->input('detalles_pedido.0.id_material');
+        $detalle->save();
+
+
 
         return response()->json(['devolucion'=>$pos1]);
        /* try {
