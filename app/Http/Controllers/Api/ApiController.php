@@ -232,7 +232,7 @@ class ApiController extends Controller
         }*/
         //$response['values']="";
 
-        return response()->json(['entra'=>'entra']);
+        return response()->json(['devolucion'=>$request]);
        /* try {
             $request['detalles_pedido']->each(function($item, $key){
 
