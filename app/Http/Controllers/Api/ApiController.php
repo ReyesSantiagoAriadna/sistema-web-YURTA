@@ -216,18 +216,26 @@ class ApiController extends Controller
         //$detalle->id_pedido = $request->id_pedido;
         //$detalle->ped_material = $request->id_material;
         //$detalle->save();
-        $detalles = $request->detalles_pedido;
-        $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
+        //$detalles = $request->detalles_pedido;
+       /* $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
+
+
 
         return  $input;
-        /*for ($i=0; $i < sizeof($detalles); $i++) {
+        for ($i=0; $i <  $request->input('detalles_pedido.0'); $i++) {
             $detail = new DetallePedido();
             $detail->cantidad = $detalles[i]->cantidad;
             $detail->id_pedido = $detalles[i]->id_pedido;
             $detail->ped_material = $detalles[i]->id_material;
             $detail->save();
         }*/
+        $response['values']="";
+        $request['detalles_pedido']->each(function($item, $key) use ($response){
+            $response->compact( $item['id']);
 
+        });
+
+        return $response;
     }
 }
 
