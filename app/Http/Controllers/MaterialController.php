@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use App;
+use DB;
 
 class MaterialController extends Controller
 {
@@ -16,7 +17,19 @@ class MaterialController extends Controller
     public function mostrar(){
         $materiales = App\Material::all();
         $proveedores = App\Proveedor::all();
-        return view('materiales.mostrar', compact('materiales','proveedores'));
+        $tipos = App\MaterialTipo::all();
+        $unidades = App\MaterialUnidad::all(); 
+
+        $data =  DB::table('material')
+        ->join('tipo_material', 'tipo_material.id', '=', 'material.tipo')
+        ->join('unidad_material', 'unidad_material.id', '=', 'material.unidad') 
+        ->join('proveedor','proveedor.id', '=', 'material.proveedor')
+        ->select('material.*', 'tipo_material.id as id_tipo', 'tipo_material.descripcion as descripcion_tipo',
+                'unidad_material.id as id_unidad', 'unidad_material.descripcion as descripcion_unidad',
+                'proveedor.razon_social as proveedor_nombre')
+        ->get();   
+
+        return view('materiales.mostrar', compact('data','proveedores','tipos','unidades'));
 
         /*$data = App\Material::select('proveedor.razon_social', 'categories.nameCategory')
             ->join('categories', 'users.idUser', '=', 'categories.user_id')
@@ -33,8 +46,10 @@ class MaterialController extends Controller
     }
  
     public function agregar(){
-        $proveedores = App\Proveedor::all();
-        return view('materiales.agregar', compact('proveedores'));
+        $proveedores = App\Proveedor::all(); 
+        $tipos = App\MaterialTipo::all();
+        $unidades = App\MaterialUnidad::all();
+        return view('materiales.agregar', compact('proveedores', 'tipos', 'unidades'));
     }
 
     public function crear_material(Request $request){ 
@@ -79,6 +94,7 @@ class MaterialController extends Controller
         return view('materiales.mostrar',compact('materiales'))->with('mensaje','Material Actualizado');
     }
 
+    
     public function eliminar($id){
         $materialEliminar = App\Material::findOrFail($id);
         $materialEliminar->delete();
@@ -90,6 +106,20 @@ class MaterialController extends Controller
         if(request()->ajax()) {
             $data = App\Material::findOrfail($id);
             return response()->json(['result' => $data]);
+        }
+    }
+
+    public function tipos(Request $request){
+        if($request->ajax()){
+            $tipos = App\MaterialTipo::all();
+            return reponse()->json($tipos);
+        }
+    }
+
+    public function unidades(Request $request){
+        if($request->ajax()){
+            $unidades = App\MaterialUnidad::all();
+            return reponse()->json($unides);
         }
     }
 

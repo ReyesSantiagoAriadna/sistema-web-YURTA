@@ -32,6 +32,7 @@
             <form method="POST" action="{{ route('material_agregar') }}" id="formenvio_1">
                 @csrf
                 <h2 class="card-inside-title">Datos del material</h2>
+                <label id="alert-name" class="font-bold col-grey" for="name">* Campos Obligatorios</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">description</i>
@@ -40,17 +41,22 @@
                         <input type="text" class="form-control" placeholder="Descripción"
                                id="descripcion" name="descripcion" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
-
-
-
+ 
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">merge_type</i>
                     </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" placeholder="Tipo" id="tipo" name="tipo" required>
+                        <select name="tipo" class="form-control" id="tipo" required autofocus>
+                            <option value="">Seleccione el tipo de material</option>
+                            @foreach ($tipos as $tipo)
+                                <option value="{{$tipo['id']}}">{{$tipo['descripcion']}}</option>
+                            @endforeach
+                        </select>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -60,15 +66,26 @@
                     <div class="form-line">
                         <input type="text" class="form-control" placeholder="Marca" id="marca" name="marca" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
+                
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">flag</i>
                     </span>
                     <div class="form-line">
-                        <input type="tel" class="form-control" placeholder="Unidad" id="unidad" name="unidad" required>
-                    </div>
+                        <select name="unidad" class="form-control" id="unidad" required autofocus>
+                            <option value="">Seleccione la unidad de medida del material</option>
+                            @foreach ($unidades as $unidad)
+                                <option value="{{$unidad['id']}}">{{$unidad['descripcion']}}</option>
+                            @endforeach
+                        </select> 
+                    </div> 
+                    <label style="float:left" class="help-info">*</label>
                 </div>
+
+
+                
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">assignment</i>
@@ -76,6 +93,7 @@
                     <div class="form-line">
                         <input type="number" class="form-control" placeholder="Cantidad" id="existencias" name="existencias" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -86,6 +104,7 @@
                         <input type="number" class="form-control" placeholder="Precio de compra" id="precio_unitario"
                                name="precio_unitario" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -100,6 +119,7 @@
                             @endforeach
                         </select>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -109,7 +129,9 @@
                     <div class="form-line">
                         <input type="file" id="upload-file-selector" class="form-control"  onchange="readURL(this);" required>
                     </div>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
+
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                     </span>
@@ -119,8 +141,7 @@
                 </div>
 
 
-                <input type="hidden" name="url" id="url">
-{{--                <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>--}}
+                <input type="hidden" name="url" id="url"> 
             </form>
             <br>
             <br>

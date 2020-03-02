@@ -10,34 +10,12 @@
                 <span id="form_result"></span>
                 <form method="post" id="sample_form" class="form-horizontal">
                     @csrf
-                    <label>Razón social</label>
+                     
+                    <label>Descripcion</label>
                     <div class="input-group input-group">
-                        <span class="input-group-addon"><i class="material-icons">people</i></span>
+                        <span class="input-group-addon"><i class="material-icons">merge_type</i></span>
                         <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Nombre" id="razon_social" name="razon_social" required>
-                        </div>
-                    </div>
-                    <label>Teléfono</label>
-                    <div class="input-group input-group">
-                        <span class="input-group-addon"><i class="material-icons">phone</i></span>
-                        <div class="form-line">
-                            <input type="tel" class="form-control" placeholder="Teléfono" id="telefono" name="telefono" required>
-                        </div>
-                    </div>
-
-                    <label>Correo</label>
-                    <div class="input-group input-group">
-                        <span class="input-group-addon"><i class="material-icons">email</i></span>
-                        <div class="form-line">
-                            <input type="email" class="form-control" placeholder="Correo" id="email" name="email" required>
-                        </div>
-                    </div>
-
-                    <label>Dirección</label>
-                    <div class="input-group input-group">
-                        <span class="input-group-addon"><i class="material-icons">add_location</i></span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Direccion" id="direccion" name="direccion" required>
+                            <input type="text" class="form-control" placeholder="Descripcion" id="descripcion" name="descripcion" required>
                         </div>
                     </div>
 
@@ -89,13 +67,10 @@
             id = $(this).attr('id');
             $('#form_result').html('');
             $.ajax({
-                url :"/edit_proveedor/"+id,
+                url :"/edit_tipo_material/"+id,
                 dataType:"json",
                 success:function(data) {
-                    $('#razon_social').val(data.result.razon_social);
-                    $('#telefono').val(data.result.telefono);
-                    $('#email').val(data.result.email);
-                    $('#direccion').val(data.result.direccion);
+                    $('#descripcion').val(data.result.descripcion); 
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Editar Registro');
                     $('#action_button').val('Editar');
@@ -109,7 +84,7 @@
         event.preventDefault();
         if($('#action').val() == "Editar") {
             $.ajax({
-                url:"/update_proveedor",
+                url:"/update_t",
                 method:"POST",
                 data:new FormData(this),
                 contentType: false,
@@ -149,7 +124,7 @@
         $('#ok_button').click(function(){
             var token = $(this).data('token');
             $.ajax({
-                url:"/eliminar_proveedor/"+user_id,
+                url:"/eliminar_tipo/"+user_id,
                 type: 'post',
                 data: {_method: 'delete', _token :token},
                 beforeSend:function(){

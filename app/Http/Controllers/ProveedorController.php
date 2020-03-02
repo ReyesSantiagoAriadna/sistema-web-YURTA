@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidationRequest;
+use App\Http\Requests\ValidationUpdateRequest;
 use App;
 use Response;
+use Validator;
+
 class ProveedorController extends Controller
 {
     public function __construct()
@@ -22,21 +26,23 @@ class ProveedorController extends Controller
         return view('proveedores.agregar');
     }
 
-    public function crear_proveedores(Request $request){ 
+    public function crear_proveedores(ValidationRequest $request){  
 
-        $request->validate([
-            'razon_social'=>'required',
-            'telefono'=>'required',
-            'direccion'=>'required'
+        $this->validate($request, [
+            'razon_social' => 'required|max:255',
+            'email' => 'required|email',
+            'telefono' => 'required|numeric',
+            'direccion' => 'required'
         ]);
-        $proveedores = App\Proveedor::all();
+
+
         $proveedor = new App\Proveedor;
         $proveedor->razon_social = $request->razon_social;
         $proveedor->telefono = $request->telefono;
-        $proveedor->direccion = $request->direccion;
-
+        $proveedor->email = $request->email;
+        $proveedor->direccion = $request->direccion; 
         $proveedor->save();
-        return back()->with('mensaje','Proveedor agregado correctamente');
+        return back()->with('mensaje','notificacion');
     }
 
     public function editar($id){
@@ -44,13 +50,14 @@ class ProveedorController extends Controller
         return view('proveedores.editar',compact('proveedor'));
     }
 
-    public function update(Request $request, $id){
+    public function update(ValidationUpdateRequest $request, $id){
         $proveedorActualizar = App\Proveedor::find($id);
         $proveedorActualizar->razon_social = $request->razon_social;
         $proveedorActualizar->telefono = $request->telefono;
+        $proveedorActualizar->email = $request->email;
         $proveedorActualizar->direccion = $request->direccion;
         $proveedorActualizar->save();
-        $proveedores = App\PRoveedor::all();
+        $proveedores = App\Proveedor::all();
         return view('proveedores.mostrar', compact('proveedores'))->with('mensaje', 'Proveedor Actualizado');
     }
 
@@ -87,6 +94,13 @@ class ProveedorController extends Controller
         if($request->ajax()){
             $tipos_materiales = App\MaterialTipo::all();
             return response()->json($tipos_materiales);
+        }
+    }
+
+    public function UnidadesMateriales(Request $request){
+        if($request->ajax()){
+            $unidades_materiales = App\MaterialUnidad::all();
+            return response()->json($unidades_materiales);
         }
     }
 }

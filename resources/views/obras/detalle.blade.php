@@ -25,12 +25,18 @@
                                 </li>
                                 <li>
                                     <span>Dependencia</span>
-                                    <span>{{$obra->dependencia}}</span>
+                                    <br>
+                                    <span style="float:right">{{$obra->dependencia}}</span> 
+                                    <br>
                                 </li>
+                                
                                 <li>
                                     <span>Residente</span>
-                                    <span>{{$obra->encargado}}</span>
+                                    @foreach ($data as $item)
+                                      <span>{{$item->name}}</span> 
+                                    @endforeach                                  
                                 </li>
+                                
                             </ul>
                         </div>
                     </div>

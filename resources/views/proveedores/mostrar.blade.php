@@ -3,13 +3,11 @@
 @extends('admin_panel')
 @section('contenido')
     <div class="block-header">
-        <h2> PROVEEDORES</h2>
+        
     </div>
     <div class="card">
         <div class="header">
-            <h2>
-
-            </h2>
+            <h2> PROVEEDORES</h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -36,6 +34,7 @@
                         <th>#</th>
                         <th>Razón Social</th>
                         <th>Teléfono</th>
+                        <th>Email</th>
                         <th>Dirección</th>
                         <th>Acciones</th>
                     </tr>
@@ -45,6 +44,7 @@
                         <th>#</th>
                         <th>Razón Social</th>
                         <th>Teléfono</th>
+                        <th>Email</th>
                         <th>Dirección</th>
                         <th>Acciones</th>
                     </tr>
@@ -55,6 +55,7 @@
                             <td>{{$item->id}}</td>
                             <td>{{$item->razon_social}}</td>
                             <td>{{$item->telefono}}</td>
+                            <td>{{$item->email}}</td>
                             <td>{{$item->direccion}}</td>
                             <td>
                                 <button  title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"

@@ -46,11 +46,12 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Descripción</th>
-                        <th>Unidad</th>
+                        <th>Descripción</th>                        
                         <th>Tipo</th>
                         <th>Marca</th>
                         <th>Existencias</th>
+                        <th>Unidad</th>
+                        <th>Stock</th>
                         <th>Precio compra</th>
                         <th>Proveedor</th>
                         <th>Acciones</th>
@@ -59,27 +60,29 @@
                     <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Descripción</th>
-                        <th>Unidad</th>
+                        <th>Descripción</th>                        
                         <th>Tipo</th>
                         <th>Marca</th>
                         <th>Existencias</th>
+                        <th>Unidad</th>
+                        <th>Stock</th>
                         <th>Precio compra</th>
                         <th>Proveedor</th>
                         <th>Acciones</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                    @foreach($materiales as $item)
+                    @foreach($data as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->descripcion}}</td>
-                            <td>{{$item->unidad}}</td>
-                            <td>{{$item->tipo}}</td>
+                            <td>{{$item->descripcion}}</td>                            
+                            <td>{{$item->descripcion_tipo}}</td>
                             <td>{{$item->marca}}</td>
                             <td>{{$item->existencias}}</td>
+                            <td>{{$item->descripcion_unidad}}</td>
+                            <td>{{$item->cantidad_minima}}</td>
                             <td>{{$item->precio_unitario}}</td>
-                            <td>{{$item->proveedor}}</td>
+                            <td>{{$item->proveedor_nombre}}</td>
                             <td>
                                 <button value="{{$item->proveedor}}" title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
                                          class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">

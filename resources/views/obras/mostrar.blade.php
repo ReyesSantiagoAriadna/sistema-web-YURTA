@@ -35,6 +35,7 @@
                         <th>#</th>
                         <th>Descripción</th>
                         <th>Fech. inicio</th>
+                        <th>Fech. termino</th>
                         <th>Dependencia</th>
                         <th>Residente</th>
                         <th>Tipo</th>
@@ -46,6 +47,7 @@
                         <th>#</th>
                         <th>Descripción</th>
                         <th>Fech. inicio</th>
+                        <th>Fech. termino</th>
                         <th>Dependencia</th>
                         <th>Residente</th>
                         <th>Tipo</th>
@@ -58,6 +60,7 @@
                             <td>{{$item->id}}</td>
                             <td>{{$item->descripcion}}</td>
                             <td>{{$item->fech_ini}}</td>
+                            <td>{{$item->fech_fin}}</td>
                             <td>{{$item->dependencia}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->descripcion}}</td>

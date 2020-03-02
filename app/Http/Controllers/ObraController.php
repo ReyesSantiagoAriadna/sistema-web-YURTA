@@ -1,7 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use App;
+use DB;
 use Illuminate\Http\Request;
+use App\Http\Requests\ObrasRequest;
+
 class ObraController extends Controller{
     public function __construct(){
         $this->middleware('auth');
@@ -29,12 +32,13 @@ class ObraController extends Controller{
         return view('obras.agregar',['usuarios'=>$usuarios,'tipos'=>$tipos]);
     }
 
-    public function add(Request $request){
+    public function add(ObrasRequest $request){
         $obra=new App\Obra();
         $obra->descripcion=$request->descripcion;
         $obra->lat=$request->lat;
         $obra->lng=$request->lng;
         $obra->fech_ini=$request->fech_ini;
+        $obra->fech_fin=$request->fech_fin;
         $obra->dependencia=$request->dependencia;
         $obra->encargado=$request->encargado;
         $obra->tipo_obra=$request->tipo_obra;
@@ -54,7 +58,7 @@ class ObraController extends Controller{
         return view('obras.editar', compact('obra','tipos','usuarios'));
     }
 
-    public function update(Request $request,$id){
+    public function update(ObrasRequest $request,$id){
         $obra = App\Obra::find($id);
         $obra->descripcion = $request->descripcion;
         $obra->lat = $request->lat;
@@ -86,7 +90,7 @@ class ObraController extends Controller{
     public function eliminar($id){
         $obraElimnar = App\Obra::findOrFail($id);
         $obraElimnar->delete();
-        return back()->with('mensaje','Obra eliminada');
+        return $this->mostrar()->with('mensaje','Obra eliminada');
     }
 
     public function agregar_material(){ 
@@ -160,16 +164,11 @@ class ObraController extends Controller{
         //
         $obra=App\Obra::findOrfail($request->id);
 
-       /* $detail = App\Obra::join('users','obra.encargado','=','users.id')
-        ->where('obra.encargado',$obra->encargado)->
-            where('obra.id',$obra->id)
-            ->select('obra.*','users.name')->get();*/
-        //$obra = App\Obra::join('users','obra.encargado','=','users.id')
-            //->findOrfail($request->id)
-            //->where('obra.id',$request->id)
-            //->select('obra.*','users.name')
-            ///->get();
-        return view('obras.detalle', compact('obra','materiales'));
+        $data =  App\User::join('obra', 'users.id', '=', 'obra.encargado')   
+        ->where('obra.id', '=', $obra->id)
+        ->get();   
+ 
+        return view('obras.detalle', compact('obra','materiales','data'));
         //return view('obras.detalle',['obra'=>$detail,'materiales'=>$materiales_obra]);
         //return $detail;
     }
