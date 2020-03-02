@@ -238,13 +238,12 @@ class ApiController extends Controller
 
 
             });
+            return response()->json(['bien'=>'bien']);
         } catch (Exception $e) {
             report($e);
 
-            return $e->getMessage();
+            return response()->json(['mal'=>'mal']);
         }
-
-       // return $response;
     }
 }
 
