@@ -17,22 +17,7 @@
                             <input type="text" class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" required>
                         </div>
                     </div>
-                    <label>Unidad</label>
-                    <div class="input-group input-group">
-                        <span class="input-group-addon"><i class="material-icons">flag</i></span>
-                        <div class="form-line"> 
-                            <select name="unidad" class="form-control"  id="unidades" required autofocus></select>
-                        </div>
-                    </div>
-
-                    <label>Tipo</label>
-                    <div class="input-group input-group">
-                        <span class="input-group-addon"><i class="material-icons">merge_type</i></span>
-                        <div class="form-line"> 
-                            <select name="tipo" class="form-control"  id="tipos" required autofocus></select>
-                        </div>
-                    </div>
-
+                      
                     <label>Marca</label>
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">branding_watermark</i></span>
@@ -41,28 +26,46 @@
                         </div>
                     </div>
 
-                    <label>Existencias</label>
-                    <div class="input-group input-group">
-                        <span class="input-group-addon"><i class="material-icons">assignment</i></span>
-                        <div class="form-line">
-                            <input type="number" class="form-control" placeholder="Existencias" id="existencias" name="existencias" required>
-                        </div>
-                    </div>
-
+                    
                     <label>Precio de compra</label>
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">monetization_on</i></span>
                         <div class="form-line">
-                            <input type="number" class="form-control" placeholder="Precio de compra" id="precio_unitario" name="precio_unitario" required>
+                            <input type="number" class="form-control" min="0" placeholder="Precio de compra" id="precio_unitario" name="precio_unitario" required>
                         </div>
                     </div>
 
+                    <label>Existencias</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">assignment</i></span>
+                        <div class="form-line">
+                            <input type="number" class="form-control" min="0" placeholder="Existencias" id="existencias" name="existencias" required>
+                        </div>
+                    </div>
+
+                    <label>Stock</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">assignment</i></span>
+                        <div class="form-line">
+                            <input type="number" class="form-control" min="1" placeholder="Cantidad minima" id="stock" name="stock" required>
+                        </div>
+                    </div>
+
+                    <label>Unidad</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">flag</i></span>
+                        <div class="form-line">
+                            <select name="unidades" class="form-control"  id="unidad" required autofocus>
+                            </select>
+                        </div>
+                    </div>
 
                     <label>Proveedor</label>
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">people</i></span>
                         <div class="form-line">
-                            <select name="proveedor" class="form-control"  id="proveedores" required autofocus></select>
+                            <select name="proveedor" class="form-control"  id="proveedores" required autofocus>
+                            </select>
                         </div>
                     </div>
 
@@ -70,10 +73,12 @@
                     <div class="input-group input-group">
                         <span class="input-group-addon"><i class="material-icons">people</i></span>
                         <div class="form-line">
-                            <select name="tipos" class="form-control"  id="tipos" required autofocus>
+                            <select name="tipos" class="form-control"  id="tipo" required autofocus>
                             </select>
                         </div>
                     </div>
+
+                   
 
 
 
@@ -129,24 +134,10 @@
                 url :"/edit_material/"+id,
                 dataType:"json",
                 success:function(data) {
-                    $('#descripcion').val(data.result.descripcion);
-
-                    $.get('unidades',function (unidades) {
-                        $('#unidades').empty();
-                        $.each(unidades,function(key, registro) {
-                            $('#unidades').append("<option value='" + registro.id + "'" + (provider == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
-                        });
-                    });
-
-                     $.get('tipos',function (tipos) {
-                        $('#tipos').empty();
-                        $.each(tipos,function(key, registro) {
-                            $('#tipos').append("<option value='" + registro.id + "'" + (provider == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
-                        });
-                    });
-
+                    $('#descripcion').val(data.result.descripcion); 
                     $('#marca').val(data.result.marca);
                     $('#existencias').val(data.result.existencias);
+                    $('#stock').val(data.result.cantidad_minima);
                     $('#precio_unitario').val(data.result.precio_unitario);
 
                     //valores del obejto a editar
@@ -165,7 +156,14 @@
                     $.get('tipos_materiales',function (tipos_materiales) {
                             console.log("tipos",tipos_materiales);
                         $.each(tipos_materiales,function(key, registro) {
-                            $('#tipos').append("<option value='" + registro.id + "'" + (tipo == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
+                            $('#tipo').append("<option value='" + registro.id + "'" + (tipo == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
+                        });
+                    });
+
+                    $.get('unidades_materiales',function (unidades_materiales) {
+                            console.log("unidades",unidades_materiales);
+                        $.each(unidades_materiales,function(key, registro) {
+                            $('#unidad').append("<option value='" + registro.id + "'" + (unidad == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
                         });
                     });
 

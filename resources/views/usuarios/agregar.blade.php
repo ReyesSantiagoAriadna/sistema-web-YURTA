@@ -21,6 +21,17 @@
             </ul>
         </div>
         <div class="body">
+
+            @if(count($errors) > 0)
+            <div class="errors">
+                <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        @endif
+
             <ol class="breadcrumb breadcrumb-col-orange">
                 <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Empleados</a></li>
                 <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
@@ -35,9 +46,7 @@
             <form method="POST" action="{{ route('usuarios.add') }}" id="formenvio_1">
                 @csrf
                 <h1 class="card-inside-title">Datos del empleado</h1>
-                <div style="float:left">
-                    <label id="alert-name" class="font-bold col-pink" for="name">* Campos Obligatorios</label>
-                </div>
+                <label id="alert-name" class="font-bold col-grey" for="name">* Campos Obligatorios</label>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">person</i>
@@ -46,9 +55,7 @@
                         <input type="text" class="form-control" placeholder="Nombre" id="name" name="name" required>
                         
                     </div>
-                    <small>
-                        <label id="alert-name" class="font-bold col-pink" for="name">*</label>
-                    </small>                   
+                    <div style="float:left" class=" help-info">*</div>                  
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -58,9 +65,7 @@
                     <div class="form-line">
                         <input type="email" class="form-control" placeholder="Correo" id="email" name="email" required>
                     </div>
-                    <small>
-                        <label id="alert-name" class="font-bold col-pink" for="email">*</label>
-                    </small>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -76,9 +81,8 @@
                                     </span>
                         @endif
                     </div>
-                    <small>
-                        <label id="alert-name" class="font-bold col-pink" for="password">*</label>
-                    </small>
+                    <div style="float:left" class=" help-info">* La contraseña debe tener al menos 8 caracteres y debe incluir al menos una letra mayúscula, un número y un carácter especial
+                    </div>
                 </div>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
@@ -87,9 +91,7 @@
                     <div class="form-line">
                         <input type="password" class="form-control" placeholder="Confirmar la contraseña" id="password-confirm" name="password_confirmation" required>
                     </div>
-                    <small>
-                        <label id="alert-name" class="font-bold col-pink" for="password-confirm">*</label>
-                    </small>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -99,9 +101,7 @@
                     <div class="form-line">
                         <input type="tel" class="form-control" placeholder="Teléfono" id="telefono" name="telefono" required>
                     </div>
-                    <small>
-                        <label id="alert-name" class="font-bold col-pink" for="telefono">*</label>
-                    </small>
+                    <div style="float:left" class=" help-info">*</div>
                 </div>
 
                 <div class="input-group input-group-lg">
@@ -117,14 +117,10 @@
                             <option value="gerente">Gerente</option>
                         </select>   
                     </div>
-                    <small>
-                        <label id="alert-name" class="font-bold col-pink" for="puesto">*</label>
-                    </small>
-                </div>
-              <button class="btn btn-primary waves-effect" type="submit">REGISTRAR</button>
+                    <div style="float:left" class=" help-info">*</div>
+                </div> 
  
-
-{{--                elegir imagen de usuario
+ 
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <i class="material-icons">add_a_photo</i>
@@ -140,7 +136,7 @@
                         <img id="blah" src="#" alt="imagen" />
                     </div>
                 </div>
-                <input type="hidden" name="url" id="url"> --}}
+                <input type="hidden" name="url" id="url"> 
 
 
             </form>

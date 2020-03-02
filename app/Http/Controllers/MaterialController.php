@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use App;
+use DB;
 
 class MaterialController extends Controller
 {
@@ -17,9 +18,18 @@ class MaterialController extends Controller
         $materiales = App\Material::all();
         $proveedores = App\Proveedor::all();
         $tipos = App\MaterialTipo::all();
-        $unidades = App\MaterialUnidad::all();
+        $unidades = App\MaterialUnidad::all(); 
 
-        return view('materiales.mostrar', compact('materiales','proveedores','tipos','unidades'));
+        $data =  DB::table('material')
+        ->join('tipo_material', 'tipo_material.id', '=', 'material.tipo')
+        ->join('unidad_material', 'unidad_material.id', '=', 'material.unidad') 
+        ->join('proveedor','proveedor.id', '=', 'material.proveedor')
+        ->select('material.*', 'tipo_material.id as id_tipo', 'tipo_material.descripcion as descripcion_tipo',
+                'unidad_material.id as id_unidad', 'unidad_material.descripcion as descripcion_unidad',
+                'proveedor.razon_social as proveedor_nombre')
+        ->get();   
+
+        return view('materiales.mostrar', compact('data','proveedores','tipos','unidades'));
 
         /*$data = App\Material::select('proveedor.razon_social', 'categories.nameCategory')
             ->join('categories', 'users.idUser', '=', 'categories.user_id')

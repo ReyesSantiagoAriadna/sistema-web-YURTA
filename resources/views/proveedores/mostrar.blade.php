@@ -3,13 +3,11 @@
 @extends('admin_panel')
 @section('contenido')
     <div class="block-header">
-        <h2> PROVEEDORES</h2>
+        
     </div>
     <div class="card">
         <div class="header">
-            <h2>
-
-            </h2>
+            <h2> PROVEEDORES</h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
