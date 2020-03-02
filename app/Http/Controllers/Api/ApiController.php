@@ -221,7 +221,6 @@ class ApiController extends Controller
        /* $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
 
 
-
         return  $input;
         for ($i=0; $i <  $request->input('detalles_pedido.0'); $i++) {
             $detail = new DetallePedido();
@@ -232,7 +231,9 @@ class ApiController extends Controller
         }*/
         //$response['values']="";
 
-        return response()->json(['devolucion'=>$request]);
+        $pos1 = $request->input('detalles_pedido.0');
+
+        return response()->json(['devolucion'=>$pos1->cantidad]);
        /* try {
             $request['detalles_pedido']->each(function($item, $key){
 
