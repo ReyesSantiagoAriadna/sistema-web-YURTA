@@ -222,7 +222,7 @@ class ApiController extends Controller
 
         $input = $request->input();
 
-
+        $x = array_values($input);
 
         $i=0;
         foreach ($input as $card){
@@ -233,7 +233,7 @@ class ApiController extends Controller
         }
 
 
-            return $var;
+            return $x;
         //return response()->json(['det_pedidos'=>$input]);
     }
 }
