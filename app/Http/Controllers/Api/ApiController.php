@@ -222,6 +222,11 @@ class ApiController extends Controller
 
         $input = $request->input();
 
+        $cards = json_decode($input);
+
+        foreach ($cards as $card){
+
+        }
         return $input;
         //return response()->json(['det_pedidos'=>$input]);
     }
