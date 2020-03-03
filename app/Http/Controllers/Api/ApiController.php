@@ -225,7 +225,7 @@ class ApiController extends Controller
 
         $var['var']='';
         foreach ($input as $card){
-            $var.compact($card);
+           $var= $card[0];
         }
         return $var;
         //return response()->json(['det_pedidos'=>$input]);
