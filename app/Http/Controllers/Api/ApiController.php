@@ -234,7 +234,7 @@ class ApiController extends Controller
         $pedidoNuevo->estado = $status_default;
         $pedidoNuevo->obra = $request->obra;
         $pedidoNuevo->save();
-        /*
+
         $cantidades = $_POST['cantidad'];
         $material = $_POST['material'];
         //$pedido = $request->pedido;
@@ -245,7 +245,7 @@ class ApiController extends Controller
             $detalle->id_pedido = $pedidoNuevo->id;
             $detalle->ped_material = $material[$i];
             $detalle->save();
-        }*/
+        }
         return response()->json(['succes'=>'succes']);
 
     }
