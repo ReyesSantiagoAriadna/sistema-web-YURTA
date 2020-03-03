@@ -218,46 +218,15 @@ class ApiController extends Controller
         //$detalle->ped_material = $request->id_material;
         //$detalle->save();
         //$detalles = $request->detalles_pedido;
-       /* $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
+       // $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
+        $str="";
+        $request['items']->each(function($item, $key) use ($str){
+
+            $str  = $item;
+        });
 
 
-        return  $input;
-        for ($i=0; $i <  $request->input('detalles_pedido.0'); $i++) {
-            $detail = new DetallePedido();
-            $detail->cantidad = $detalles[i]->cantidad;
-            $detail->id_pedido = $detalles[i]->id_pedido;
-            $detail->ped_material = $detalles[i]->id_material;
-            $detail->save();
-        }*/
-        //$response['values']="";
-
-        //$pos1 = $request->input('detalles_pedido.0.cantidad');
-       // $detalle = new DetallePedido();
-        $cantidad = $request->input('detalles_pedido.0.cantidad');
-        $id_pedido = $request->input('detalles_pedido.0.id_pedido');
-        $ped_material = $request->input('detalles_pedido.0.id_material');
-
-
-
-
-
-
-        return response()->json([
-            'param1' => $cantidad,
-            'param2' => $id_pedido,
-            'param3'=>$ped_material
-        ]);
-       /* try {
-            $request['detalles_pedido']->each(function($item, $key){
-
-
-            });
-            return response()->json(['bien'=>'bien']);
-        } catch (Exception $e) {
-            report($e);
-
-            return response()->json(['mal'=>'mal']);
-        }*/
+        return $str;
     }
 }
 
