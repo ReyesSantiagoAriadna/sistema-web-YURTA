@@ -220,8 +220,8 @@ class ApiController extends Controller
         //$detalles = $request->detalles_pedido;
        // $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
 
-        $input = $request->input();
-
+        //$input = $request->input();
+            $input = $_POST['items'];
         $x = array_values($input);
 
         $i=0;
@@ -231,6 +231,8 @@ class ApiController extends Controller
 
            $i++;
         }
+
+
 
 
             return $x;
