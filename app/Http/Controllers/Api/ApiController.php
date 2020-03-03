@@ -220,11 +220,11 @@ class ApiController extends Controller
         //$detalles = $request->detalles_pedido;
        // $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
         $str='llega';
-        $request['items']->each(function($item, $key) use ($str){
+       /* $request['items']->each(function($item, $key) use ($str){
 
             $str  = $item;
         });
-
+*/
 
         return response()->json(['str'=>$str]);
     }
