@@ -221,7 +221,9 @@ class ApiController extends Controller
        // $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
 
         $input = $request->input();
-        return response()->json(['det_pedidos'=>$input]);
+
+        return $input;
+        //return response()->json(['det_pedidos'=>$input]);
     }
 }
 
