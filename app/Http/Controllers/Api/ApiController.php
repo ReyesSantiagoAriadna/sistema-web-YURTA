@@ -223,9 +223,9 @@ class ApiController extends Controller
 
         $str='llega';
 
+        $input = $request->input();
 
-
-        return response()->json(['str'=>$str]);
+        return response()->json(['str'=>$input]);
     }
 }
 
