@@ -212,31 +212,44 @@ class ApiController extends Controller
     }
 
     public function addDetallePedido(Request $request){
-       // $detalle = new DetallePedido();
-        //$detalle->cantidad = $request->cantidad;
-        //$detalle->id_pedido = $request->id_pedido;
-        //$detalle->ped_material = $request->id_material;
-        //$detalle->save();
-        //$detalles = $request->detalles_pedido;
-       // $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
+        $cantidades = $_POST['cantidad'];
+        $material = $_POST['material'];
+        $pedido = $request->pedido;
 
-        //$input = $request->input();
-            $input = $_POST['items'];
+        $count = count($cantidades) ;
+
+        for($i=0;$i<$count;$i++) {
+            $detalle = new DetallePedido();
+            $detalle->cantidad = $cantidades[$i];
+            $detalle->id_pedido = $pedido;
+            $detalle->ped_material = $material[$i];
+            $detalle->save();
+        }
+        return response()->json(['succes'=>'succes']);
+    }
+}
+
+
+/* $input = $_POST['items'];
         $x = array_values($input);
-
         $count = count($input) ;
-        for($i=1;$i<$count;$i++) {
+        for($i=0;$i<$count;$i++) {
             // your code here using $i as the position
             $item = $input[$i];
         }
+        return $x;
+ * */
 
 
 
 
-            return $item;
-        //return response()->json(['det_pedidos'=>$input]);
-    }
-}
+
+
+
+
+
+
+
 
 
 /*
