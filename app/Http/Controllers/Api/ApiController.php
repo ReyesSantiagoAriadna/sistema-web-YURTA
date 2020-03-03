@@ -227,8 +227,10 @@ class ApiController extends Controller
         $i=0;
         $tam = sizeof($input);
         foreach ($input as $card){
-           $var= $card['0'];
+           if($i<$tam)
+            $var= $card[$i];
 
+           $i++;
         }
 
         return $var;
