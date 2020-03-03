@@ -193,7 +193,6 @@ class ApiController extends Controller
 
     public function addPedido(Request $request){
         $status_default='0';
-
         $pedidoNuevo = new Pedido(); //Carbon::now('America/Montreal');;
        // $pedidoNuevo->fecha_p = Carbon::now('America/Chicago');
         $pedidoNuevo->fecha_p = Carbon::now('America/Mexico_City')->toDateString();
@@ -215,9 +214,7 @@ class ApiController extends Controller
         $cantidades = $_POST['cantidad'];
         $material = $_POST['material'];
         $pedido = $request->pedido;
-
         $count = count($cantidades) ;
-
         for($i=0;$i<$count;$i++) {
             $detalle = new DetallePedido();
             $detalle->cantidad = $cantidades[$i];
@@ -226,6 +223,31 @@ class ApiController extends Controller
             $detalle->save();
         }
         return response()->json(['succes'=>'succes']);
+    }
+
+    public function addPedidoDetails(Request $request){
+        $status_default='0';
+        $pedidoNuevo = new Pedido(); //Carbon::now('America/Montreal');;
+        // $pedidoNuevo->fecha_p = Carbon::now('America/Chicago');
+        $pedidoNuevo->fecha_p = Carbon::now('America/Mexico_City')->toDateString();
+        $pedidoNuevo->fecha_conf = $request->fecha_conf;
+        $pedidoNuevo->estado = $status_default;
+        $pedidoNuevo->obra = $request->obra;
+        $pedidoNuevo->save();
+
+        $cantidades = $_POST['cantidad'];
+        $material = $_POST['material'];
+        //$pedido = $request->pedido;
+        $count = count($cantidades) ;
+        for($i=0;$i<$count;$i++) {
+            $detalle = new DetallePedido();
+            $detalle->cantidad = $cantidades[$i];
+            $detalle->id_pedido = $pedidoNuevo->id;
+            $detalle->ped_material = $material[$i];
+            $detalle->save();
+        }
+        return response()->json(['succes'=>'succes']);
+
     }
 }
 

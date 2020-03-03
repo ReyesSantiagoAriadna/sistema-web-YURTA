@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('add_pedido','Api\ApiController@addPedido');
 
-
+    Route::post('add_pedido_detalles','Api\ApiController@savePedidoWithDetails');
 
     Route::post('logout', 'Api\ApiController@logout')->name('logout');
 });
