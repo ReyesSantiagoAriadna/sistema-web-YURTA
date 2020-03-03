@@ -224,18 +224,16 @@ class ApiController extends Controller
             $input = $_POST['items'];
         $x = array_values($input);
 
-        $i=0;
-        foreach ($input as $card){
-
-            $var= $card[$i];
-
-           $i++;
+        $count = count($input) ;
+        for($i=1;$i<$count;$i++) {
+            // your code here using $i as the position
+            $item = $input[$i];
         }
 
 
 
 
-            return $x;
+            return $item;
         //return response()->json(['det_pedidos'=>$input]);
     }
 }
