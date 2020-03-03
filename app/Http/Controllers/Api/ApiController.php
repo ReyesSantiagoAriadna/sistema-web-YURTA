@@ -225,15 +225,15 @@ class ApiController extends Controller
 
 
         $i=0;
-        $tam = sizeof($input);
         foreach ($input as $card){
-           if($i<$tam)
+
             $var= $card[$i];
 
            $i++;
         }
 
-        return $var;
+
+            return $var;
         //return response()->json(['det_pedidos'=>$input]);
     }
 }
