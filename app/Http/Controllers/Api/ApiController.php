@@ -222,9 +222,9 @@ class ApiController extends Controller
 
         $input = $request->input();
 
-        $cards = json_decode($input);
 
-        foreach ($cards as $card){
+
+        foreach ($input as $card){
 
         }
         return $input;
