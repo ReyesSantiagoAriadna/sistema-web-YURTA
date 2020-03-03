@@ -219,14 +219,14 @@ class ApiController extends Controller
         //$detalle->save();
         //$detalles = $request->detalles_pedido;
        // $input['can_material'] = $request->input('detalles_pedido.0.cantidad');
-        $str="";
+        $str="llega";
         $request['items']->each(function($item, $key) use ($str){
 
             $str  = $item;
         });
 
 
-        return $str;
+        return response()->json(['str'=>$str]);
     }
 }
 
