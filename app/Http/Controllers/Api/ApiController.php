@@ -246,7 +246,15 @@ class ApiController extends Controller
             $detalle->ped_material = $material[$i];
             $detalle->save();
         }
-        return response()->json(['succes'=>'succes']);
+       // return response()->json(['succes'=>'succes']);
+
+        return response()->json([
+            'id' =>$pedidoNuevo->id,
+            'fecha_p' => $pedidoNuevo->fecha_p,
+            'fecha_conf' => $pedidoNuevo->fecha_conf,
+            'estado'=>$pedidoNuevo->estado,
+            'obra'=>$pedidoNuevo->obra
+        ]);
 
     }
 }
