@@ -110,4 +110,10 @@ class UsuarioController extends Controller
         $usuarioUpdate->save();
         return back()->with('mensaje','Datos actualizados');
     }
+
+    
+    public function markAsRead(){
+        auth()->user()->unreadNotifications->markAsRead();
+        return redirect()->back();
+    }
 }

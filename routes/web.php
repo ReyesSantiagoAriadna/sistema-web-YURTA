@@ -13,7 +13,10 @@
 
 Auth::routes();
 Route::view('/prueba', 'prueba');
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/marcar_notificaciones','UsuarioController@markAsRead')->name('markAsRead');
+
 
 Auth::routes();
 Route::get('vista','UsuarioController@index')->name('usuarios_m');

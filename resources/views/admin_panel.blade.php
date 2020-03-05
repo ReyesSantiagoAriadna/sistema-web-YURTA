@@ -116,26 +116,53 @@
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         <i class="material-icons">notifications</i>
-                        <span class="label-count">7</span>
+                        @if(auth()->user()->unreadNotifications->count())
+                            <span class="label-count">{{auth()->user()->unreadNotifications->count()}}</span>
+                        @endif
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">NOTIFICATIONS</li>
+                        <li class="header">NOTIFICACIONES</li>
                         <li class="body">
                             <ul class="menu">
                                 <li>
-                                    <a href="javascript:void(0);">
+                                    <a href="{{route('markAsRead')}}">
                                         <div class="icon-circle bg-light-green">
-                                            <i class="material-icons">person_add</i>
+                                            <i class="material-icons">check_circle</i>
                                         </div>
                                         <div class="menu-info">
-                                            <h4>12 new members joined</h4>
+                                            <h4>Marcar como leidas</h4>
                                             <p>
-                                                <i class="material-icons">access_time</i> 14 mins ago
+                                                <i class="material-icons"></i>
                                             </p>
                                         </div>
                                     </a>
                                 </li>
-                                <li>
+                                {{ \App\Http\Controllers\HomeController::locale()}}
+                                @foreach(auth()->user()->unreadNotifications as $notification)
+                                    <li>
+                                    <a href="{{$notification->data['link']}}">
+                                            <div class="icon-circle bg-cyan">
+                                                @switch($notification->data['tipo'])
+                                                    @case(1)
+                                                    <i class="material-icons">local_shipping</i>
+                                                    @break
+                                                    @default
+                                                    <i class="material-icons">delete_forever</i>
+                                                @endswitch
+
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>{{$notification->data['data']}}</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i>
+                                                    {{$notification->created_at->diffForHumans()}}
+                                                </p>
+                                            </div>
+                                    </a>
+                                    </li>
+                                @endforeach
+
+                                {{--<li>
                                     <a href="javascript:void(0);">
                                         <div class="icon-circle bg-cyan">
                                             <i class="material-icons">add_shopping_cart</i>
@@ -212,11 +239,11 @@
                                             </p>
                                         </div>
                                     </a>
-                                </li>
+                                </li>--}}
                             </ul>
                         </li>
                         <li class="footer">
-                            <a href="javascript:void(0);">View All Notifications</a>
+                            <a href="javascript:void(0);">Ver todas las notificaciones</a>
                         </li>
                     </ul>
                 </li>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\TaskCompleted;
 use App\Obra;
+use App\User;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class HomeController extends Controller
 {
     /**
@@ -24,6 +26,23 @@ class HomeController extends Controller
      */
     public function index(){
 
+          $titulo = 'Pedido';
+          $tipo=1;
+          $mensaje = 'se ha realizado un pedido';
+           $link = '/mostrar_pedidos';
+
+
+            $administradores = User::where('puesto',"=",'gerente')->select('users.*')->get();
+
+           foreach ($administradores as $admin){
+                User::find($admin->id)->notify(new TaskCompleted($titulo,$tipo,$mensaje,$link));
+            }
+
+       ///     return $administradores;
         return view('home');
+    }
+
+    public static function locale(){
+        Carbon::setLocale('es');
     }
 }
