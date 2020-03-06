@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Obra;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use App;
@@ -123,11 +124,12 @@ class PedidosController extends Controller
         
         }
 
-        $user = App\Obra::join('users', 'users.id', '=', 'obra.encargado')
-        ->select('users.*')->get();
+        $pedido= App\Pedido::find($id_pedido);
+        $result = Obra::where('id',$pedido->obra)
+            ->join('users','users.id','=','obra.encargado')
+            ->select('users.fcm_token')->get();
 
-
-        NotificacionController::sendPushNotification($user->fcm_token,"Pedido confirmado"
+        NotificacionController::sendPushNotification($result,"Pedido confirmado"
             ,"Tu pedido se ha confrimado va en camino");
         return $this->mostrar();
     }
