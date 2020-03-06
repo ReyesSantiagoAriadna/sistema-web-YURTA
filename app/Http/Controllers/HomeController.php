@@ -99,7 +99,6 @@ class HomeController extends Controller
         $fcm_token = 'ehphesgbZME:APA91bH2veU3wJVAFaeAYjomPnlLkaNkYm8Q7D1fKQaHRYFtY-DIAwaaKaBaO8sRzNkCDJKaLmmJ2ofgtcCuq8Acl2hBUnSW1Wp3CHLPbNpCk7DbNja477Oz1kbSesVnWuybnLHtvGtD';
 
 
-
         $title = 'Hola';
         $message = 'papu';
         $id=null;
