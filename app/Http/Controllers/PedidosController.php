@@ -130,8 +130,8 @@ class PedidosController extends Controller
             ->select('users.fcm_token')->get();
 
         $key = "fcm_token";
-        $jsonObj = json_decode($result);
-        return $firstName = $jsonObj->$key;
+        $jsonArray = json_decode($result,true);
+        return $firstName = $jsonArray[$key];
         //return $this->sendPushNotification($result,"Pedido confirmado"
            // ,"Tu pedido se ha confirmado va en camino");
         //return $this->mostrar();
