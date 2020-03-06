@@ -152,9 +152,7 @@
             </form>
             <br>
             <br>
-            <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="saveimg()">
-
-            @include('tipoMaterial.agregar') 
+            <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="saveimg()"> 
 
         </div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->

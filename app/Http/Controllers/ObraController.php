@@ -55,6 +55,13 @@ class ObraController extends Controller{
         return view('obras.agregar_material',compact('obra','materiales'));
     }
 
+    public function tipo_obra(Request $request){
+        if($request->ajax()){
+            $tipos = App\TipoObra::all();
+            return reponse()->json($tipos);
+        }
+    }
+
     public function editar($id){
         $tipos=App\TipoObra::all();
         $usuarios= App\User::all();
@@ -123,10 +130,10 @@ class ObraController extends Controller{
    }
 
    public function mostrar_material_obra($id){
-    $obra = App\Obra::findOrFail($id);
-    $materiales_obra = App\MAterialObra::all();
-    return view('obras.mostrar_materiales', compact('obra','materiales_obra'));
-}
+        $obra = App\Obra::findOrFail($id);
+        $materiales_obra = App\MAterialObra::all();
+        return view('obras.mostrar_materiales', compact('obra','materiales_obra'));
+   }
 
     public function edit($id){
         if(request()->ajax()) {

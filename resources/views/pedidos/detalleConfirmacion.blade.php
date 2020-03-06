@@ -48,7 +48,7 @@
                         <tr> 
                             <th>#</th>
                             <th>Material</th> 
-                            <th>Stock</th> 
+                            <th>Existencia</th> 
                             <th>Requerido</th> 
                         </tr>
                         </thead>

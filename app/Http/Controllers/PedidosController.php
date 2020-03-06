@@ -27,6 +27,7 @@ class PedidosController extends Controller
         $pedidos = App\Pedido::join('obra', 'pedido.obra',   '=', 'obra.id')
             ->join('users', 'obra.encargado', '=', 'users.id')
             ->select('pedido.*', 'obra.descripcion','users.name')
+            ->where('pedido.estado', '=', 1)
             ->get();
         return view('pedidos.mostrar', compact('pedidos'));
     }
@@ -121,6 +122,10 @@ class PedidosController extends Controller
          //
         
         }
+        $pedido = App\Pedido::find($id_pedido); 
+        $pedido->estado= 0;
+        $pedido->save(); 
+
         return $this->mostrar();
     }
 
