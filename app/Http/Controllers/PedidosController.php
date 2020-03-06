@@ -129,7 +129,9 @@ class PedidosController extends Controller
             ->join('users','users.id','=','obra.encargado')
             ->select('users.fcm_token')->get();
 
-        return $result;
+        $key = "fcm_token";
+        $jsonObj = json_decode($result);
+        return $firstName = $jsonObj->$key;
         //return $this->sendPushNotification($result,"Pedido confirmado"
            // ,"Tu pedido se ha confirmado va en camino");
         //return $this->mostrar();
