@@ -125,7 +125,7 @@ class PedidosController extends Controller
         }
 
         $pedido= App\Pedido::find($id_pedido);
-        $result = Obra::where('id',$pedido->obra)
+        $result = Obra::where('obra.id',$pedido->obra)
             ->join('users','users.id','=','obra.encargado')
             ->select('users.fcm_token')->get();
 
