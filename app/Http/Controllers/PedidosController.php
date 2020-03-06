@@ -139,7 +139,7 @@ class PedidosController extends Controller
         $this->sendPushNotification($fcm_token,"Pedido confirmado"
            ,"Tu pedido se ha confirmado va en camino");
         $pedido = App\Pedido::find($id_pedido); 
-        $pedido->estado= 0;
+        $pedido->estado= 1;
         $pedido->save(); 
 
         return $this->mostrar();
