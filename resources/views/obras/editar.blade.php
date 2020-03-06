@@ -131,12 +131,10 @@
 
         var id;
 
-        var encargado,tipo_obra;
+         
 //obtencion de registro a editar
         $(document).on('click', '.edit', function(){
-            id = $(this).attr('id');
-            encargado = document.getElementById("enc");
-            tipo_obra = document.getElementById("tip").value;
+            id = $(this).attr('id');            
             $('#form_result').html('');
             $.ajax({
                 url :"/edit_obra/"+id,
@@ -149,10 +147,9 @@
                     $('#lat').val(data.result.lat);
                     $('#lng').val(data.result.lng);
 
-                    $.get('find_obra',{id,id},function (obra) {
-                        encargado = obra.encargado;
-                        tipo_obra = obra.tipo_obra;
-                    });
+                    var encargado = document.getElementById("enc");
+                    var tipo_obra = document.getElementById("tipo").value;
+ 
 
                     $.get('residentes',function (encargados) {
                         $('#encargado').empty();
@@ -162,9 +159,10 @@
                     });
 
 
-                    $.get('tipos',function (tipos) {
+                    $.get('tipos',function (tipo_obra) {
                         $('#tipo').empty();
-                        $.each(tipos,function(key, registro) {
+                        console.log("tipos",tipo_obra);
+                        $.each(tipo_obra,function(key, registro) {
                             $('#tipo').append("<option value='" + registro.id + "'" + (tipo_obra == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
                         });
                     });
