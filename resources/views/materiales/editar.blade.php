@@ -143,7 +143,7 @@
                     //valores del obejto a editar
                     var tipo =  document.getElementById("tipo").value;
                     var unidad = document.getElementById("unidad").value;
-
+                    
                     // window.alert(provider);
                     //obtener los proveedores a travez de ajax
                     $.get('proveedores',function (proveedores) {

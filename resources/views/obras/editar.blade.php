@@ -147,7 +147,7 @@
                     $('#lat').val(data.result.lat);
                     $('#lng').val(data.result.lng);
 
-                    var encargado = document.getElementById("enc");
+                    var encargado = document.getElementById("enc").value;
                     var tipo_obra = document.getElementById("tipo").value;
  
 
