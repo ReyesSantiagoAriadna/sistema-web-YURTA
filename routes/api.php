@@ -22,13 +22,14 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('pedidos_obras','Api\ApiController@obrasPedidos')->name('pedidos_obras');
     Route::get('det_pedidos_obras','Api\ApiController@detallesPedidos')->name('det_pedidos_obras');
 
-
+    //Route::get('det_pedidos_obras','Api\ApiController@detallesPedidos')->name('det_pedidos_obras');
     Route::post('add_pedido','Api\ApiController@addPedido');
 
 
 
     Route::post('logout', 'Api\ApiController@logout')->name('logout');
 });
+
 
 
 Route::post('add_det_pedido','Api\ApiController@addDetallePedido');
