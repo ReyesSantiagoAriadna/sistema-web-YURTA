@@ -76,7 +76,7 @@ class PedidosController extends Controller
     public function detalle($id){
         $id_pedido=$id;
           $data =  DB::table('material')
-        ->join('det_ped', 'det_ped.material', '=', 'material.id')
+        ->join('det_ped', 'det_ped.ped_material', '=', 'material.id')
         ->join('pedido', 'pedido.id', '=', 'det_ped.id_pedido')
         ->join('obra','obra.id','=','pedido.obra')
         ->select('material.descripcion', 'det_ped.cantidad', 'material.id','obra.descripcion as des_obra', 'obra.id as id_obra')

@@ -20,37 +20,40 @@ class TipoObraController extends Controller{
         return view('tipo_obra.mostrar', compact('tipo'));
     }
 
-    public function agregar(Request $request){
-        $tipo=new App\TipoObra();
-        $tipo->descripcion=$request->descripcion;
-        $tipo->save();
+    public function agregar(){ 
+        return view('tipo_obra.agregar');
  
+    } 
+
+    public function crear_tipo(Request $request){  
+        $tipo_obra = new App\TipoObra;
+        $tipo_obra->descripcion = $request->descripcion; 
+        $tipo_obra->save();
+        return $this->mostrar()->with('mensaje','Registro agregado');
+    }
+ 
+
+    public function edit($id){
+        if(request()->ajax()) {
+            $data = App\TipoObra::findOrFail($id);
+            return response()->json(['result' => $data]);
+        }
     }
 
-    public function  editar($id){
-        $tipo=App\TipoObra::findOrfail($id);
-        return view('tipo_obra.editar',compact('tipo'));
-    }
-    public function update(Request $request,$id){
-        $tipoUpdate=App\TipoObra::findOrfail($id);
+    public function update(Request $request){
+        $tipoUpdate=App\TipoObra::findOrfail($request->hidden_id); 
         $tipoUpdate->descripcion=$request->descripcion;
         $tipoUpdate->save();
-        $tipos=App\TipoObra::all();
-        return view('tipo_obra.mostrar',['tipo'=>$tipos])->with('mensaje','Registro actualizado');
+        return response()->json(['success' => 'Registro Actualizado']);
     }
 
     public function eliminar($id){
-        $tipoEliminar=App\TipoObra::findOrfail($id);
+        $tipoEliminar = App\TipoObra::findOrFail($id);
         $tipoEliminar->delete();
-        $tipos=App\TipoObra::all();
-        return view('tipo_obra.mostrar',['tipo'=>$tipos])->with('mensaje','Registro actualizado');
+        return $this->mostrar();
     }
 
-
-    public function tipos(Request $request){
-        if ($request->ajax()) {
-            $tipos = App\TipoObra::all();
-            return response()->json($tipos);
-        }
-    }
+  
+   
+ 
 }

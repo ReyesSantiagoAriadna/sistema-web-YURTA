@@ -26,9 +26,7 @@ class ValidationRequest extends FormRequest
         return [  
             'razon_social' => 'required',
             'telefono' => 'numeric|required|min:10',
-            'email' => 'required|email',
-            'password' => 'required| min:6|regex:/(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/| 
-            confirmed'
+            'email' => 'required|email'
         ];
     }
 }

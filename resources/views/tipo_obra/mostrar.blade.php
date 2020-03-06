@@ -19,17 +19,17 @@
                         <li><a href="javascript:void(0);">Something else here</a></li>
                     </ul>
                 </li>
+                <li style="float:left"> 
+                    <a class="btn btn-primary waves-effect" type="submit" href="{{route('agregar_tipo_obra')}}">Agregar</a>
+                </li>
             </ul>
         </div>
-        <div class="body">
-            <ol class="breadcrumb breadcrumb-col-orange"> 
-                <div style="float:right;">
-                    <button name="create_record" id="create_record" class="btn btn-primary" type="button">
-                        Nuevo
-                    </button>
-                </div>
-            </ol>
+        <div class="body"> 
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li style =  "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">local_convenience_store</i> Obras</a></li> 
+                <li style =  "font-size: 18px" class="active"><i class="material-icons">device_hub</i>Tipos</li>
 
+            </ol> 
             <div class="body table-responsive"> 
                 <table class="table table-striped">
                     <thead>
@@ -47,7 +47,7 @@
                         <td>{{$item->descripcion}}</td>         
                         <td>
                             <button value="{{$item->proveedor}}" title="Editar" data-toggle="tooltip"  data-placement="top" type="button" name="edit" id="{{$item->id}}"
-                                     class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">
+                                class="edit btn btn-primary btn-circle waves-effect waves-circle waves-float">
                                 <i class="material-icons">mode_edit</i>
                             </button>
                             <button title="Eliminar" data-toggle="tooltip"  data-placement="top"  type="button" name="edit"  id="{{$item->id}}"
@@ -61,6 +61,7 @@
                     </tbody>
                 </table>
             </div> 
+            @include('tipo_obra.editar')
         </div>
     </div>
 @endsection
