@@ -128,7 +128,11 @@ class PedidosController extends Controller
         $result = Obra::where('obra.id',$pedido->obra)
             ->join('users','users.id','=','obra.encargado')
             ->select('users.fcm_token')->get();
-        return $result;
+        //return $result;
+        $data = json_decode($result);
+        return $data[0]->fcm_token;
+
+
         //$key = "fcm_token";
         //$jsonArray = json_decode($result,true);
         //return $firstName = $jsonArray[$key];
