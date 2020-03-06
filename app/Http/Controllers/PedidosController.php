@@ -128,10 +128,10 @@ class PedidosController extends Controller
         $result = Obra::where('obra.id',$pedido->obra)
             ->join('users','users.id','=','obra.encargado')
             ->select('users.fcm_token')->get();
-
-        $key = "fcm_token";
-        $jsonArray = json_decode($result,true);
-        return $firstName = $jsonArray[$key];
+        return $result;
+        //$key = "fcm_token";
+        //$jsonArray = json_decode($result,true);
+        //return $firstName = $jsonArray[$key];
         //return $this->sendPushNotification($result,"Pedido confirmado"
            // ,"Tu pedido se ha confirmado va en camino");
         //return $this->mostrar();
