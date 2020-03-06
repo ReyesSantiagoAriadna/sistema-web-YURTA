@@ -21,10 +21,11 @@
                 </li>
             </ul>
         </div>
-        <div class="body">
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">people</i> Proveedores</a></li>
-                <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
+        <div class="body"> 
+
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">people</i> Proveedores</a></li>
+                <li style = "font-size: 18px" class="active"><i class="material-icons">visibility</i> Mostrar</li>
             </ol>
 
             <div class="table-responsive">

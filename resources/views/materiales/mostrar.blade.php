@@ -3,7 +3,7 @@
 @extends('admin_panel')
 @section('contenido')
     <div class="block-header">
-        <h2>MATERIALES</h2>
+        <h2  ></h2>
         @if(session('mensaje'))
             <div class="alert-success">
                 <label>{{session('mensaje')}}</label>
@@ -20,7 +20,7 @@
     <div class="card">
         <div class="header">
             <h2>
-
+                MATERIALES
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
@@ -35,10 +35,10 @@
                 </li>
             </ul>
         </div>
-        <div class="body">
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
-                <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
+        <div class="body"> 
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
+                <li style = "font-size: 18px"class="active"><i class="material-icons">visibility</i> Mostrar</li>
             </ol>
 
             <div class="table-responsive">
@@ -100,7 +100,7 @@
                     </tbody>
                 </table>
             </div>
-            @include('materiales.editar')
+            @include('materiales.editar') 
         </div>
     </div>
 @endsection

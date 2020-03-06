@@ -37,6 +37,14 @@ class TipoMaterialController extends Controller
             return response()->json(['result' => $data]);
         }
     }
+
+    public function add_tipo(Request $request){ 
+        $tipoNuevo = new App\MaterialTipo;
+        $tipoNuevo->descripcion = $request->descripcion;     
+        $tipoNuevo->save();    
+        return response()->json(['success' => 'Registro Agregado']);
+
+    }
  
     public function updateTipo(Request $request){
         $tipoActualizar = App\MaterialTipo::findOrfail($request->hidden_id); 

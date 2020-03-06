@@ -1,54 +1,61 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Agregar usuario</h3>
-                    <div class="row">
+<?php $nav_obras = 'active'; ?>
+<?php $nav_obras_tipos = 'active'; ?>
+@extends('admin_panel')
+@section('contenido')
+
+
+    <div class="card">
+        <div class="header">
+            <h2>
+               TIPO OBRA
+            </h2>
+            <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another action</a></li>
+                        <li><a href="javascript:void(0);">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body"> 
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Obras</a></li>
+                <li style = "font-size: 18px" class="active"><i class="material-icons">add_circle</i> Tipos</li>
+            </ol>
+
+            <form method="POST" action="{{ route('tipo_obra_add') }}" id="formenvio_1">
+                @csrf
+                <h2 class="card-inside-title">Datos del tipo de obra</h2>
+                <label id="alert-name" class="font-bold col-grey" for="name">* Campos Obligatorios</label>
+                <br>
+                <label>Tipo de Obra</label> 
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <i class="material-icons">merge_type</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text"  class="form-control" placeholder="Descripcion" id="descripcion" name="descripcion" required>
+                    </div>
+                    <div style="float:left" class=" help-info">*</div>
+                </div>
+
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Register') }}
+                        </button>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('tipo_obra.add') }}">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            </form> 
+ 
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 @endsection
-

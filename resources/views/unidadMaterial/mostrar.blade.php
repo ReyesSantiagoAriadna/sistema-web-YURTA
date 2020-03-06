@@ -18,12 +18,17 @@
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
-                        <li style="float:left"> 
-                            <a class="btn btn-primary waves-effect" type="submit" href="{{route('agregar_unidad_materiales')}}">Agregar</a>
+                        <li style="float:left">  
+                            <button  class="btn btn-primary btn-sm waves-effect" type="button" name="add" id="add_data">Agregar</button>  
                         </li>
                     </ul>
                 </div>
                 <div class="body table-responsive">
+                    <ol class="breadcrumb breadcrumb-bg-orange">
+                        <li style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
+                        <li style = "font-size: 18px"class="active"><i class="material-icons">flag</i>Tipo de Unidad</li>
+                    </ol>
+        
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -56,6 +61,7 @@
                     </table>
                 </div> 
                 @include('unidadMaterial.editar')
+                @include('unidadMaterial.agregar')
             </div>
         </div>
     </div>

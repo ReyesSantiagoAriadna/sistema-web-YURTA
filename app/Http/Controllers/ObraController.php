@@ -25,6 +25,10 @@ class ObraController extends Controller{
         return view('obras.mostrar', compact('obras'));
     }
 
+    public static function countObras(){
+        $obras = App\Obra::all()->count();
+        return $obras;
+    }
 
     public function agregar(){
         $usuarios = App\User::all();
@@ -207,6 +211,39 @@ class ObraController extends Controller{
 
     public function materialObra($id){
         return App\MaterialObra::where('id_obra', $id)->get();
+    }
+
+    public function mostrar_presupuesto(Request $request){ 
+        $datos = $_POST['datos'];
+        $total= 0; 
+        $importes = array(); 
+        
+        $volumen = $datos[0] * $datos[1] * $datos[2];  
+        //$t_cemento = $volumen * 7 * 1.05;
+        $datos[0]= round($volumen * 7 * 1.05, 0, PHP_ROUND_HALF_UP);
+        //$t_arena = $volumen * 0.56;
+        $datos[1]= round($volumen * 0.56, 0, PHP_ROUND_HALF_UP);
+        //$t_grava = $volumen * 0.85;
+        $datos[2] = round($volumen * 0.85, 0, PHP_ROUND_HALF_UP);
+        //$t_agua = $volumen * 180; 
+        $t_agua = round( $volumen * 180, 0, PHP_ROUND_HALF_UP); 
+
+        $result = DB::table('material')
+            ->join('unidad_material', 'material.unidad', '=', 'unidad_material.id')
+            ->join('proveedor', 'material.proveedor', '=', 'proveedor.id')
+            ->select('material.id','material.descripcion','material.precio_unitario','material.unidad','material.marca',
+            'unidad_material.descripcion as unidad','proveedor.razon_social')
+            ->where('material.descripcion', 'cemento')
+            ->orWhere('material.descripcion', 'arena') 
+            ->orWhere('material.descripcion', 'grava') 
+            ->get(); 
+        
+        for ($i=0; $i < sizeof($result); $i++) { 
+            $total += $result[$i]->precio_unitario * $datos[$i];
+            $importes[$i]= $result[$i]->precio_unitario * $datos[$i]; 
+        }
+ 
+        return view('obras.mostrarPresupuesto', compact('t_agua','result','datos','total','importes'));
     }
 }
 

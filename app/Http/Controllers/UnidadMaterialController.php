@@ -29,6 +29,13 @@ class UnidadMaterialController extends Controller
         return $this->mostrar()->with('mensaje','Registro agregado');
     }
 
+    public function add_uni(Request $request){ 
+        $unidadNueva = new App\MaterialUnidad;
+        $unidadNueva->descripcion = $request->descripcion;     
+        $unidadNueva->save();    
+        return response()->json(['success' => 'Registro Agregado']);
+
+    }
     
     public function edit($id){
         if(request()->ajax()) {
