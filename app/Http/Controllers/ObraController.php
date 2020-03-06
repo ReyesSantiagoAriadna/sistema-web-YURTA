@@ -58,7 +58,7 @@ class ObraController extends Controller{
     public function tipos(Request $request){
        // if($request->ajax()){
             $tipos = App\TipoObra::all();
-            return reponse()->json($tipos);
+            return response()->json($tipos);
         //}
     }
 
