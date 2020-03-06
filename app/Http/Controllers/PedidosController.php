@@ -28,8 +28,7 @@ class PedidosController extends Controller
     public function mostrar(){
         $pedidos = App\Pedido::join('obra', 'pedido.obra',   '=', 'obra.id')
             ->join('users', 'obra.encargado', '=', 'users.id')
-            ->select('pedido.*', 'obra.descripcion','users.name')
-            ->where('pedido.estado', '=', 0)
+            ->select('pedido.*', 'obra.descripcion','users.name') 
             ->get();
         return view('pedidos.mostrar', compact('pedidos'));
     }
