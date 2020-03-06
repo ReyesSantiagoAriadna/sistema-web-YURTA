@@ -159,9 +159,9 @@
                     });
 
 
-                    $.get('tipos',function (tipo_obra) {
+                    $.get('tipos',function (tipos) {
                         $('#tipo').empty();
-                        console.log("tipos",tipo_obra);
+                        console.log("tipos",tipos);
                         $.each(tipo_obra,function(key, registro) {
                             $('#tipo').append("<option value='" + registro.id + "'" + (tipo_obra == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
                         });
