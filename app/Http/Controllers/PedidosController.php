@@ -129,8 +129,9 @@ class PedidosController extends Controller
             ->join('users','users.id','=','obra.encargado')
             ->select('users.fcm_token')->get();
 
-        return $this->sendPushNotification($result,"Pedido confirmado"
-            ,"Tu pedido se ha confirmado va en camino");
+        return $result;
+        //return $this->sendPushNotification($result,"Pedido confirmado"
+           // ,"Tu pedido se ha confirmado va en camino");
         //return $this->mostrar();
     }
 
