@@ -130,15 +130,15 @@ class PedidosController extends Controller
             ->select('users.fcm_token')->get();
         //return $result;
         $data = json_decode($result);
-        return $data[0]->fcm_token;
+        $fcm_token= $data[0]->fcm_token;
 
 
         //$key = "fcm_token";
         //$jsonArray = json_decode($result,true);
         //return $firstName = $jsonArray[$key];
-        //return $this->sendPushNotification($result,"Pedido confirmado"
-           // ,"Tu pedido se ha confirmado va en camino");
-        //return $this->mostrar();
+        $this->sendPushNotification($fcm_token,"Pedido confirmado"
+           ,"Tu pedido se ha confirmado va en camino");
+        return $this->mostrar();
     }
 
     function disminuir_existencias($id,$cantidad){ 
