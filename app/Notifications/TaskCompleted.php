@@ -19,6 +19,9 @@ class TaskCompleted extends Notification
     public $tipo;
     public $mensaje;
     public $link;
+
+
+
     public function __construct($titulo,$tipo,$mensaje,$link)
     {
        // $this->user = $user;
@@ -29,11 +32,19 @@ class TaskCompleted extends Notification
     }
 
     public function via($notifiable){
-        return['database'];
+        //return['database'];
+        return['mail'];
     }
 
     public function toMail($notifiable){
-        return(new MailMessage)->view('home',['user'=>$this->user]);
+        return(new MailMessage())
+            ->subject('Yurta App')
+            ->greeting('hola')
+            ->line('Linea 1')
+            ->action('Notification Action',url('/'))
+            ->line('Gracias')
+            ->salutation('despido')
+            ->actionUrl('/');
     }
 
     public function toArray($notifiable){

@@ -149,3 +149,5 @@ Route::post('/confirmar_pedido', 'PedidosController@confirmarPedido' )->name('co
 /*rutas prueba*/
 
 Route::get('/pruebas/view','PedidosController@view');
+Route::get('/notificacion','HomeController@sendPushNotification');
+

@@ -117,3 +117,22 @@ class UsuarioController extends Controller
         return redirect()->back();
     }
 }
+
+/**
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=dd9b16ba56073f
+MAIL_PASSWORD=e72d68a8ec34be
+MAIL_ENCRYPTION=tls
+ *
+ *
+ *
+ *
+ * MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=yurtaapp@gmail.com
+MAIL_PASSWORD=itoaxaca2261
+MAIL_ENCRYPTION=tls
+ */

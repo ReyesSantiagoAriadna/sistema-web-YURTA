@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('puesto');
             $table->string('api_token',60)->nullable()->unique();
             $table->string('url_avatar')->nullable();
+            $table->string('fcm_token')->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
         });

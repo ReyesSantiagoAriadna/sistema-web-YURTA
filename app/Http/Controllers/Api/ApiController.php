@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\DetallePedido;
 use App\Material;
 use App\MaterialObra;
+use App\Notifications\TaskCompleted;
 use App\Obra;
 use App\Pedido;
 use App\TipoObra;
@@ -90,7 +91,16 @@ class ApiController extends Controller
             ], 400);
         }
 
-        $response['usuario']=Auth::user();
+        $fcm_token = $request->fcm_token;
+
+
+        User::where('id',Auth::user()->id)->update(array(
+            'fcm_token'=>$fcm_token,
+        ));
+
+
+    
+       // $response['usuario']=Auth::user();
         return response()->json([
             'id' =>Auth::user()->id,
             'name' => Auth::user()->name,
@@ -98,7 +108,8 @@ class ApiController extends Controller
             'telefono'=>Auth::user()->telefono,
             'puesto'=>Auth::user()->puesto,
             'api_token' =>Auth::user()->api_token,
-            'url_avatar'=>Auth::user()->url_avatar
+            'url_avatar'=>Auth::user()->url_avatar,
+            'fcm_token'=>$fcm_token
         ]);
     }
 
@@ -246,8 +257,20 @@ class ApiController extends Controller
             $detalle->ped_material = $material[$i];
             $detalle->save();
         }
-       // return response()->json(['succes'=>'succes']);
+        // return response()->json(['succes'=>'succes']);
 
+
+        //generar notificación
+        if($pedidoNuevo){
+            $titulo = 'Pedido';
+            $tipo=1;
+            $mensaje = 'se ha realizado un pedido';
+            $link = '/mostrar_pedidos';
+            $administradores = User::where('puesto',"=",'gerente')->select('users.*')->get();
+            foreach ($administradores as $admin){
+                User::find($admin->id)->notify(new TaskCompleted($titulo,$tipo,$mensaje,$link));
+            }
+        }
         return response()->json([
             'id' =>$pedidoNuevo->id,
             'fecha_p' => $pedidoNuevo->fecha_p,
