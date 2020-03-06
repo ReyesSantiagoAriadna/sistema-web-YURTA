@@ -56,10 +56,10 @@ class ObraController extends Controller{
     }
 
     public function tipos(Request $request){
-       // if($request->ajax()){
+        if($request->ajax()){
             $tipos = App\TipoObra::all();
             return response()->json($tipos);
-        //}
+       }
     }
 
     public function editar($id){
