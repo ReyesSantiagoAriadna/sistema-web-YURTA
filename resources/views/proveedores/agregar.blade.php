@@ -6,7 +6,7 @@
         <div class="header">
             <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
             <h2>
-                PROVEEDOR
+                PROVEEDORES
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
@@ -31,11 +31,12 @@
                 </ul>
             </div>
         @endif
-    
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">people</i> Proveedores</a></li>
-                <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
+     
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">people</i> Proveedores</a></li>
+                <li style = "font-size: 18px" class="active"><i class="material-icons">add_circle</i> Nuevo</li>
             </ol>
+
             <form method="POST" action="{{ route('crear_proveedor') }}">
                 @csrf
                 <h2 class="card-inside-title">Datos del proveedor</h2>

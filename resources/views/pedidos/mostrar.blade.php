@@ -4,12 +4,12 @@
 @section('contenido')
 
     <div class="block-header">
-        <h2> PEDIDOS</h2>
+        <h2> </h2>
     </div>
     <div class="card">
         <div class="header">
             <h2>
-
+                PEDIDOS
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
@@ -24,11 +24,12 @@
                 </li>
             </ul>
         </div>
-        <div class="body">
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">local_shipping</i> Pedidos</a></li>
-                <li class="active"><i class="material-icons">visibility</i> Mostrar</li>
-            </ol>
+        <div class="body"> 
+
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">local_shipping</i> Pedidos</a></li>
+                <li style = "font-size: 18px" class="active"><i class="material-icons">visibility</i> Mostrar</li>
+             </ol>
 
             <div class="table-responsive">
                 <table id="tabla-pedidos" class="display" style="width:100%">

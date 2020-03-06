@@ -60,11 +60,11 @@ Route::get('/unidades_materiales','ProveedorController@UnidadesMateriales');
 
 //TIPOS DE OBRA//
 Route::get('/mostrar_tipo_obras','TipoObraController@mostrar')->name('tipo_obras.mostrar');
-Route::post('/agregar_tipo_obra','TipoObraController@agregar')->name('tipo_obra.agregar');
-Route::get('/editar_tipo_obra{id}', 'TipoObraController@editar' )->name('tipo_obra.editar');
-Route::put('/editar_tipo_obra/{id}','TipoObraController@update')->name('tipo_obra.update');
-Route::delete('/eliminar_tipo_obra/{id}','TipoObraController@eliminar')->name('tipo_obra.eliminar');
-Route::get('/tipos','TipoObraController@tipos');
+Route::get('/agregar_tipo_obra','TipoObraController@agregar')->name('agregar_tipo_obra');
+Route::post('/agregar_tipo_obra','TipoObraController@crear_tipo')->name('tipo_obra_add'); 
+Route::get('/edit_tipo_obra/{id}','TipoObraController@edit');
+Route::post('/update_tipo_obra','TipoObraController@update')->name('tipo_update');
+Route::delete('/eliminar_tipo_obra/{id}','TipoObraController@eliminar')->name('eliminar_tipo_obra');
 
 
 
@@ -78,7 +78,7 @@ Route::delete('/eliminar_material/{id}','MaterialController@eliminar')->name('ma
 
 Route::get('/mostrar_tipo_material','TipoMaterialController@mostrar')->name('tipo_materiales');
 Route::get('/agregar_tipo_material','TipoMaterialController@agregar')->name('agregar_tipo_material');
-Route::post('/crear_tipo_material','TipoMaterialController@crear_tipo')->name('tipo_material_agregar');  
+Route::post('/crear_tipo_material','TipoMaterialController@add_tipo')->name('tipo_material_agregar');  
 Route::get('/edit_tipo_material/{id}','TipoMaterialController@editTipo');
 Route::post('/update_t','TipoMaterialController@updateTipo')->name('tipo_update');
 Route::delete('/eliminar_tipo/{id}','TipoMaterialController@eliminar')->name('eliminar_tipo');
@@ -87,7 +87,7 @@ Route::delete('/eliminar_tipo/{id}','TipoMaterialController@eliminar')->name('el
 
 Route::get('/mostrar_unidad_material','UnidadMaterialController@mostrar')->name('unidad_materiales');
 Route::get('/agregar_unidad_material','UnidadMaterialController@agregar')->name('agregar_unidad_materiales');
-Route::post('/crear_unidad_material','UnidadMaterialController@crear')->name('unidad_material_crear');
+Route::post('/crear_unidad_material','UnidadMaterialController@add_uni')->name('unidad_material_crear');
 Route::get('/edit_unidad_material/{id}','UnidadMaterialController@edit');
 Route::post('/update_unidad_material','UnidadMaterialController@update')->name('unidad_material_update');
 Route::delete('/eliminar_unidad/{id}','UnidadMaterialController@eliminar')->name('eliminar_unidad');
@@ -112,7 +112,7 @@ Route::post('/agregar_material_obra{id}','ObraController@agregarMaterial')->name
 
  
 Route::get('/presupuesto','ObraController@presupuesto')->name('obra.presupuesto');
-Route::get('/materialPresupuesto/{id}', 'ObraController@materialObra')->name('presupuesto.materialObra');
+Route::post('/calcular_presupuestro', 'ObraController@mostrar_presupuesto')->name('calcular_presupuestro');
 
 
 

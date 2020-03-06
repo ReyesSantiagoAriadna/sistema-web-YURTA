@@ -22,11 +22,12 @@
                 </li>
             </ul>
         </div>
-        <div class="body">
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
-                <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
-            </ol>
+        <div class="body"> 
+
+            <ol class="breadcrumb breadcrumb-bg-orange">
+                <li  style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
+                <li  style = "font-size: 18px" class="active"><i class="material-icons">add_circle</i> Nuevo</li>
+             </ol>
 
 
             <form method="POST" action="{{ route('material_agregar') }}" id="formenvio_1">
@@ -53,7 +54,11 @@
                             <option value="">Seleccione el tipo de material</option>
                             @foreach ($tipos as $tipo)
                                 <option value="{{$tipo['id']}}">{{$tipo['descripcion']}}</option>
-                            @endforeach
+                            @endforeach 
+                         {{-- <option value="" name="add" id="add_data">
+                             <button  class="btn btn-primary btn-sm waves-effect" type="button" name="add" id="add_data">Agregar</button>  
+                        
+                            </option>   --}}  
                         </select>
                     </div>
                     <div style="float:left" class=" help-info">*</div>
@@ -79,6 +84,8 @@
                             @foreach ($unidades as $unidad)
                                 <option value="{{$unidad['id']}}">{{$unidad['descripcion']}}</option>
                             @endforeach
+                            
+                            
                         </select> 
                     </div> 
                     <label style="float:left" class="help-info">*</label>
@@ -146,6 +153,9 @@
             <br>
             <br>
             <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="saveimg()">
+
+            @include('tipoMaterial.agregar') 
+
         </div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
 
@@ -201,4 +211,5 @@
             }
 
         </script>
+
 @endsection

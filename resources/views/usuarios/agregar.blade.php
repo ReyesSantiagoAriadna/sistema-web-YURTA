@@ -5,7 +5,7 @@
     <div class="card">
         <div class="header">
             <h2>
-                EMPLEADO
+                EMPLEADOS
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
@@ -31,17 +31,10 @@
                 </ul>
             </div>
         @endif
-
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Empleados</a></li>
-                <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
-            </ol>
+ 
             <ol class="breadcrumb breadcrumb-bg-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Home</a></li>
-                <li><a href="javascript:void(0);"><i class="material-icons">add_circle</i> Library</a></li>
-                <li><a href="javascript:void(0);"><i class="material-icons">archive</i> Data</a></li>
-                <li><a href="javascript:void(0);"><i class="material-icons">attachment</i> File</a></li>
-                <li class="active"><i class="material-icons">extension</i> Extensions</li>
+                <li style = "font-size: 18px"><a href="javascript:void(0);"><i class="material-icons">account_circle</i> Empleados</a></li>
+                <li style = "font-size: 18px" class="active"><i class="material-icons">add_circle</i> Nuevo</li>
             </ol>
             <form method="POST" action="{{ route('usuarios.add') }}" id="formenvio_1">
                 @csrf

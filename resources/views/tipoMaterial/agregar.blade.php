@@ -1,62 +1,87 @@
-<?php $nav_materiales = 'active'; ?>
-<?php $nav_materiales_mostrar_tipos = 'active'; ?>
-@extends('admin_panel')
-@section('contenido')
+<div id="formModal" class="modal fade" role="dialog">
+    @if ( session('mensaje') )
+        <div class="alert alert-success">{{ session('mensaje') }}</div>
+    @endif
 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn btn-danger btn-circle" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agregar Tipo de Material</h4>
+            </div>
+            <div class="modal-body">
+                <span id="form_result"></span>
+                <form method="post" id="sample_form" class="form-horizontal">
+                    @csrf
+                    <label>Descripción</label>
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="material-icons">description</i></span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" required>
+                        </div>
+                    </div>
+                              
 
-    <div class="card">
-        <div class="header">
-            <h2>
-               TIPO MATERIAL
-            </h2>
-            <ul class="header-dropdown m-r--5">
-                <li class="dropdown">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">more_vert</i>
-                    </a>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="javascript:void(0);">Action</a></li>
-                        <li><a href="javascript:void(0);">Another action</a></li>
-                        <li><a href="javascript:void(0);">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
+                    <br />
+                    <div class="form-group" align="center">
+                        <input type="hidden" name="action" id="action" value="Add" />
+                        <input type="hidden" name="proveedor_id" id="proveedor_id" />
+                        <input type="hidden" name="hidden_id" id="hidden_id" />
+                        <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Aceptar" />
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="body">
-            <ol class="breadcrumb breadcrumb-col-orange">
-                <li><a href="javascript:void(0);"><i class="material-icons">ev_station</i> Materiales</a></li>
-                <li class="active"><i class="material-icons">add_circle</i> Nuevo</li>
-            </ol>
-
-
-            <form method="POST" action="{{ route('tipo_material_agregar') }}" id="formenvio_1">
-                @csrf
-                <h2 class="card-inside-title">Datos del tipo de material</h2>
-                <label id="alert-name" class="font-bold col-grey" for="name">* Campos Obligatorios</label>
-                <br>
-                <label>Tipo de Material</label> 
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon">
-                        <i class="material-icons">merge_type</i>
-                    </span>
-                    <div class="form-line">
-                        <input type="text"  class="form-control" placeholder="Tipo" id="tipo" name="tipo" required>
-                    </div>
-                    <div style="float:left" class=" help-info">*</div>
-                </div>
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Register') }}
-                        </button>
-                    </div>
-                </div>
-
-
-            </form> 
+    </div>
+</div>
  
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script>
+    ﻿$(document).ready( function() {
+        $('#tabla-materiales').dataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        } );
 
-    
-@endsection
+        $('#add_data').click(function(){
+                $('#formModal').modal('show'); 
+                $('#form_result').html('');
+                $('#button_action').val('insert');
+                $('#action').val('Add');
+            });
+            
+        
+            $('#sample_form').on('submit', function(event){
+            event.preventDefault();
+            var form_data = $(this).serialize();
+                $.ajax({
+                    url:"{{route('tipo_material_agregar')}}",
+                    method:"POST",
+                    data: form_data, 
+                    dataType:"json",
+                    success:function(data) {
+                        var error_html = '';
+                    if(data.errors){
+                            html= '<div class="alert alert-danger">';
+                            for(var count = 0; count < data.errors.length; count++)
+                            {
+                                html += '<p>'+ data.errors[count] + '</p>';
+                            }
+                            html += '</div>'
+                        }
+                        else
+                        { 
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                                $('#sample_form')[0].reset();
+                                $('#user_tabla').DataTable().ajax.reload();
+                               
+                        }
+                        $('#form_result').html(html);
+                    }
+                }); 
+        });  
+
+
+
+    } );    
+</script>  
