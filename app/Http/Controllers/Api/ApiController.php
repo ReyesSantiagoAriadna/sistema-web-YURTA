@@ -261,16 +261,16 @@ class ApiController extends Controller
 
 
         //generar notificación
-        if($pedidoNuevo){
+       // if($pedidoNuevo){
             $titulo = 'Pedido';
             $tipo=1;
-            $mensaje = 'se ha realizado un pedido';
+            $mensaje = 'se ha realizado un nuevo pedido';
             $link = '/mostrar_pedidos';
             $administradores = User::where('puesto',"=",'gerente')->select('users.*')->get();
             foreach ($administradores as $admin){
                 User::find($admin->id)->notify(new TaskCompleted($titulo,$tipo,$mensaje,$link));
             }
-        }
+        //}
         return response()->json([
             'id' =>$pedidoNuevo->id,
             'fecha_p' => $pedidoNuevo->fecha_p,
