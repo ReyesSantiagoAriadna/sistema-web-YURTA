@@ -41,6 +41,9 @@ class HomeController extends Controller
        ///     return $administradores;*/
 
         //   User::find(1)->notify(new TaskCompleted($titulo,$tipo,$mensaje,$link));
+
+
+
         return view('home');
     }
 

@@ -275,8 +275,8 @@ class ApiController extends Controller
             'id' =>$pedidoNuevo->id,
             'fecha_p' => $pedidoNuevo->fecha_p,
             'fecha_conf' => $pedidoNuevo->fecha_conf,
-            'estado'=>$pedidoNuevo->estado,
-            'obra'=>$pedidoNuevo->obra
+            'estado'=>$status_default,
+            'obra'=>$request->obra
         ]);
 
     }

@@ -33,7 +33,7 @@ class TaskCompleted extends Notification
 
     public function via($notifiable){
         //return['database'];
-        return['mail'];
+        return['mail','database'];
     }
 
     public function toMail($notifiable){
@@ -43,8 +43,7 @@ class TaskCompleted extends Notification
             ->line('Linea 1')
             ->action('Notification Action',url('/'))
             ->line('Gracias')
-            ->salutation('despido')
-            ->actionUrl('/');
+            ->salutation('despido');
     }
 
     public function toArray($notifiable){
