@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Notifications\TaskCompleted;
 use App\Notifications\NotificacionResidente;
 use App\Obra;
-use http\Client\Curl\User;
+
 use Illuminate\Http\Request;
 use App;
 use DB;
@@ -150,7 +150,7 @@ class PedidosController extends Controller
         $titulo = 'Pedido';
         $tipo=1;  //NOTIFICACION TIPO PEDIDO
         $mensaje = 'se ha enviado tu pedido con id:' . $id_pedido;
-        User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
+        App\User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
 
         return $this->mostrar();
     }
