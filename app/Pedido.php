@@ -12,5 +12,5 @@ class Pedido extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['id','fecha_p','fecha_conf','estado','obra'];
+    protected $fillable = ['id','fecha_p','fecha_conf','estado','obra','url_qr'];
 }

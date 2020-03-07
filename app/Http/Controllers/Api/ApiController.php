@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\DetallePedido;
 use App\Material;
 use App\MaterialObra;
+use App\Notificaciones;
 use App\Notifications\TaskCompleted;
 use App\Obra;
 use App\Pedido;
@@ -301,6 +302,25 @@ class ApiController extends Controller
             'fcm_token'=>$fcm_token
         ]);
 
+    }
+
+    //todas las notitifaciones de un usuario
+    public function notifications(Request $request){
+        $notif = User::find($request->id)->Notifications;
+        return $notif;
+    }
+
+    //contar las notificaciones de un usuario
+    public function countNotificationsUnread(Request $request){
+        $notif = User::find($request->id)->unreadNotifications;
+        return response()->json([
+            'unread' =>$notif->count()
+        ]);
+    }
+
+    //marcar todas las notificaciones como leidas
+    public function markAsReadNotifications(Request $request){
+        User::find($request->id)->unreadNotifications->markAsRead();
     }
 }
 

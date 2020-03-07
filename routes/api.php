@@ -37,6 +37,9 @@ Route::post('add_pedido_detalles','Api\ApiController@addPedidoDetails');
 
 Route::get('login', 'Api\ApiController@login');
 
+Route::get('notificaciones','Api\ApiController@notifications');
+
+
 //Route::get('obras','Api\ApiController@obras')->name('obras');
 
 

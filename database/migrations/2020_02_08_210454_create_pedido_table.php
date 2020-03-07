@@ -18,6 +18,8 @@ class CreatePedidoTable extends Migration
             $table->date('fecha_conf');
             $table->string('estado')->default('0');
             $table->bigInteger('obra')->unsigned()->index();
+            $table->string('url_qr')->nullable();
+
             $table->foreign('obra')
                 ->references('id')->on('obra')->onDelete('cascade');
             $table->timestamps();
