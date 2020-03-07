@@ -26,9 +26,16 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('add_pedido','Api\ApiController@addPedido');
     Route::post('logout', 'Api\ApiController@logout')->name('logout');
 
+    //todas las notificaciones
+
+    Route::get('notificaciones','Api\ApiController@notifications');
+    Route::get('count_notificaciones','Api\ApiController@countNotificationsUnread');
+    Route::post('notif_mark_as_read','Api\ApiController@markAsReadNotifications');
+
 
     Route::post('update_fcm_token','Api\ApiController@update_fcm_token')->name('update_fcm_token');
 });
+
 
 
 
@@ -37,7 +44,7 @@ Route::post('add_pedido_detalles','Api\ApiController@addPedidoDetails');
 
 Route::get('login', 'Api\ApiController@login');
 
-Route::get('notificaciones','Api\ApiController@notifications');
+
 
 
 //Route::get('obras','Api\ApiController@obras')->name('obras');

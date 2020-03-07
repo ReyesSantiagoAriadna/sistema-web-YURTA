@@ -261,7 +261,7 @@ class ApiController extends Controller
         // return response()->json(['succes'=>'succes']);
 
 
-        //generar notificación
+        //generar database notificación
        // if($pedidoNuevo){
             $titulo = 'Pedido';
             $tipo=1;
@@ -304,9 +304,11 @@ class ApiController extends Controller
 
     }
 
-    //todas las notitifaciones de un usuario
+    //todas las notificaciones de un usuario
     public function notifications(Request $request){
-        $notif = User::find($request->id)->Notifications;
+        $notif['notificaciones'] = User::find($request->id)->Notifications;
+       /* $notificaciones = Notificaciones::where('notifiable_id',$request->id)
+            ->select('id','data')->get();*/
         return $notif;
     }
 
@@ -321,6 +323,17 @@ class ApiController extends Controller
     //marcar todas las notificaciones como leidas
     public function markAsReadNotifications(Request $request){
         User::find($request->id)->unreadNotifications->markAsRead();
+        $user = User::find($request->id);
+        return response()->json([
+            'id' =>$user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'telefono'=>$user->telefono,
+            'puesto'=>$user->puesto,
+            'api_token' =>$user->api_token,
+            'url_avatar'=>$user->url_avatar,
+            'fcm_token'=>$user->fcm_token
+        ]);
     }
 }
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\TaskCompleted;
+use App\Notifications\NotificacionResidente;
 use App\Obra;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
@@ -125,23 +127,30 @@ class PedidosController extends Controller
         
         }
 
+
+
         $pedido= App\Pedido::find($id_pedido);
         $result = Obra::where('obra.id',$pedido->obra)
             ->join('users','users.id','=','obra.encargado')
-            ->select('users.fcm_token')->get();
-        //return $result;
+            ->select('users.fcm_token','users.id as user','obra.id as obra')->get();
         $data = json_decode($result);
         $fcm_token= $data[0]->fcm_token;
+        $user_id = $data[0]->user;
+        $obra_id = $data[0]->obra;
 
 
-        //$key = "fcm_token";
-        //$jsonArray = json_decode($result,true);
-        //return $firstName = $jsonArray[$key];
+        /** GENERAR PUSH NOTIFICATION->RESIDENTE**/
         $this->sendPushNotification($fcm_token,"Pedido confirmado"
            ,"Tu pedido se ha confirmado va en camino");
         $pedido = App\Pedido::find($id_pedido); 
         $pedido->estado= 1;
-        $pedido->save(); 
+        $pedido->save();
+
+        /** GENERAR DATABASE NOTIFICATION->RESIDENTE**/
+        $titulo = 'Pedido';
+        $tipo=1;  //NOTIFICACION TIPO PEDIDO
+        $mensaje = 'se ha enviado tu pedido con id:' . $id_pedido;
+        User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
 
         return $this->mostrar();
     }
