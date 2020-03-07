@@ -110,6 +110,8 @@ Route::delete('/eliminar_obra/{id}','ObraController@eliminar')->name('obra.elimi
 Route::get('/agregar_material_obra{id}','ObraController@material')->name('obra.material');
 Route::post('/agregar_material_obra{id}','ObraController@agregarMaterial')->name('obra.agregar.material');
 
+Route::get('/tipos','ObraController@tipos');
+
  
 Route::get('/presupuesto','ObraController@presupuesto')->name('obra.presupuesto');
 Route::post('/calcular_presupuestro', 'ObraController@mostrar_presupuesto')->name('calcular_presupuestro');

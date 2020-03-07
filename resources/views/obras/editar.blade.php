@@ -147,7 +147,7 @@
                     $('#lat').val(data.result.lat);
                     $('#lng').val(data.result.lng);
 
-                    var encargado = document.getElementById("enc");
+                    var encargado = document.getElementById("enc").value;
                     var tipo_obra = document.getElementById("tipo").value;
  
 
@@ -159,10 +159,10 @@
                     });
 
 
-                    $.get('tipos',function (tipo_obra) {
+                    $.get('tipos',function (tipos) {
                         $('#tipo').empty();
-                        console.log("tipos",tipo_obra);
-                        $.each(tipo_obra,function(key, registro) {
+                        console.log("tipos",tipos);
+                        $.each(tipos,function(key, registro) {
                             $('#tipo').append("<option value='" + registro.id + "'" + (tipo_obra == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
                         });
                     });

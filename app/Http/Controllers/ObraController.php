@@ -55,11 +55,11 @@ class ObraController extends Controller{
         return view('obras.agregar_material',compact('obra','materiales'));
     }
 
-    public function tipo_obra(Request $request){
+    public function tipos(Request $request){
         if($request->ajax()){
             $tipos = App\TipoObra::all();
-            return reponse()->json($tipos);
-        }
+            return response()->json($tipos);
+       }
     }
 
     public function editar($id){
