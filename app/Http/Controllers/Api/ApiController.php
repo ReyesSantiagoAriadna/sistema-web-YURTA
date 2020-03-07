@@ -280,6 +280,28 @@ class ApiController extends Controller
         ]);
 
     }
+
+    public function update_fcm_token(Request $request){
+        $fcm_token = $request->fcm_token;
+        $id = $request->id;
+
+       $user= User::where('id', $id)
+            ->update(['fcm_token'=>$fcm_token]);
+
+      // return $user;
+        $user = User::find($id);
+        return response()->json([
+            'id' =>$user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'telefono'=>$user->telefono,
+            'puesto'=>$user->puesto,
+            'api_token' =>$user->api_token,
+            'url_avatar'=>$user->url_avatar,
+            'fcm_token'=>$fcm_token
+        ]);
+
+    }
 }
 
 
