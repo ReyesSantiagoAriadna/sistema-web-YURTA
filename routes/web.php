@@ -115,6 +115,7 @@ Route::get('/tipos','ObraController@tipos');
  
 Route::get('/presupuesto','ObraController@presupuesto')->name('obra.presupuesto');
 Route::post('/calcular_presupuestro', 'ObraController@mostrar_presupuesto')->name('calcular_presupuestro');
+Route::post('/presu_export_pdf','ObraController@export_pdf')->name('presupuesto_export');
 
 
 

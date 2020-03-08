@@ -9,7 +9,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2></h2>
+                    <h2>PRESUPUESTO Mts2</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -20,15 +20,18 @@
                                 <li><a href="javascript:void(0);">Another action</a></li>
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
-                        </li>
-                        <li style="float:left"> 
-                            <a class="btn btn-primary waves-effect" type="submit">Agregar</a>
-                        </li>
+                        </li> 
                     </ul>
                 </div>
                 <div class="body table-responsive"> 
-                    <h2></h2> 
+                    <form method="POST" action="{{ route('presupuesto_export') }}">
+                        @csrf
+                    <h2></h2>
+                    <div style="float:right"> 
+                        <button class="btn btn-primary waves-effect" type="submit">Descargar</button>
+                    </div>   
                     <table class="table table-striped">
+                                
                         <thead>
                             <tr>
                                 <th>Descripcion</th>
@@ -40,33 +43,42 @@
                             </tr>
                         </thead>
                         <tbody> 
-                        @for ($i = 0; $i < sizeof($result); $i++) 
-                             <tr> 
                             
-                                <td>{{$result[$i]->descripcion}}</td>
-                                <td>{{$result[$i]->razon_social}}</td>   
+                                
+                        @for ($i = 0; $i < sizeof($resultado); $i++) 
+                             <tr>       
+                                <td>{{$resultado[$i]->descripcion}}</td>
+                                <td>{{$resultado[$i]->razon_social}}</td>   
                                 <td>{{$datos[$i]}}</td>
-                                <td>{{$result[$i]->unidad}}</td>
-                                <td>{{$result[$i]->precio_unitario}}</td> 
-                                <td>{{$importes[$i]}}</td> 
-                                                            
+                                <td>{{$resultado[$i]->unidad}}</td>
+                                <td>{{$resultado[$i]->precio_unitario}}</td> 
+                                <td>{{$importes[$i]}}</td>   
+
+                                <input type="hidden" name="cantidades[]" id="cantidades" value="{{$importes[$i]}}" class="form-control">
+                                <input type="hidden" name="materiales[]" id="materiales" value="{{$datos[$i]}}" class="form-control">
+                                                                                          
                             <td><i class="fa fa-500px" aria-hidden="true"></i></td>
                            </tr> 
                          @endfor
+                                
                         <tr>
                             <td>agua</td>
                                 <td>----</td>   
                                 <td>{{$t_agua}}</td>
                                 <td>lts</td>
                                 <td>---</td> 
+ 
+                                <input type="hidden" name="t_agua" id="t_agua" value="{{$t_agua}}">
                         </tr>
                         </tbody>
                     </table>
                     <div class="input-group input-group-lg">
                         <div style="float:right;" >
                             Total: $ <input id="total" value="{{$total}}" name="total" class="form-control" readonly>
+                            <input type="hidden" name="total" id="total" value="{{$total}}">
                         </div>
-                        </div>
+                        </div> 
+                    </form>
                 </div> 
             </div>
         </div>

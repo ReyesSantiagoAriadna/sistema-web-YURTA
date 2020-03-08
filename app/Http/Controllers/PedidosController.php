@@ -128,6 +128,7 @@ class PedidosController extends Controller
         }
 
 
+//        QrCode::size(300)->generate($id_pedido);
 
         $pedido= App\Pedido::find($id_pedido);
         $result = Obra::where('obra.id',$pedido->obra)
@@ -143,6 +144,7 @@ class PedidosController extends Controller
         $this->sendPushNotification($fcm_token,"Pedido confirmado"
            ,"Tu pedido se ha confirmado va en camino");
         $pedido = App\Pedido::find($id_pedido); 
+       
         $pedido->estado= 1;
         $pedido->save();
 
@@ -151,6 +153,8 @@ class PedidosController extends Controller
         $tipo=1;  //NOTIFICACION TIPO PEDIDO
         $mensaje = 'se ha enviado tu pedido con id #' . $id_pedido;
         App\User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
+
+
         return $this->mostrar();
     }
 
@@ -160,6 +164,14 @@ class PedidosController extends Controller
         $total = $material->existencias - $cantidad; 
         $material->existencias = $total;
         $material->save();
+        if($material->existencias){
+            $total = $material->existencias - $cantidad; 
+            $material->existencias = $total;
+            $material->save();
+        }
+        
+           
+ 
     }
 
     public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 
