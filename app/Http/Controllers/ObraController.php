@@ -4,6 +4,9 @@ use App;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ObrasRequest;
+use Barryvdh\DomPDF\Facade as PDF;
+
+
 
 class ObraController extends Controller{
     public function __construct(){
@@ -235,7 +238,7 @@ class ObraController extends Controller{
         //$t_agua = $volumen * 180; 
         $t_agua = round( $volumen * 180, 0, PHP_ROUND_HALF_UP); 
 
-        $result = DB::table('material')
+        $resultado = DB::table('material')
             ->join('unidad_material', 'material.unidad', '=', 'unidad_material.id')
             ->join('proveedor', 'material.proveedor', '=', 'proveedor.id')
             ->select('material.id','material.descripcion','material.precio_unitario','material.unidad','material.marca',
@@ -245,12 +248,34 @@ class ObraController extends Controller{
             ->orWhere('material.descripcion', 'grava') 
             ->get(); 
         
-        for ($i=0; $i < sizeof($result); $i++) { 
-            $total += $result[$i]->precio_unitario * $datos[$i];
-            $importes[$i]= $result[$i]->precio_unitario * $datos[$i]; 
+        for ($i=0; $i < sizeof($resultado); $i++) { 
+            $total += $resultado[$i]->precio_unitario * $datos[$i];
+            $importes[$i]= $resultado[$i]->precio_unitario * $datos[$i]; 
         }
  
-        return view('obras.mostrarPresupuesto', compact('t_agua','result','datos','total','importes'));
+        return view('obras.mostrarPresupuesto', compact('t_agua','resultado','datos','total','importes'));
+    }
+
+    public function export_pdf(Request $request){ 
+        $t_agua = $request->input('t_agua');
+        $total = $request->input('total');
+        $cantidades = $_POST['cantidades'];  
+        $materiales = $_POST['materiales'];
+
+  
+
+        $resultado = DB::table('material')
+        ->join('unidad_material', 'material.unidad', '=', 'unidad_material.id')
+        ->join('proveedor', 'material.proveedor', '=', 'proveedor.id')
+        ->select('material.id','material.descripcion','material.precio_unitario','material.unidad','material.marca',
+        'unidad_material.descripcion as unidad','proveedor.razon_social')
+        ->where('material.descripcion', 'cemento')
+        ->orWhere('material.descripcion', 'arena') 
+        ->orWhere('material.descripcion', 'grava') 
+        ->get(); 
+          
+        $pdf = PDF::loadView('obras.presupuestoVistaPDF', compact('t_agua','total','cantidades','materiales','resultado'));
+        return $pdf->download('pre-list.pdf');
     }
 }
 

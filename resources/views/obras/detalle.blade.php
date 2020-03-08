@@ -75,13 +75,13 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Descripción</th>
-                                                    <th>Stock</th>
+                                                    <th>Existencias</th>
                                                 </tr>
                                                 </thead>
                                                 <tfoot>
                                                 <tr>
                                                     <th>Descripción</th>
-                                                    <th>Stock</th>
+                                                    <th>Existencias</th>
                                                 </tr>
                                                 </tfoot>
                                                 <tbody>

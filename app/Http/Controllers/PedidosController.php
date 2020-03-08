@@ -125,6 +125,8 @@ class PedidosController extends Controller
         
         }
 
+//        QrCode::size(300)->generate($id_pedido);
+
         $pedido= App\Pedido::find($id_pedido);
         $result = Obra::where('obra.id',$pedido->obra)
             ->join('users','users.id','=','obra.encargado')
@@ -140,8 +142,11 @@ class PedidosController extends Controller
         $this->sendPushNotification($fcm_token,"Pedido confirmado"
            ,"Tu pedido se ha confirmado va en camino");
         $pedido = App\Pedido::find($id_pedido); 
+       
         $pedido->estado= 1;
         $pedido->save(); 
+
+
 
         return $this->mostrar();
     }
@@ -149,9 +154,13 @@ class PedidosController extends Controller
     function disminuir_existencias($id,$cantidad){ 
         $total = 0;
         $material = App\Material::find($id);  
-        $total = $material->existencias - $cantidad; 
-        $material->existencias = $total;
-        $material->save();   
+        if($material->existencias){
+            $total = $material->existencias - $cantidad; 
+            $material->existencias = $total;
+            $material->save();
+        }
+        
+           
  
     }
 

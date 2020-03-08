@@ -80,7 +80,9 @@
                     </table>
                 
                 </div>  
-
+                <div class="title m-b-md">
+                    {!!QrCode::format('png')->size(300)->generate('{{$id_pedido}}', '../public/qrcodes/qrcode.png');!!} 
+                 </div>
             </form>    
        
         </div>
@@ -96,5 +98,58 @@
             } );
         });
     </script>
+
+        <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-storage.js"></script>
+        <script>
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyB3_eHqhTh_OHewWL1Mg3YvxDMMWrn9w_Q",
+                authDomain: "yurta-b4d1d.firebaseapp.com",
+                databaseURL: "https://yurta-b4d1d.firebaseio.com",
+                projectId: "yurta-b4d1d",
+                storageBucket: "yurta-b4d1d.appspot.com",
+                messagingSenderId: "1091299166428",
+                appId: "1:1091299166428:web:133c7801c3c5509b350c19",
+                measurementId: "G-6VYB96F10Z"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            // firebase.analytics();
+        </script>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#blah')
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+        </script>
+
+        <script type="text/javascript">
+                function saveimg(){
+                var ref = firebase.storage().ref('/materiales/');
+                var button = document.getElementById("upload-file-selector");
+                const file = button.files[0];
+                const name = (+new Date()) + '-' + file.name;
+                const metadata = { contentType: file.type };
+                const task = ref.child(name).put(file, metadata);
+                task
+                    .then(snapshot => snapshot.ref.getDownloadURL())
+                    .then( (url) => {
+                        console.log('url:',url);
+                        document.getElementById("url").value = url;
+                        $("#formenvio_1").submit();
+                    } ).catch(console.error);
+            }
+
+        </script>
 
 @endsection

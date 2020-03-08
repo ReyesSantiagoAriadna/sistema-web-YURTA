@@ -48,6 +48,7 @@
                     </span>
                     <div class="form-line">
                         <input  name="fech_ini" id="fech_ini" dtype="text" class="  datepicker form-control" placeholder="Fecha de inicio" required>
+                     
                     </div>
                 </div>
 
@@ -57,7 +58,8 @@
                         <i class="material-icons">date_range</i>
                     </span>
                     <div class="form-line">
-                        <input  name="fech_fin" id="fech_fin" dtype="text" class="  datepicker form-control" placeholder="Fecha de termino" required>
+                      <input  name="fech_fin" id="fech_fin" dtype="text" class="  datepicker form-control" placeholder="Fecha de termino" required>
+                    
                     </div>
                 </div>
 
@@ -158,6 +160,7 @@
 
         });
     </script>
+  
     <!-- Autosize Plugin Js -->
     <script src="plugins/autosize/autosize.js"></script>
     <!-- Moment Plugin Js -->
@@ -166,12 +169,26 @@
     <script src="plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
     <script src="js/pages/forms/basic-form-elements.js"></script>
 
-    <script>
-        $('#fech_ini').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false,minDate : moment()  });
+  <!-- <script>
+        $('#fech_ini').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false,minDate : moment() });
     </script>
 
-<script>
-    $('#fech_fin').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false, minDate : moment() });
-</script>
+    <script>
+        $('#fech_fin').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD',  time: false, minDate : moment() });
+    </script> --> 
+
+    <script>
+        $('#fech_fin').bootstrapMaterialDatePicker({
+            format: 'YYYY/MM/DD',  time: false, minDate : moment()
+        });
+
+        $('#fech_ini').bootstrapMaterialDatePicker({
+            format: 'YYYY/MM/DD',  time: false,minDate : moment(), shortTime : true
+        }).on('change', function(e, date) {
+            $('#fech_fin').bootstrapMaterialDatePicker('setMinDate', date);
+        });
+    </script>
+
+ 
 
 @endsection
