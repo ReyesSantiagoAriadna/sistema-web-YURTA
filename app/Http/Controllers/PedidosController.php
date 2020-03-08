@@ -151,7 +151,6 @@ class PedidosController extends Controller
         $tipo=1;  //NOTIFICACION TIPO PEDIDO
         $mensaje = 'se ha enviado tu pedido con id #' . $id_pedido;
         App\User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
-
         return $this->mostrar();
     }
 
