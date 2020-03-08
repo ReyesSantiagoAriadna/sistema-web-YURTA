@@ -37,12 +37,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
 
-
 Route::post('add_det_pedido','Api\ApiController@addDetallePedido');
 Route::post('add_pedido_detalles','Api\ApiController@addPedidoDetails');
 Route::get('login', 'Api\ApiController@login');
-
-
 
 
 //Route::get('obras','Api\ApiController@obras')->name('obras');

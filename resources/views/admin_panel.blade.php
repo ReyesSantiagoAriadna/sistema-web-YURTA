@@ -138,7 +138,7 @@
                                     </a>
                                 </li>
                                 {{ \App\Http\Controllers\HomeController::locale()}}
-                                @foreach(auth()->user()->unreadNotifications as $notification)
+                                @foreach(auth()->user()->unreadNotifications()->take(10)->get() as $notification)
                                     <li>
                                     <a href="{{$notification->data['link']}}">
                                             <div class="icon-circle bg-cyan">

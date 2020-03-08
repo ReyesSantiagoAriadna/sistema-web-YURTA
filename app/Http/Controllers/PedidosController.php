@@ -159,8 +159,7 @@ class PedidosController extends Controller
         $material = App\Material::find($id);  
         $total = $material->existencias - $cantidad; 
         $material->existencias = $total;
-        $material->save();   
- 
+        $material->save();
     }
 
     public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 

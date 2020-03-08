@@ -322,8 +322,18 @@ class ApiController extends Controller
 
     //marcar todas las notificaciones como leidas
     public function markAsReadNotifications(Request $request){
-        User::find($request->id)->unreadNotifications->markAsRead();
+
         $user = User::find($request->id);
+        $notificaciones = $_POST['ids_notif'];
+
+        $count = count($notificaciones);
+        for($i=0;$i<$count;$i++) {
+            User::find($request->id)->unreadNotifications
+                ->where('id', $notificaciones[$i])
+                ->markAsRead();
+        }
+
+
         return response()->json([
             'id' =>$user->id,
             'name' => $user->name,
@@ -336,52 +346,3 @@ class ApiController extends Controller
         ]);
     }
 }
-
-
-/* $input = $_POST['items'];
-        $x = array_values($input);
-        $count = count($input) ;
-        for($i=0;$i<$count;$i++) {
-            // your code here using $i as the position
-            $item = $input[$i];
-        }
-        return $x;
- * */
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- * Obra::where('encargado',"=",$id)
-                ->join('materiales_obra', 'obra.id', '=', 'materiales_obra.id_obra')
-                ->join('material','materiales_obra.mat_obra','=','material.id')
-                ->select('obra.id as obra_id','obra.descripcion as obra_descripcion',
-                        'obra.lat as obra_lat','obra.lng as obra_lng','obra.fech_ini as obra_fech_ini'
-                    ,'obra.dependencia as obra_dependencia','obra.encargado as obra_encargado',
-                    'obra.tipo_obra as obra_tipo_obra','materiales_obra.id_obra as material_id_obra'
-                    ,'materiales_obra.mat_obra as material_id','material.descripcion as material_descripcion'
-                ,'material.unidad as material_unidad','material.tipo as material_tipo'
-                    ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad')
-                ->get();
- *
- * */
-
-
-/*rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
- * */
