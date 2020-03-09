@@ -66,18 +66,18 @@
                                 <td>----</td>   
                                 <td>{{$t_agua}}</td>
                                 <td>lts</td>
-                                <td>---</td> 
- 
+                                <td>---</td>
+                                <td>-----</td>  
+                                
                                 <input type="hidden" name="t_agua" id="t_agua" value="{{$t_agua}}">
                         </tr>
+
+                        <tr  >
+                            <td colspan=5></td>
+                            <td>Total: ${{$total}}</td>
+                        </tr>
                         </tbody>
-                    </table>
-                    <div class="input-group input-group-lg">
-                        <div style="float:right;" >
-                            Total: $ <input id="total" value="{{$total}}" name="total" class="form-control" readonly>
-                            <input type="hidden" name="total" id="total" value="{{$total}}">
-                        </div>
-                        </div> 
+                    </table> 
                     </form>
                 </div> 
             </div>
