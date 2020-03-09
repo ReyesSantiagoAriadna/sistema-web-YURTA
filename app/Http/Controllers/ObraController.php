@@ -128,9 +128,16 @@ class ObraController extends Controller{
                $material_obra->save();
            }
        }
+<<<<<<< HEAD
        
        return $this->mostrar();
    }
+=======
+
+     //  return view('obras')->back()->with('mensaje','Material agregado');
+       return $this->mostrar();
+    }
+>>>>>>> nuevaramita
 
    public function mostrar_material_obra($id){
         $obra = App\Obra::findOrFail($id);
