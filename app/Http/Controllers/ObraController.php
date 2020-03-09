@@ -281,6 +281,7 @@ class ObraController extends Controller{
         ->orWhere('material.descripcion', 'grava') 
         ->get(); 
           
+       // return view('obras.presupuestoVistaPDF', compact('t_agua','total','cantidades','materiales','resultado'));
         $pdf = PDF::loadView('obras.presupuestoVistaPDF', compact('t_agua','total','cantidades','materiales','resultado'));
         return $pdf->download('pre-list.pdf');
     }
