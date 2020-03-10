@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('notificaciones','Api\ApiController@notifications');
     Route::get('count_notificaciones','Api\ApiController@countNotificationsUnread');
     Route::post('notif_mark_as_read','Api\ApiController@markAsReadNotifications');
-
+    Route::post('enviar_reporte','Api\ApiController@sendReporte');
 
     Route::post('update_fcm_token','Api\ApiController@update_fcm_token')->name('update_fcm_token');
 });

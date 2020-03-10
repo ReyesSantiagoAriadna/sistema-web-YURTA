@@ -81,7 +81,8 @@
                 
                 </div>  
                 <div class="title m-b-md">
-                    {!!QrCode::format('png')->size(300)->generate('{{$id_pedido}}', '../public/qrcodes/qrcode.png');!!} 
+                    {!!QrCode::format('png')->size(300)->generate('{{$id_pedido}}', '../public/qrcodes/qrcode.png');!!}
+
                  </div>
             </form>    
        
@@ -130,12 +131,12 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             }
-
         </script>
+
 
         <script type="text/javascript">
                 function saveimg(){
-                var ref = firebase.storage().ref('/materiales/');
+                var ref = firebase.storage().ref('/pedidosqr/');
                 var button = document.getElementById("upload-file-selector");
                 const file = button.files[0];
                 const name = (+new Date()) + '-' + file.name;
@@ -149,7 +150,6 @@
                         $("#formenvio_1").submit();
                     } ).catch(console.error);
             }
-
         </script>
 
 @endsection

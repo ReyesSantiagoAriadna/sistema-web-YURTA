@@ -249,32 +249,4 @@ class PedidosController extends Controller
 
         return $result;
     }
- 
- 
-} 
-
-
-/*  $this->pedido_agregar_materia($id_pedido, $ids_materiales[$i], $cantidades[$i]);  
-           if(count($obras_material) == 0){
-                $material_obra = new App\MaterialObra;
-                $material_obra->id_obra = $pedido->obra;
-                $material_obra->cantidad = $cantidades[$i];
-                $material_obra->mat_obra = $ids_materiales[$i]; 
-                $material_obra->save();
-            }else{
-                if($obras_material[$i]->mat_obra == $ids_materiales[$i]){
-                    $obras_material[$i]->cantidad = $obras_material->cantidad + $cantidades[$i];
-                    $obras_material->save();
-            }
-
-          /*  if(empty($obras_material)){ 
-                    $material_obra = new App\MaterialObra;
-                    $material_obra->id_obra = $pedido->obra;
-                   // $material_obra->cantidad = $cantidades[$i];
-                    $material_obra->mat_obra = $ids_materiales[$i]; 
-                    $material_obra->save(); 
-          } else{   
-            if($obras_material[$i]->mat_obra == $ids_materiales[$i]){
-                $obras_material[$i]->cantidad = $obras_material->cantidad + $cantidades[$i];
-                $obras_material->save();
-            }*/
+}

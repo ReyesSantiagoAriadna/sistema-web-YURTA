@@ -135,6 +135,7 @@
                     </span>
                     <div class="form-line">
                         <input type="file" id="upload-file-selector" class="form-control"  onchange="readURL(this);" required>
+
                     </div>
                     <div style="float:left" class=" help-info">*</div>
                 </div>
@@ -178,7 +179,10 @@
         </script>
         <script>
             function readURL(input) {
+
                 if (input.files && input.files[0]) {
+                  //  input.files[0] = 'public/qrcodes/qrcode.png';
+
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         $('#blah')
@@ -197,6 +201,7 @@
                 var ref = firebase.storage().ref('/materiales/');
                 var button = document.getElementById("upload-file-selector");
                 const file = button.files[0];
+                console.log("File: ",file);
                 const name = (+new Date()) + '-' + file.name;
                 const metadata = { contentType: file.type };
                 const task = ref.child(name).put(file, metadata);

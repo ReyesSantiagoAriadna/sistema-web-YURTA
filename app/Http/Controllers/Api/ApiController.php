@@ -345,4 +345,18 @@ class ApiController extends Controller
             'fcm_token'=>$user->fcm_token
         ]);
     }
+
+    //reporte de material
+    public function sendReporte(Request $request){
+        $obra = $request->obra;
+        $id_materiales = $_POST['id_materiales'];
+        $cantidades = $_POST['cantidades'];
+        $count = count($id_materiales);
+        for($i=0;$i<$count;$i++) {
+            MaterialObra::where('id_obra', $obra)
+                ->where('mat_obra',$id_materiales[$i])
+                ->update(['cantidad'=>$cantidades[$i]]);
+        }
+        return 'reporte actualizado';
+    }
 }

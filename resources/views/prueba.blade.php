@@ -10,6 +10,10 @@
 <input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Aceptar" onclick="upload()">
 <input type="file" id="upload-file-selector" required>
 
+<img id="imagenqr" src=" {!!QrCode::format('png')->size(300)->generate('idpedido', 'public/qrcodes/qrcode.png');!!}">
+
+<input type="button" name="grabar" id="grabar" class="btn btn-primary" value="Grabar" onclick="saveimg()">
+
 <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-storage.js"></script>
 
@@ -29,30 +33,27 @@
     firebase.initializeApp(firebaseConfig);
     // firebase.analytics();
 </script>
-<script>
-    var vselect;
-    $("#upload-file-selector").on("change",function (event) {
-        vselect= event.target.files[0];
-        console.log("sel",vselect.name);
-    });
 
-    function upload() {
-        var filename = vselect.name;
-        var sreference = firebase.storage().ref('/materiales/'+filename);
-        var upTask = sreference.put(vselect);
 
-        upTask.on('state_changed',function (snapshot) {
 
-            },function (error) {
-
-            },function () {
-               // var dowurl =upTask.snapshot.downloadURL;
-                ///console.log(dowurl);
-            }
-        );
+<script type="text/javascript">
+    function saveimg(){
+        var ref = firebase.storage().ref('/materiales/');
+        var button = document.getElementById("imagenqr");
+        const file = button.files[0];
+        console.log("File: ",file);
+        const name = (+new Date()) + '-' + file.name;
+        const metadata = { contentType: file.type };
+        const task = ref.child(name).put(file, metadata);
+        task
+            .then(snapshot => snapshot.ref.getDownloadURL())
+            .then( (url) => {
+                console.log('url:',url);
+                document.getElementById("url").value = url;
+                $("#formenvio_1").submit();
+            } ).catch(console.error);
     }
-</script>
-<script>
+
 </script>
 </body>
 </html>
