@@ -3,15 +3,14 @@
 @extends('admin_panel')
 @section('contenido')
     <div class="block-header">
-        <h2>CONFIRMAR PEDIDO</h2>
+        
     </div>
     @if ( session('mensaje') )
      <div class="alert alert-success">{{ session('mensaje') }}</div>
     @endif
     <div class="card">
         <div class="header">
-            <h2>
-            </h2>
+            <h2>CONFIRMAR PEDIDO</h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
