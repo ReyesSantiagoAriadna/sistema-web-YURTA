@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <h2>Presupuesto</h2>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
     <style>
-        .table{
-            width: 100%;
-            border: 1px  solid #999999;
-        } 
-    </style>
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          box-align: center;
+          padding-top: 20px;
+        }
+        
+        th, td {
+          text-align: left;
+          padding: 8px;
+        }
+        th {
+            background-color: #F2692E;
+            color: white;
+            }
+            caption {
+                text-align: center;
+            padding: 0.3em;
+            }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        </style>
 </head>
-<body>
-    <table class="table">
-                                
+<body>    
+    <div style="overflow-x:auto;">
+        <caption>YURTA APP Presupuesto</caption>
+        <br> 
+     <table class="table">                    
         <thead>
             <tr>
                 <th>Descripcion</th>
@@ -22,15 +39,14 @@
                 <th>Cantidad</th>
                 <th>Unidad</th>                                 
                 <th>Precio Uni</th>
-                <th>Importe</th>
+                <th>Importe</th> 
             </tr>
         </thead>
-         
+ 
             
         <tbody>       
             @for ($i = 0; $i < sizeof($resultado); $i++) 
-             <tr>       
-                
+             <tr>                       
                 <td>{{$resultado[$i]->descripcion}}</td>
                 <td>{{$resultado[$i]->razon_social}}</td>   
                 <td>{{$materiales[$i]}}</td>
@@ -45,13 +61,15 @@
                     <td>{{$t_agua}}</td>
                     <td>lts</td>
                     <td>---</td>  
-            </tr>
+            </tr>  
 
+            <tr  >
+                <td colspan=5></td>
+                <td>Total: ${{$total}}</td>
+            </tr>
         </tbody> 
     </table>
-    <div style="float:right;" >
-        Total: $ 
-        <label for="">{{$total}}</label>
     </div>
+    
 </body>
 </html>

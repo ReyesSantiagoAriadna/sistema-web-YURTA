@@ -131,6 +131,7 @@ class ObraController extends Controller{
        
        return $this->mostrar();
    }
+ 
 
    public function mostrar_material_obra($id){
         $obra = App\Obra::findOrFail($id);
