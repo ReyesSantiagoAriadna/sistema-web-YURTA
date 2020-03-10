@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Notifications\TaskCompleted;
 use App\Notifications\NotificacionResidente;
 use App\Obra;
+use Barryvdh\DomPDF\Facade as PDF;
 
 use Illuminate\Http\Request;
 use App;
@@ -119,16 +120,10 @@ class PedidosController extends Controller
         
        for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
          
-            $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]);
-            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]);
-         // echo "--".$ids_materiales[$i];
-        //} 
-         //
-        
+            $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]); 
+            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]); 
         }
-
-
-//        QrCode::size(300)->generate($id_pedido);
+ 
 
         $pedido= App\Pedido::find($id_pedido);
         $result = Obra::where('obra.id',$pedido->obra)
@@ -155,7 +150,24 @@ class PedidosController extends Controller
         App\User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
 
 
-        return $this->mostrar();
+        
+       
+        $obra_pedido = App\Pedido::find($id_pedido);  
+        $obra_p =App\Obra::find($obra_pedido->obra); 
+        $materiales_p;
+        for ($i=0; $i < sizeof($ids_materiales); $i++) { 
+            $materiales_p[$i] = App\Material::find($ids_materiales[$i]); 
+        }  
+       // return view('pedidos.vistaQR', compact('id_pedido','obra_p','obra_pedido','materiales_p','cantidades'));
+       // 
+        $pdf = PDF::loadView('pedidos.vistaQR', compact('id_pedido','obra_p','obra_pedido','materiales_p','cantidades'));
+        return $pdf->download('pre-list.pdf');
+        //return $this->mostrar();
+    }
+
+    public function vistaPDF($id_pedido, $ids_materiales, $cantidades){
+        //datos de la pbra y materiales IMPRIMIR QR 
+       
     }
 
     function disminuir_existencias($id,$cantidad){ 
@@ -164,7 +176,7 @@ class PedidosController extends Controller
         $total = $material->existencias - $cantidad; 
         $material->existencias = $total;
         $material->save();
-        if($material->existencias){
+        if($material->existencias >0){
             $total = $material->existencias - $cantidad; 
             $material->existencias = $total;
             $material->save();
