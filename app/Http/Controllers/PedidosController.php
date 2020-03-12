@@ -192,14 +192,11 @@ class PedidosController extends Controller
         } */
 
         if(count($obras_material) >= 1) {                    
-           for ($i=0; $i < sizeof($obras_material); $i++) {  
-                if($obras_material[$i]->id_obra == $obra_pedido->obra){
+           for ($i=0; $i < sizeof($obras_material); $i++) {   
                 if($obras_material[$i]->mat_obra == $material){
                      $obras_material[$i]->cantidad +=  $cantidad;
                      $obras_material[$i]->save();                      
-                 }
-                } 
-                     
+                 } 
                 }
         } else {
            for ($i=0; $i < sizeof($materiales) ; $i++) {  
