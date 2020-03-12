@@ -75,6 +75,7 @@
                         <tr  >
                             <td colspan=5></td>
                             <td>Total: ${{$total}}</td>
+                            <input type="hidden" name="total" id="total" value="{{$total}}">
                         </tr>
                         </tbody>
                     </table> 
