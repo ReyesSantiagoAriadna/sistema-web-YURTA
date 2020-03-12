@@ -179,36 +179,37 @@ class PedidosController extends Controller
         $obra_pedido = App\Pedido::find($id);  
         $obras_material = App\MaterialObra::where('id_obra',$obra_pedido->obra)                        
         ->get(); 
-       
-       /* for ($i=0; $i < sizeof($obras_material); $i++) {  
-             if($obras_material[$i]->id_obra == $obra_pedido->obra){
-                 if($obras_material[$i]->mat_obra == $material){
-                    $obras_material[$i]->cantidad = $obras_material[$i]->cantidad + $cantidad;
-                    $obras_material[$i]->save();                      
-                 }
-             }else{
-                 echo "no existe";
-             } 
-        } */
+        
 
-        if(count($obras_material) >= 1) {                    
+       /* if(count($obras_material) >= 1) {                    
            for ($i=0; $i < sizeof($obras_material); $i++) {   
                 if($obras_material[$i]->mat_obra == $material){
                      $obras_material[$i]->cantidad +=  $cantidad;
                      $obras_material[$i]->save();                      
                  } 
                 }
-        } else {
-           for ($i=0; $i < sizeof($materiales) ; $i++) {  
+        } else {  
                 $material_obra = new App\MaterialObra;
                 $material_obra->id_obra = $obra_pedido->obra;
                 $material_obra->cantidad = $cantidad;
                 $material_obra->mat_obra = $materiales[$i]; 
-                $material_obra->save(); 
+                $material_obra->save();  
+        }   */
+
+        for ($i=0; $i < sizeof($obras_material); $i++) {   
+            if($obras_material[$i]->mat_obra == $material){
+                 $obras_material[$i]->cantidad +=  $cantidad;
+                 $obras_material[$i]->save();                      
+             } else {   
+                    $material_obra = new App\MaterialObra;
+                    $material_obra->id_obra = $obra_pedido->obra;
+                    $material_obra->cantidad = $cantidad;
+                    $material_obra->mat_obra = $materiales[$i]; 
+                    $material_obra->save();   
             }
-        }   
- 
-    }
+        }
+    } 
+  
 
 
     public function met()
