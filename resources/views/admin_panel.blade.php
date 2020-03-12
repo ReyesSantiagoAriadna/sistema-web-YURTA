@@ -137,30 +137,7 @@
                                         </div>
                                     </a>
                                 </li>
-                                {{ \App\Http\Controllers\HomeController::locale()}}
-                                @foreach(auth()->user()->unreadNotifications()->take(10)->get() as $notification)
-                                    <li>
-                                    <a href="{{$notification->data['link']}}">
-                                            <div class="icon-circle bg-cyan">
-                                                @switch($notification->data['tipo'])
-                                                    @case(1)
-                                                    <i class="material-icons">local_shipping</i>
-                                                    @break
-                                                    @default
-                                                    <i class="material-icons">delete_forever</i>
-                                                @endswitch
 
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4>{{$notification->data['mensaje']}}</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i>
-                                                    {{$notification->created_at->diffForHumans()}}
-                                                </p>
-                                            </div>
-                                    </a>
-                                    </li>
-                                @endforeach
 
                                 {{--<li>
                                     <a href="javascript:void(0);">
