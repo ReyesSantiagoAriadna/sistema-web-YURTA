@@ -220,7 +220,7 @@ class PedidosController extends Controller
     }
     public function met()
     {
-        $token = App\User::where('id'=1)->select('users.fcm_token')->get();
+        $token = App\User::where('id','1')->select('users.fcm_token')->get();
 
         sendPushNotification($token,'hola','hola');
         return $token;
