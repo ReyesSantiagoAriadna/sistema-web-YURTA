@@ -92,7 +92,7 @@ Route::get('/edit_unidad_material/{id}','UnidadMaterialController@edit');
 Route::post('/update_unidad_material','UnidadMaterialController@update')->name('unidad_material_update');
 Route::delete('/eliminar_unidad/{id}','UnidadMaterialController@eliminar')->name('eliminar_unidad');
 
- 
+ Route::get('pruebita','PedidosController@met');
 //--
 
 

@@ -218,6 +218,13 @@ class PedidosController extends Controller
         }   
  
     }
+    public function met()
+    {
+        $token = App\User::where('id'=1)->select('users.fcm_token')->get();
+
+        sendPushNotification($token,'hola','hola');
+        return $token;
+    }
 
     public  function sendPushNotification($fcm_token,$title,$message) {
         $id=null;
