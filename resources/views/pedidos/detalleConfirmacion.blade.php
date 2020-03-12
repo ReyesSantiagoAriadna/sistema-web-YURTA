@@ -82,7 +82,7 @@
                 </div>  
                 <div class="title m-b-md"> 
 
-                    {!!QrCode::generate($id_pedido, '../public/qrcodes/qrcode.png');!!} 
+                    {!!QrCode::generate('{{$id_pedido}}', '../public/qrcodes/qrcode.png');!!} 
                  </div>
             </form>    
        
