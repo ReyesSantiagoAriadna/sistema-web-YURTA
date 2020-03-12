@@ -64,7 +64,7 @@
             </tr>  
 
             <tr  >
-                <td colspan=5></td>
+                <td colspan=4></td>
                 <td>Total: </td>
                 <td>${{$total}}</td>
             </tr>
