@@ -147,16 +147,7 @@ class PedidosController extends Controller
         $mensaje = 'se ha enviado tu pedido con id #' . $id_pedido;
         App\User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
 
-
-        
-       
-      /**   $obra_pedido = App\Pedido::find($id_pedido);  
-        $obra_p =App\Obra::find($obra_pedido->obra); 
-        $materiales_p;
-        for ($i=0; $i < sizeof($ids_materiales); $i++) { 
-            $materiales_p[$i] = App\Material::find($ids_materiales[$i]); 
-        }  */ 
-         
+          
         return $this->mostrar();
     }
 
@@ -228,6 +219,7 @@ class PedidosController extends Controller
 
     public  function sendPushNotification($fcm_token,$title,$message) {
         $id=null;
+        $token= 'fjfrp4kBQWw:APA91bHqA-S2w5M7W-o88npLZqcAEVL3GSDoXEGyDILZTsszecAqrM6NBGki4riB5N-CwQ-VHbCtrEYW8m0nP57-xM9LieoblbQH2H7p-pKCB1Z7_40EWHC2yenv7YNISqNwnOwISzzw';
         $API_ACCESS_KEY="AIzaSyAUNcqTUttLsiBm9YCs344VbI5Wcil6BZ0";
         $url = "https://fcm.googleapis.com/fcm/send";
         $header = [
@@ -236,7 +228,7 @@ class PedidosController extends Controller
         ];
 
         $postdata = '{
-            "to" : "' . $fcm_token . '",
+            "to" : "' . $token . '",
                 "notification" : {
                     "title":"' . $title . '",
                     "text" : "' . $message . '"
