@@ -161,7 +161,7 @@ class PedidosController extends Controller
        // return view('pedidos.vistaQR', compact('id_pedido','obra_p','obra_pedido','materiales_p','cantidades'));
        // 
         $pdf = PDF::loadView('pedidos.vistaQR', compact('id_pedido','obra_p','obra_pedido','materiales_p','cantidades'));
-        return $pdf->download('pre-list.pdf');
+        return $pdf->download('presupuesto-list.pdf');
         //return $this->mostrar();
     }
 
