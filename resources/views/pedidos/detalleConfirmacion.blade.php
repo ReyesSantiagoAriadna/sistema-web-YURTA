@@ -81,8 +81,7 @@
                 
                 </div>  
                 <div class="title m-b-md"> 
-
-                    {!!QrCode::format('png')->size(300)->generate($id_pedido), '../public/qrcodes/qrcode.png')!!} 
+                    QrCode::format('png')->size(300)->generate($id_pedido), '../public/qrcodes/qrcode.png')
                  </div>
             </form>    
        
