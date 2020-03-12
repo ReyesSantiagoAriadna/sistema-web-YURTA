@@ -197,7 +197,7 @@ class PedidosController extends Controller
         }   */
 
         for ($i=0; $i < sizeof($obras_material); $i++) {   
-            if($obras_material[$i]->mat_obra == $material){
+            if($obras_material[$i]->mat_obra == $materiales[$i]){
                  $obras_material[$i]->cantidad +=  $cantidad;
                  $obras_material[$i]->save();                      
              } else {   
