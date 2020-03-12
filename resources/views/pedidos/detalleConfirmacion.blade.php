@@ -80,8 +80,9 @@
                     </table>
                 
                 </div>  
-                <div class="title m-b-md">  
-                    {!!QrCode::size(300)->generate($id_pedido), '../public/qrcodes/qrcode.png' !!}
+                <div class="title m-b-md"> 
+
+                    {!!QrCode::->generate($id_pedido, '../public/qrcodes/qrcode.png');!!} 
                  </div>
             </form>    
        
