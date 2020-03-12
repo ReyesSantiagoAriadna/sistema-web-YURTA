@@ -155,12 +155,9 @@ class PedidosController extends Controller
         $materiales_p;
         for ($i=0; $i < sizeof($ids_materiales); $i++) { 
             $materiales_p[$i] = App\Material::find($ids_materiales[$i]); 
-        }  
-       // return view('pedidos.vistaQR', compact('id_pedido','obra_p','obra_pedido','materiales_p','cantidades'));
-       // 
-        $pdf = PDF::loadView('pedidos.vistaQR', compact('id_pedido','obra_p','obra_pedido','materiales_p','cantidades'));
-        return $pdf->download('presupuesto-list.pdf');
-        //return $this->mostrar();
+        }   
+         
+        return $this->mostrar();
     }
 
     public function vistaPDF($id_pedido, $ids_materiales, $cantidades){
@@ -271,6 +268,8 @@ class PedidosController extends Controller
             ->select('pedido.*', 'obra.descripcion','users.name')
             ->where('pedido.estado','=', 0)
             ->get();
+
+            
 
         return $pedidos;
     }
