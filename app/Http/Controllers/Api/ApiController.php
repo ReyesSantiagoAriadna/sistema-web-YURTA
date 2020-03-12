@@ -356,6 +356,8 @@ class ApiController extends Controller
             MaterialObra::where('id_obra', $obra)
                 ->where('mat_obra',$id_materiales[$i])
                 ->update(['cantidad'=>$cantidades[$i]]);
+
+
         }
         return 'reporte actualizado';
     }

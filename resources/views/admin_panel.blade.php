@@ -152,7 +152,7 @@
 
                                             </div>
                                             <div class="menu-info">
-                                                <h4>{{$notification->data['data']}}</h4>
+                                                <h4>{{$notification->data['mensaje']}}</h4>
                                                 <p>
                                                     <i class="material-icons">access_time</i>
                                                     {{$notification->created_at->diffForHumans()}}
@@ -254,7 +254,7 @@
                         <i class="material-icons">flag</i>
                         <span class="label-count">9</span>
                     </a>
-                    <ul class="dropdown-menu">
+                    {{--<ul class="dropdown-menu">
                         <li class="header">TASKS</li>
                         <li class="body">
                             <ul class="menu tasks">
@@ -323,7 +323,7 @@
                         <li class="footer">
                             <a href="javascript:void(0);">View All Tasks</a>
                         </li>
-                    </ul>
+                    </ul>--}}
                 </li>
                 <!-- #END# Tasks -->
                 <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>

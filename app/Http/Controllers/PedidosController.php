@@ -115,11 +115,9 @@ class PedidosController extends Controller
     public function confirmarPedido(Request $request){
         $id_pedido = $request->input('id_pedido'); 
         $ids_materiales = $_POST['ids_material'];
-        $cantidades = $_POST['cantidades'];   
- 
-        
-       for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
-         
+        $cantidades = $_POST['cantidades'];
+
+       for ($i=0; $i < sizeof($ids_materiales) ; $i++) {
             $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]); 
             $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]); 
         }
@@ -260,5 +258,20 @@ class PedidosController extends Controller
         curl_close($ch);
 
         return $result;
+    }
+
+
+    public function qrPedido(Request $request){
+        $id_pedido = $request->id;
+        $var = App\DetallePedido::find($id_pedido);
+
+        $pedidos = App\Pedido::find($id_pedido)
+            ->join('obra', 'pedido.obra',   '=', 'obra.id')
+            ->join('users', 'obra.encargado', '=', 'users.id')
+            ->select('pedido.*', 'obra.descripcion','users.name')
+            ->where('pedido.estado','=', 0)
+            ->get();
+
+        return $pedidos;
     }
 }
