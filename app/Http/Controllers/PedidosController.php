@@ -223,7 +223,7 @@ class PedidosController extends Controller
         $token = App\User::where('id','1')->select('users.fcm_token')->get();
 
         $this->sendPushNotification($token,'hola','hola');
-        return $token;
+        //return $token;
     }
 
     public  function sendPushNotification($fcm_token,$title,$message) {
