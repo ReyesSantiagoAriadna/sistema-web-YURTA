@@ -150,12 +150,12 @@ class PedidosController extends Controller
 
         
        
-        $obra_pedido = App\Pedido::find($id_pedido);  
+      /**   $obra_pedido = App\Pedido::find($id_pedido);  
         $obra_p =App\Obra::find($obra_pedido->obra); 
         $materiales_p;
         for ($i=0; $i < sizeof($ids_materiales); $i++) { 
             $materiales_p[$i] = App\Material::find($ids_materiales[$i]); 
-        }   
+        }  */ 
          
         return $this->mostrar();
     }
