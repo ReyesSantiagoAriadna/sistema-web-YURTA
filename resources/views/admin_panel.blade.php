@@ -152,7 +152,7 @@
 
                                             </div>
                                             <div class="menu-info">
-                                                <h4>{{$notification->data['data']}}</h4>
+                                                <h4>{{$notification->data['mensaje']}}</h4>
                                                 <p>
                                                     <i class="material-icons">access_time</i>
                                                     {{$notification->created_at->diffForHumans()}}
