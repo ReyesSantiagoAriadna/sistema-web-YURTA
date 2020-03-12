@@ -132,8 +132,7 @@ class PedidosController extends Controller
         $user_id = $data[0]->user;
         $obra_id = $data[0]->obra;
 
-
-        /** GENERAR PUSH NOTIFICATION->RESIDENTE**/
+ 
         $this->sendPushNotification($fcm_token,"Pedido confirmado"
            ,"Tu pedido se ha confirmado va en camino");
         $pedido = App\Pedido::find($id_pedido); 
@@ -156,7 +155,7 @@ class PedidosController extends Controller
        
     }
 
-    function disminuir_existencias($id,$cantidad){ 
+     function disminuir_existencias($id,$cantidad){ 
         $total = 0;
         $material = App\Material::find($id);  
         $total = $material->existencias - $cantidad; 
@@ -167,26 +166,13 @@ class PedidosController extends Controller
             $material->existencias = $total;
             $material->save();
         }
-        
-           
- 
     }
 
     public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 
-        $obra_pedido = App\Pedido::find($id);  
+        $obra_pedido = App\Pedido::find($id);
         $obras_material = App\MaterialObra::where('id_obra',$obra_pedido->obra)                        
-        ->get(); 
-       
-       /* for ($i=0; $i < sizeof($obras_material); $i++) {  
-             if($obras_material[$i]->id_obra == $obra_pedido->obra){
-                 if($obras_material[$i]->mat_obra == $material){
-                    $obras_material[$i]->cantidad = $obras_material[$i]->cantidad + $cantidad;
-                    $obras_material[$i]->save();                      
-                 }
-             }else{
-                 echo "no existe";
-             } 
-        } */
+        ->get();
+
 
         if(count($obras_material) >= 1) {                    
            for ($i=0; $i < sizeof($obras_material); $i++) {  
@@ -209,6 +195,8 @@ class PedidosController extends Controller
         }   
  
     }
+
+
     public function met()
     {
         $token = App\User::where('id','1')->select('users.fcm_token')->get();
