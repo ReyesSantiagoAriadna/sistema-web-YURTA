@@ -122,9 +122,7 @@ class PedidosController extends Controller
          
             $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]);
             $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]);
-         // echo "--".$ids_materiales[$i];
-        //} 
-         //
+          
         
         }
 
@@ -196,18 +194,7 @@ class PedidosController extends Controller
                 $material_obra->save();  
         }   */
 
-        for ($i=0; $i < sizeof($obras_material); $i++) {   
-            if($obras_material[$i]->mat_obra == $materiales[$i]){
-                 $obras_material[$i]->cantidad +=  $cantidad;
-                 $obras_material[$i]->save();                      
-             } else {   
-                    $material_obra = new App\MaterialObra;
-                    $material_obra->id_obra = $obra_pedido->obra;
-                    $material_obra->cantidad = $cantidad;
-                    $material_obra->mat_obra = $materiales[$i]; 
-                    $material_obra->save();   
-            }
-        }
+   
     } 
   
 
