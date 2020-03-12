@@ -115,13 +115,21 @@ class PedidosController extends Controller
     public function confirmarPedido(Request $request){
         $id_pedido = $request->input('id_pedido'); 
         $ids_materiales = $_POST['ids_material'];
-        $cantidades = $_POST['cantidades'];
-
-       for ($i=0; $i < sizeof($ids_materiales) ; $i++) {
-            $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]); 
-            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]); 
-        }
+        $cantidades = $_POST['cantidades'];   
  
+        
+       for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
+         
+            $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]);
+            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]);
+         // echo "--".$ids_materiales[$i];
+        //} 
+         //
+        
+        }
+
+
+//        QrCode::size(300)->generate($id_pedido);
 
         $pedido= App\Pedido::find($id_pedido);
         $result = Obra::where('obra.id',$pedido->obra)
@@ -132,7 +140,8 @@ class PedidosController extends Controller
         $user_id = $data[0]->user;
         $obra_id = $data[0]->obra;
 
- 
+
+        /** GENERAR PUSH NOTIFICATION->RESIDENTE**/
         $this->sendPushNotification($fcm_token,"Pedido confirmado"
            ,"Tu pedido se ha confirmado va en camino");
         $pedido = App\Pedido::find($id_pedido); 
@@ -146,33 +155,41 @@ class PedidosController extends Controller
         $mensaje = 'se ha enviado tu pedido con id #' . $id_pedido;
         App\User::find($user_id)->notify(new NotificacionResidente($titulo,$tipo,$mensaje,$obra_id));
 
-          
+
         return $this->mostrar();
     }
 
-    public function vistaPDF($id_pedido, $ids_materiales, $cantidades){
-        //datos de la pbra y materiales IMPRIMIR QR 
-       
-    }
-
-     function disminuir_existencias($id,$cantidad){ 
+    function disminuir_existencias($id,$cantidad){ 
         $total = 0;
         $material = App\Material::find($id);  
         $total = $material->existencias - $cantidad; 
         $material->existencias = $total;
         $material->save();
-        if($material->existencias >0){
+        if($material->existencias){
             $total = $material->existencias - $cantidad; 
             $material->existencias = $total;
             $material->save();
         }
+        
+           
+ 
     }
 
     public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 
-        $obra_pedido = App\Pedido::find($id);
+        $obra_pedido = App\Pedido::find($id);  
         $obras_material = App\MaterialObra::where('id_obra',$obra_pedido->obra)                        
-        ->get();
-
+        ->get(); 
+       
+       /* for ($i=0; $i < sizeof($obras_material); $i++) {  
+             if($obras_material[$i]->id_obra == $obra_pedido->obra){
+                 if($obras_material[$i]->mat_obra == $material){
+                    $obras_material[$i]->cantidad = $obras_material[$i]->cantidad + $cantidad;
+                    $obras_material[$i]->save();                      
+                 }
+             }else{
+                 echo "no existe";
+             } 
+        } */
 
         if(count($obras_material) >= 1) {                    
            for ($i=0; $i < sizeof($obras_material); $i++) {  
