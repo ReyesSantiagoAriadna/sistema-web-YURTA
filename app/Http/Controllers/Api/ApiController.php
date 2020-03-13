@@ -398,6 +398,9 @@ class ApiController extends Controller
 
 
         }
+
+        Pedido::where('id', $request->id)
+        ->update(['estado' =>'2']);
         return $materiales_obra;
     }
 }
