@@ -115,7 +115,7 @@ class PedidosController extends Controller
         $id_pedido = $request->input('id_pedido'); 
         $ids_materiales = $_POST['ids_material'];
         $cantidades = $_POST['cantidades'];   
- 
+        
         
        for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
          
@@ -129,8 +129,20 @@ class PedidosController extends Controller
 
 
 //        QrCode::size(300)->generate($id_pedido);
-
         $pedido= App\Pedido::find($id_pedido);
+
+       for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
+        
+            $this->pedido_agregar_materia($pedido, $ids_materiales[$i], $cantidades[$i]);
+            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]); 
+        
+        }
+
+
+
+//        QrCode::size(300)->generate($id_pedido);
+
+        
         $result = Obra::where('obra.id',$pedido->obra)
             ->join('users','users.id','=','obra.encargado')
             ->select('users.fcm_token','users.id as user','obra.id as obra')->get();
@@ -174,46 +186,65 @@ class PedidosController extends Controller
  
     }
 
+    public function agregar_material_obra($pedido, $id_material, $cantidad){
+        //$obra= App\Pedido::where($id_pedido)->select('pedido.obra')->get();
+        
+        $materiales_obra= App\MaterialObra::where('id_obra',$pedido->obra);
+        
+        error_log($materiales_obra);
+        /*foreach ($materiales_obra as $m){
+             if($id_material==$m->mat_obra){
+                $m->cantidad += $cantidad;
+                $m->$id->save();
+
+                error_log('existe');
+             }else{
+                $mat= new App\MaterialObra;
+                $mat->id_obra= $obra->obra;
+                $mat->cantidad= $cantidad;
+                $mat->mat_obra= $id_material;
+                $mat->save();
+
+                error_log('NO existe');
+             }
+        }*/
+    }
+
     public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 
         $obra_pedido = App\Pedido::find($id);  
         $obras_material = App\MaterialObra::where('id_obra',$obra_pedido->obra)                        
         ->get(); 
-       
-       /* for ($i=0; $i < sizeof($obras_material); $i++) {  
-             if($obras_material[$i]->id_obra == $obra_pedido->obra){
-                 if($obras_material[$i]->mat_obra == $material){
-                    $obras_material[$i]->cantidad = $obras_material[$i]->cantidad + $cantidad;
-                    $obras_material[$i]->save();                      
-                 }
-             }else{
-                 echo "no existe";
-             } 
-        } */
+        
 
         if(count($obras_material) >= 1) {                    
-           for ($i=0; $i < sizeof($obras_material); $i++) {  
-                if($obras_material[$i]->id_obra == $obra_pedido->obra){
+           for ($i=0; $i < sizeof($obras_material); $i++) {   
                 if($obras_material[$i]->mat_obra == $material){
                      $obras_material[$i]->cantidad +=  $cantidad;
                      $obras_material[$i]->save();                      
-                 }
-                } 
-                     
+                 } 
                 }
-        } else {
-           for ($i=0; $i < sizeof($materiales) ; $i++) {  
+        } else {  
                 $material_obra = new App\MaterialObra;
                 $material_obra->id_obra = $obra_pedido->obra;
                 $material_obra->cantidad = $cantidad;
                 $material_obra->mat_obra = $materiales[$i]; 
-                $material_obra->save(); 
-            }
+                $material_obra->save();  
         }   
  
     }
 
+
+    public function met()
+    {
+        $token = App\User::where('id','1')->select('users.fcm_token')->get();
+
+        $this->sendPushNotification($token,'hola','hola');
+        //return $token;
+    }
+
     public  function sendPushNotification($fcm_token,$title,$message) {
         $id=null;
+        $token=  "fjfrp4kBQWw:APA91bHqA-S2w5M7W-o88npLZqcAEVL3GSDoXEGyDILZTsszecAqrM6NBGki4riB5N-CwQ-VHbCtrEYW8m0nP57-xM9LieoblbQH2H7p-pKCB1Z7_40EWHC2yenv7YNISqNwnOwISzzw";
         $API_ACCESS_KEY="AIzaSyAUNcqTUttLsiBm9YCs344VbI5Wcil6BZ0";
         $url = "https://fcm.googleapis.com/fcm/send";
         $header = [
@@ -222,7 +253,7 @@ class PedidosController extends Controller
         ];
 
         $postdata = '{
-            "to" : "' . $fcm_token . '",
+            "to" : "' . $token . '",
                 "notification" : {
                     "title":"' . $title . '",
                     "text" : "' . $message . '"
@@ -248,5 +279,22 @@ class PedidosController extends Controller
         curl_close($ch);
 
         return $result;
+    }
+
+
+    public function qrPedido(Request $request){
+        $id_pedido = $request->id;
+        $var = App\DetallePedido::find($id_pedido);
+
+        $pedidos = App\Pedido::find($id_pedido)
+            ->join('obra', 'pedido.obra',   '=', 'obra.id')
+            ->join('users', 'obra.encargado', '=', 'users.id')
+            ->select('pedido.*', 'obra.descripcion','users.name')
+            ->where('pedido.estado','=', 0)
+            ->get();
+
+            
+
+        return $pedidos;
     }
 }

@@ -97,10 +97,10 @@ class ProveedorController extends Controller
         }
     }
 
-    public function UnidadesMateriales(Request $request){
+    public function unidadesMateriales(Request $request){
         if($request->ajax()){
-            $unidades_materiales = App\MaterialUnidad::all();
-            return response()->json($unidades_materiales);
+            $tipos_unidades = App\MaterialUnidad::all();
+            return response()->json($tipos_unidades);
         }
     }
 }

@@ -54,7 +54,7 @@ Route::post('/update_proveedor','ProveedorController@updateProveedor')->name('pr
 
 Route::get('/proveedores','ProveedorController@proveedores');
 Route::get('/tipos_materiales','ProveedorController@tiposMateriales');
-Route::get('/unidades_materiales','ProveedorController@UnidadesMateriales');
+Route::get('/unidades_materiales','ProveedorController@unidadesMateriales');
 
 
 
@@ -92,7 +92,7 @@ Route::get('/edit_unidad_material/{id}','UnidadMaterialController@edit');
 Route::post('/update_unidad_material','UnidadMaterialController@update')->name('unidad_material_update');
 Route::delete('/eliminar_unidad/{id}','UnidadMaterialController@eliminar')->name('eliminar_unidad');
 
- 
+ Route::get('pruebita','PedidosController@met');
 //--
 
 
