@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('enviar_reporte','Api\ApiController@sendReporte');
 
     Route::post('update_fcm_token','Api\ApiController@update_fcm_token')->name('update_fcm_token');
+
+
+    Route::post('qr_entrega','Api\ApiController@qrscan');
 });
 
 

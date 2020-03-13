@@ -361,4 +361,43 @@ class ApiController extends Controller
         }
         return 'reporte actualizado';
     }
+
+    public function qrscan(Request $request ){
+        $detalles =
+            DetallePedido::where('id_pedido',$request->id)->select('ped_material','cantidad')->get();
+        $id_obra = Pedido::where('id',$request->id)->select('pedido.obra')->get();
+        $data = json_decode($id_obra);
+        $obrita= $data[0]->obra;
+        $materiales_obra =
+            MaterialObra::where('id_obra',$obrita)->select('materiales_obra.*')->get();
+
+        $arrayDetalles = json_decode($detalles);
+
+        for($i=0; $i<sizeof($arrayDetalles); $i++){
+            $id_material = $arrayDetalles[$i]->ped_material;
+            $cantidad_material = $arrayDetalles[$i]->cantidad;
+
+
+            if (MaterialObra::where('mat_obra', '=', $id_material)->
+                where('id_obra',$obrita)->exists()) {
+                $xcant = MaterialObra::where('id_obra', $obrita)
+                    ->where('mat_obra', $id_material)->select('materiales_obra.cantidad')->get();
+                $dataX = json_decode($xcant);
+                $cant= $dataX[0]->cantidad;
+
+                MaterialObra::where('id_obra', $obrita)
+                    ->where('mat_obra', $id_material)
+                    ->update(['cantidad' =>(int)$cant+ $cantidad_material]);
+            }else{
+                $mat = new MaterialObra();
+                $mat->cantidad = $cantidad_material;
+                $mat->id_obra = $obrita;
+                $mat->mat_obra = $id_material;
+                $mat->save();
+            }
+
+
+        }
+        return $materiales_obra;
+    }
 }
