@@ -120,7 +120,7 @@ class PedidosController extends Controller
         
        for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
          
-            $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]);
+           // $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]);
             $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]);
                   
         }
