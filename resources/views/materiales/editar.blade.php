@@ -116,7 +116,7 @@
 </div>
 
 <script>
-    ﻿$(document).ready( function() {
+    $(document).ready( function() {
         $('#tabla-materiales').dataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
@@ -159,7 +159,7 @@
                             $('#tipo').append("<option value='" + registro.id + "'" + (tipo == registro.id ? 'selected' : '') + ">" + registro.descripcion +"</option>");
                         });
                     });
-
+                    
                     $.get('unidades_materiales',function (unidades_materiales) {
                             console.log("unidades",unidades_materiales);
                         $.each(unidades_materiales,function(key, registro) {

@@ -117,21 +117,20 @@ class PedidosController extends Controller
         $ids_materiales = $_POST['ids_material'];
         $cantidades = $_POST['cantidades'];   
  
-        
+        $pedido= App\Pedido::find($id_pedido);
+
        for ($i=0; $i < sizeof($ids_materiales) ; $i++) {             
-         
-            $this->pedido_agregar_materia($id_pedido,$ids_materiales,$cantidades[$i],$ids_materiales[$i]);
-            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]);
-         // echo "--".$ids_materiales[$i];
-        //} 
-         //
+        
+            $this->pedido_agregar_materia($pedido, $ids_materiales[$i], $cantidades[$i]);
+            $this->disminuir_existencias($ids_materiales[$i], $cantidades[$i]); 
         
         }
 
 
+
 //        QrCode::size(300)->generate($id_pedido);
 
-        $pedido= App\Pedido::find($id_pedido);
+        
         $result = Obra::where('obra.id',$pedido->obra)
             ->join('users','users.id','=','obra.encargado')
             ->select('users.fcm_token','users.id as user','obra.id as obra')->get();
@@ -173,6 +172,30 @@ class PedidosController extends Controller
         
            
  
+    }
+
+    public function agregar_material_obra($pedido, $id_material, $cantidad){
+        //$obra= App\Pedido::where($id_pedido)->select('pedido.obra')->get();
+        
+        $materiales_obra= App\MaterialObra::where('id_obra',$pedido->obra);
+        
+        error_log($materiales_obra);
+        /*foreach ($materiales_obra as $m){
+             if($id_material==$m->mat_obra){
+                $m->cantidad += $cantidad;
+                $m->$id->save();
+
+                error_log('existe');
+             }else{
+                $mat= new App\MaterialObra;
+                $mat->id_obra= $obra->obra;
+                $mat->cantidad= $cantidad;
+                $mat->mat_obra= $id_material;
+                $mat->save();
+
+                error_log('NO existe');
+             }
+        }*/
     }
 
     public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 

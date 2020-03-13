@@ -133,8 +133,9 @@ class MaterialController extends Controller
         $materialActualiza->existencias = $request->existencias;
         $materialActualiza->precio_unitario = $request->precio_unitario;
         $materialActualiza->proveedor = $request->proveedor;
-        $materialActualiza->save();
-        return response()->json(['success' => 'Registro Actualizado']);
+       // $materialActualiza->save();
+       echo"<br>".$materialActualiza->unidad;
+      //  return response()->json(['success' => 'Registro Actualizado']);
     }
     
 }

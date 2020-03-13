@@ -54,7 +54,7 @@ Route::post('/update_proveedor','ProveedorController@updateProveedor')->name('pr
 
 Route::get('/proveedores','ProveedorController@proveedores');
 Route::get('/tipos_materiales','ProveedorController@tiposMateriales');
-Route::get('/unidades_materiales','ProveedorController@UnidadesMateriales');
+Route::get('/unidades_materiales','ProveedorController@unidadesMateriales');
 
 
 
