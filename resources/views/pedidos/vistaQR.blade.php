@@ -38,7 +38,7 @@
         <label for="">{{$obra_p->dependencia}}</label> 
         <br>
         <label for="">Fecha Confirmacion: </label>
-        <label for="">{{$obra_pedido->fecha_conf}}</label> 
+        <label for="">{{$obra_p->fecha_conf}}</label> 
  
         <br>
     <table class="table">                    
