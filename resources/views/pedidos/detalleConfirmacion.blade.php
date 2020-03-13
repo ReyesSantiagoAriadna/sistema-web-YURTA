@@ -3,14 +3,15 @@
 @extends('admin_panel')
 @section('contenido')
     <div class="block-header">
-        
+        <h2>CONFIRMAR PEDIDO</h2>
     </div>
     @if ( session('mensaje') )
         <div class="alert alert-success">{{ session('mensaje') }}</div>
     @endif
     <div class="card">
         <div class="header">
-            <h2>CONFIRMAR PEDIDO</h2>
+            <h2>
+            </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -30,7 +31,6 @@
         <div class="body">
             <form method="POST" action="{{ route('confirmar.pedido') }}"">
                 @csrf
-                
             <ol class="breadcrumb breadcrumb-col-orange">
                 <li><a href="javascript:void(0);"><i class="material-icons">local_convenience_store</i> Obras</a></li>
                 <li ><i class="material-icons">visibility</i> Mostrar</li>
@@ -56,7 +56,7 @@
                         <tr> 
                             <th>#</th>
                             <th>Material</th> 
-                            <th>Existencia</th>
+                            <th>Stock</th>
                             <th>Requerido</th> 
                         </tr>
                         </tfoot>
@@ -80,9 +80,9 @@
                     </table>
                 
                 </div>  
-                <div class="title m-b-md"> 
+                <div class="title m-b-md">
+                    {!!QrCode::format('png')->size(300)->generate('{{$id_pedido}}', '../public/qrcodes/qrcode.png');!!}
 
-                    {!!QrCode::format('png')->size(300)->generate($id_pedido, '../public/qrcodes/qrcode.png');!!} 
                  </div>
             </form>    
        
