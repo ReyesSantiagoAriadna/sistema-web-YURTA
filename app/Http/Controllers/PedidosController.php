@@ -167,11 +167,11 @@ class PedidosController extends Controller
         }
 
             $pdf = PDF::loadView('pedidos.vistaQR', compact('id_pedido','obra_p','materiales_p','cantidades'));
-            return $pdf->download('pre-list.pdf');
+             $pdf->download('pre-list.pdf');
         
 
 
-        //return $this->mostrar();
+        return $this->mostrar();
     }
 
     function disminuir_existencias($id,$cantidad){ 
