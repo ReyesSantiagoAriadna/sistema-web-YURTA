@@ -154,3 +154,13 @@ Route::post('/confirmar_pedido', 'PedidosController@confirmarPedido' )->name('co
 Route::get('/pruebas/view','PedidosController@view');
 Route::get('/notificacion','HomeController@sendPushNotification');
 
+
+
+Route::get('qr','Api\ApiController@qrscan');
+
+
+Route::view('/upload', 'upload');
+
+
+
+Route::post('/photo','UsuarioController@updatePhoto')->name('photo');

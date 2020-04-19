@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UsuarioController extends Controller
 {
@@ -116,6 +118,29 @@ class UsuarioController extends Controller
         auth()->user()->unreadNotifications->markAsRead();
         return redirect()->back();
     }
+
+
+    public function updatePhoto(Request $request){
+
+        $user=User::findOrfail(Auth::user()->id);
+
+        $cover = $request->file('bookcover');
+        $extension = $cover->getClientOriginalExtension();
+        Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
+
+
+
+
+        $user->mime = $cover->getClientMimeType();
+        $user->original_filename = $cover->getClientOriginalName();
+        $user->filename = $cover->getFilename().'.'.$extension;
+
+        $user->save();
+        return redirect()->route('home')
+            ->with('success','Book added successfully...');
+
+    }
+
 }
 
 /**

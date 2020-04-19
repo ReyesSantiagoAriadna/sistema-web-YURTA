@@ -2,7 +2,43 @@
 
 use Illuminate\Http\Request;
 
+//create personal acces client  artisan passport:install
 
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
+
+    Route::group(['middleware' => 'auth:api'], function() {
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
+    });
+});
+
+
+
+Route::get('file/avatar','AuthController@avatar');
+Route::post('file/avatar','AuthController@saveAvatar');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -33,6 +69,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('enviar_reporte','Api\ApiController@sendReporte');
 
     Route::post('update_fcm_token','Api\ApiController@update_fcm_token')->name('update_fcm_token');
+
+    Route::post('qr_entrega','Api\ApiController@qrscan');
 });
 
 

@@ -361,4 +361,78 @@ class ApiController extends Controller
         }
         return 'reporte actualizado';
     }
+
+
+    public function qrscan(Request $request ){
+        $detalles =
+            DetallePedido::where('id_pedido',$request->id)->select('ped_material','cantidad')->get();
+        $id_obra = Pedido::where('id',$request->id)->select('pedido.obra')->get();
+        $data = json_decode($id_obra);
+        $obrita= $data[0]->obra;
+        $materiales_obra =
+            MaterialObra::where('id_obra',$obrita)->select('materiales_obra.*')->get();
+
+        $arrayDetalles = json_decode($detalles);
+
+        for($i=0; $i<sizeof($arrayDetalles); $i++){
+            $id_material = $arrayDetalles[$i]->ped_material;
+            $cantidad_material = $arrayDetalles[$i]->cantidad;
+
+
+            if (MaterialObra::where('mat_obra', '=', $id_material)->
+                where('id_obra',$obrita)->exists()) {
+                $xcant = MaterialObra::where('id_obra', $obrita)
+                    ->where('mat_obra', $id_material)->select('materiales_obra.cantidad')->get();
+                $dataX = json_decode($xcant);
+                $cant= $dataX[0]->cantidad;
+
+                MaterialObra::where('id_obra', $obrita)
+                    ->where('mat_obra', $id_material)
+                    ->update(['cantidad' =>(int)$cant+ $cantidad_material]);
+            }else{
+                $mat = new MaterialObra();
+                $mat->cantidad = $cantidad_material;
+                $mat->id_obra = $obrita;
+                $mat->mat_obra = $id_material;
+                $mat->save();
+            }
+
+
+        }
+        Pedido::where('id',$request->id)->update(['estado'=>2]);
+        return 'envio entregado';
+    }
+
+
+    function disminuir_existencias($id,$cantidad){
+        $total = 0;
+        $material = App\Material::find($id);
+        $total = $material->existencias - $cantidad;
+        $material->existencias = $total;
+        $material->save();
+        if($material->existencias){
+            $total = $material->existencias - $cantidad;
+            $material->existencias = $total;
+            $material->save();
+        }
+    }
+
+
+
+    public function buscar($id_material,$cantidad,$materiales_obra,$id_obra){
+        foreach ($materiales_obra as $m){
+            if($id_material==$m->mat_obra){
+                $actual = $m->catidad;
+                $m->cantidad = $cantidad + $actual  ;
+                $m->save();
+            }else{
+                $nuevo  = new MaterialObra();
+                $nuevo->cantidad = $cantidad;
+                $nuevo->id_obra=$id_obra;
+                $nuevo->mat_obra=$id_material;
+                $nuevo->save();
+            }
+        }
+        return false;
+    }
 }

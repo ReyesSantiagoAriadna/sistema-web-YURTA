@@ -23,6 +23,12 @@ class CreateUsersTable extends Migration
             $table->string('api_token',60)->nullable()->unique();
             $table->string('url_avatar')->nullable();
             $table->string('fcm_token')->nullable()->unique();
+
+            $table->string('filename')->nullable();
+            $table->string('mime')->nullable();
+            $table->string('original_filename')->nullable();
+
+
             $table->rememberToken();
             $table->timestamps();
         });

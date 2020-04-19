@@ -148,7 +148,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        Laravel\Passport\PassportServiceProvider::class,
         /*
          * Package Service Providers...
          */
