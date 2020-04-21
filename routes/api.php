@@ -20,7 +20,8 @@ Route::get('file/avatar','AuthController@avatar');
 Route::post('file/avatar','AuthController@saveAvatar');
 
 
-
+Route::post('enviar_code','Api\ApiController@enviarCode');
+Route::post('verify_code','Api\ApiController@verificar_code');
 
 
 

@@ -435,4 +435,34 @@ class ApiController extends Controller
         }
         return false;
     }
+
+    public function enviarCode(Request $request){
+        $basic  = new \Nexmo\Client\Credentials\Basic('9d3e8ff0', 'rBYZyGPpwjTVFnZ9');
+        $client = new \Nexmo\Client($basic);
+        $phone = $request->phone; 
+
+        $verification = $client->verify()->start([ 
+            'number' => '52'.$phone,
+            'brand'  => 'Vonage',
+             'code_length'  => '4']);
+          
+          //echo "Verification id: " . $verification->getRequestId();
+        $request_id = $verification->getRequestId();
+
+        return response()->json($request_id);
+    }
+
+    public function verificar_code(Request $request){ 
+        $basic  = new \Nexmo\Client\Credentials\Basic('9d3e8ff0', 'rBYZyGPpwjTVFnZ9');
+        $client = new \Nexmo\Client($basic);
+
+        $codigo = $request->code;
+        $request_id = $request->request_id;
+         
+        $verification = new \Nexmo\Verify\Verification($request_id);
+        $result = $client->verify()->check($verification, $codigo);
+        
+        return response()->json("Verificacion chida");
+        
+    }
 }
