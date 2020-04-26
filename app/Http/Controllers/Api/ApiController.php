@@ -436,33 +436,67 @@ class ApiController extends Controller
         return false;
     }
 
+    /*cancelar solicitud
+     *
+     * try {
+            $result = $client->verify()->cancel('REQUEST_ID');
+            var_dump($result->getResponseData());
+            }
+            catch(Exception $e) {
+            echo 'Message: ' .$e->getMessage();
+            }
+     *
+     * */
+
     public function enviarCode(Request $request){
-        $basic  = new \Nexmo\Client\Credentials\Basic('9d3e8ff0', 'rBYZyGPpwjTVFnZ9');
-        $client = new \Nexmo\Client($basic);
-        $phone = $request->phone; 
 
-        $verification = $client->verify()->start([ 
-            'number' => '52'.$phone,
-            'brand'  => 'Vonage',
-             'code_length'  => '4']);
-          
-          //echo "Verification id: " . $verification->getRequestId();
-        $request_id = $verification->getRequestId();
+        try {
 
-        return response()->json($request_id);
+            $basic  = new \Nexmo\Client\Credentials\Basic('965b8d2e', '161Yk6mqvbxT1Wgo');
+            $client = new \Nexmo\Client($basic);
+            $phone = $request->phone;
+
+            if($phone==''){
+                return response()->json([
+                    'error' => 'parametro requerido']);
+            }
+
+
+            $verification = $client->verify()->start([
+                'number' => '529513968682',
+                'brand'  => 'Sn S A Invernadero',
+                'code_length'  => '4']);
+
+
+            //echo "Verification id: " . $verification->getRequestId();
+            $request_id = $verification->getRequestId();
+
+            return response()->json([
+                'request_id' => $request_id]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()]);
+
+        }
+
     }
 
     public function verificar_code(Request $request){ 
-        $basic  = new \Nexmo\Client\Credentials\Basic('9d3e8ff0', 'rBYZyGPpwjTVFnZ9');
+        $basic  = new \Nexmo\Client\Credentials\Basic('965b8d2e', '161Yk6mqvbxT1Wgo');
         $client = new \Nexmo\Client($basic);
 
         $codigo = $request->code;
         $request_id = $request->request_id;
-         
+
         $verification = new \Nexmo\Verify\Verification($request_id);
         $result = $client->verify()->check($verification, $codigo);
         
-        return response()->json("Verificacion chida");
+        ///return response()->json("Verificacion chida");
+
+        return response()->json([
+            'ok' => 'ok',
+            'result' => $result]);
         
     }
 }

@@ -28,7 +28,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully created user!'], 201);
     }
-    public function login(Request $request)
+    /*public function login(Request $request)
     {
         $request->validate([
             'email'       => 'required|string|email',
@@ -40,6 +40,39 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Unauthorized'], 401);
         }
+        $user = $request->user();
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        if ($request->remember_me) {
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        }
+        $token->save();
+        return response()->json([
+            'access_token' => $tokenResult->accessToken,
+            'token_type'   => 'Bearer',
+            'expires_at'   => Carbon::parse(
+                $tokenResult->token->expires_at)
+                ->toDateTimeString(),
+        ]);
+    }*/
+
+
+
+
+    public function login(Request $request){
+        $request->validate([
+            'telefono'       => 'required|string',
+            'password'    => 'required|string',
+            //'remember_me' => 'boolean',
+        ]);
+
+        $credentials = request(['telefono', 'password']);
+
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
+                'message' => 'Unauthorized'], 401);
+        }
+
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -74,7 +107,6 @@ class AuthController extends Controller
         return response()
             ->download(storage_path('app/public/'.$filename[0]['filename']),'avatar');
     }
-
 
 
     public function  saveAvatar(Request  $request){
@@ -129,5 +161,27 @@ class AuthController extends Controller
 
         return response()->json(['message' =>
             'Successfully logged out']);
+    }
+
+    public function buscar_usuario(Request $request){
+
+        $request->validate([
+            'telefono'       => 'required|string',
+        ]);
+
+        $telefono = User::select('telefono')
+            ->where('telefono',"=",$request->telefono)
+            ->get();
+
+        if (count($telefono)>0){
+            return response()->json([
+                'message'=> 'success',
+                'telefono' => $request->telefono
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'no found'
+        ]);
     }
 }
