@@ -15,20 +15,18 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('telefono');
-            $table->string('puesto');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('password')->nullable();
+            $table->string('telefono')->unique();
+            $table->string('puesto')->nullable();
             $table->string('api_token',60)->nullable()->unique();
             $table->string('url_avatar')->nullable();
             $table->string('fcm_token')->nullable()->unique();
-
             $table->string('filename')->nullable();
             $table->string('mime')->nullable();
             $table->string('original_filename')->nullable();
-
-
+            $table->string('datos')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

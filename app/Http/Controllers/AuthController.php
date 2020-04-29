@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-
+use Symfony\Component\CssSelector\Exception\InternalErrorException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function signup(Request $request)
+    /*public function signup(Request $request)
     {
         $request->validate([
             'name'     => 'required|string',
@@ -27,7 +29,7 @@ class AuthController extends Controller
         $user->save();
         return response()->json([
             'message' => 'Successfully created user!'], 201);
-    }
+    }*/
     /*public function login(Request $request)
     {
         $request->validate([
@@ -65,6 +67,7 @@ class AuthController extends Controller
             'password'    => 'required|string',
             //'remember_me' => 'boolean',
         ]);
+
 
         $credentials = request(['telefono', 'password']);
 
@@ -183,5 +186,60 @@ class AuthController extends Controller
         return response()->json([
             'error' => 'no found'
         ]);
+    }
+
+    //# telefono -> contraseña
+    //nombre,apellido,correo electronico opcional
+
+
+    public function signup(Request $request){
+            $request->validate([
+                'telefono'    => 'required|string',
+            ]);
+
+            $user = new User([
+                'telefono'    => $request->telefono,
+            ]);
+            $user->save();
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+            $token->save();
+
+            return response()->json([
+                'access_token' => $tokenResult->accessToken,
+                'token_type'   => 'Bearer',
+                'expires_at'   => Carbon::parse(
+                    $tokenResult->token->expires_at)
+                    ->toDateTimeString(),
+            ]);
+
+    }
+
+
+    public function changePassword(Request $request){
+        $request->validate([
+            'telefono'     => 'required|string',
+            'password' => 'required|string',
+        ]);
+        User::where('telefono', $request->telefono)
+            ->update(['password'=>Hash::make($request->password)]);
+        return response()->json([
+            'message'=>'success',
+        ]);
+    }
+
+    public function addInf(Request $request){
+        $request->validate([
+            'telefono' => 'required | string',
+            'name'     => 'required|string',
+            'email'    => 'string|email',
+        ]);
+
+        User::where('telefono', $request->telefono)
+            ->update(['name'=>$request->name,'datos'=>'1','email'=>$request->email]);
+        return response()->json([
+            'message'=>'success',
+        ]);
+
     }
 }

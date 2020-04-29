@@ -2,23 +2,24 @@
 
 use Illuminate\Http\Request;
 
-//create personal acces client  artisan passport:install
+//create personal acces client php artisan passport:install
 
 Route::group(['prefix' => 'auth'], function () {
+
+
     Route::post('login', 'AuthController@login');
     Route::post('buscar_usuario','AuthController@buscar_usuario');
-    //Route::post('login_phone','AuthController@login_phone');
     Route::post('signup', 'AuthController@signup');
 
-    //verificación por telefono
-    Route::post('send_code','Api\ApiController@enviarCode');
-    Route::post('verify_code','Api\ApiController@verificar_code');
-
-
-
     Route::group(['middleware' => 'auth:api'], function() {
+
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+
+        //actualizar contraseña
+        Route::post('password','AuthController@changePassword');
+        //actualizar información de usuario
+        Route::post('addInf','AuthController@addInf');
 
         Route::get('file/avatar','AuthController@avatar');
         Route::post('file/avatar','AuthController@saveAvatar');
