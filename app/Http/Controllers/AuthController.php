@@ -204,7 +204,7 @@ class AuthController extends Controller
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
             $token->save();
-
+            
             return response()->json([
                 'access_token' => $tokenResult->accessToken,
                 'token_type'   => 'Bearer',
@@ -214,6 +214,7 @@ class AuthController extends Controller
             ]);
 
     }
+
 
 
     public function changePassword(Request $request){

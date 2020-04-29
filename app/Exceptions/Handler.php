@@ -86,23 +86,23 @@ class Handler extends ExceptionHandler
 
         switch ($statusCode) {
             case 401:
-                $response['message-error'] = 'Unauthorized';
+                $response['message'] = 'Unauthorized';
                 break;
             case 403:
-                $response['message-error'] = 'Forbidden';
+                $response['message'] = 'Forbidden';
                 break;
             case 404:
-                $response['message-error'] = 'Not Found';
+                $response['message'] = 'Not Found';
                 break;
             case 405:
-                $response['message-error'] = 'Method Not Allowed';
+                $response['message'] = 'Method Not Allowed';
                 break;
             case 422:
-                $response['message-error'] = $exception->original['message'];
+                $response['message'] = $exception->original['message'];
                 $response['errors'] = $exception->original['errors'];
                 break;
             default:
-                $response['message-error'] = ($statusCode == 500) ? 'Whoops, looks like something went wrong' : $exception->getMessage();
+                $response['message'] = ($statusCode == 500) ? 'Whoops, looks like something went wrong' : $exception->getMessage();
                 break;
         }
 
