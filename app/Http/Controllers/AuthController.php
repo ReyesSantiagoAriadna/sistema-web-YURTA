@@ -172,14 +172,16 @@ class AuthController extends Controller
             'telefono'       => 'required|string',
         ]);
 
-        $telefono = User::select('telefono')
+        $user = User::select('telefono','name','datos')
             ->where('telefono',"=",$request->telefono)
             ->get();
 
-        if (count($telefono)>0){
+        if (count($user)>0){
             return response()->json([
                 'message'=> 'success',
-                'telefono' => $request->telefono
+                'telefono' => $user[0]['telefono'],
+                'name' => $user[0]['name'],
+                'datos' => $user[0]['datos'],
             ]);
         }
 
@@ -222,8 +224,8 @@ class AuthController extends Controller
             'telefono'     => 'required|string',
             'password' => 'required|string',
         ]);
-        User::where('telefono', $request->telefono)
-            ->update(['password'=>Hash::make($request->password)]);
+        User::where('telefono', $request->telefono)               //add password
+            ->update(['password'=>Hash::make($request->password),'datos'=>'1']);
         return response()->json([
             'message'=>'success',
         ]);
@@ -236,8 +238,8 @@ class AuthController extends Controller
             'email'    => 'string|email',
         ]);
 
-        User::where('telefono', $request->telefono)
-            ->update(['name'=>$request->name,'datos'=>'1','email'=>$request->email]);
+        User::where('telefono', $request->telefono)     //add information
+            ->update(['name'=>$request->name,'email'=>$request->email]);
         return response()->json([
             'message'=>'success',
         ]);
