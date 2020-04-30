@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('filename')->nullable();
             $table->string('mime')->nullable();
             $table->string('original_filename')->nullable();
-            $table->string('datos')->default('0');
+            $table->string('code')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

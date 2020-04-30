@@ -9,7 +9,13 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('login', 'AuthController@login');
     Route::post('buscar_usuario','AuthController@buscar_usuario');
-    Route::post('signup', 'AuthController@signup');
+
+
+    Route::post('sendCode','AuthController@sendCode');
+    Route::post('verifyCode','AuthController@verifyCode');
+
+    //Route::post('signup', 'AuthController@signup'); // X
+
 
     Route::group(['middleware' => 'auth:api'], function() {
 

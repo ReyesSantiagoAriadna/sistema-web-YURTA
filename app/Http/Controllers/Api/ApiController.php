@@ -389,15 +389,13 @@ class ApiController extends Controller
                 MaterialObra::where('id_obra', $obrita)
                     ->where('mat_obra', $id_material)
                     ->update(['cantidad' =>(int)$cant+ $cantidad_material]);
-            }else{
+            }else {
                 $mat = new MaterialObra();
                 $mat->cantidad = $cantidad_material;
                 $mat->id_obra = $obrita;
                 $mat->mat_obra = $id_material;
                 $mat->save();
             }
-
-
         }
         Pedido::where('id',$request->id)->update(['estado'=>2]);
         return 'envio entregado';
@@ -448,42 +446,42 @@ class ApiController extends Controller
      *
      * */
 
-    public function enviarCode(Request $request){
+    public function sendCode(Request $request){
 
-        try {
-
-            $basic  = new \Nexmo\Client\Credentials\Basic('965b8d2e', '161Yk6mqvbxT1Wgo');
-            $client = new \Nexmo\Client($basic);
-            $phone = $request->phone;
-
-            if($phone==''){
-                return response()->json([
-                    'error' => 'parametro requerido']);
-            }
+        $request->validate([
+            'apiKey'       => 'required|string',
+            'apiSecret'    => 'required|string',
+            'number'       => 'required|string',
+            'brand'        => 'required|string',
+        ]);
 
 
-            $verification = $client->verify()->start([
-                'number' => '529513968682',
-                'brand'  => 'Sn S A Invernadero',
-                'code_length'  => '4']);
+        $basic  = new \Nexmo\Client\Credentials\Basic($request->apiKey, $request->apiSecret);
+        $client = new \Nexmo\Client($basic);
 
 
-            //echo "Verification id: " . $verification->getRequestId();
-            $request_id = $verification->getRequestId();
+        $verification = $client->verify()->start([
+            'number' => $request->number,
+            'brand'  => $request->brand,
+            'code_length'  => '4']);
 
-            return response()->json([
-                'request_id' => $request_id]);
+        $request_id = $verification->getRequestId();
 
-        } catch (Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage()]);
-
-        }
-
+        return response()->json([
+            'request_id' => $request_id]);
     }
 
-    public function verificar_code(Request $request){ 
-        $basic  = new \Nexmo\Client\Credentials\Basic('965b8d2e', '161Yk6mqvbxT1Wgo');
+
+    public function verifyOtp(Request $request){
+
+        $request->validate([
+            'apiKey'       => 'required|string',
+            'apiSecret'    => 'required|string',
+            'request_id'   => 'required|string',
+            'code'         =>  'required|string',
+        ]);
+
+        $basic  = new \Nexmo\Client\Credentials\Basic($request->apiKey, $request->apiSecret);
         $client = new \Nexmo\Client($basic);
 
         $codigo = $request->code;
@@ -492,7 +490,7 @@ class ApiController extends Controller
         $verification = new \Nexmo\Verify\Verification($request_id);
         $result = $client->verify()->check($verification, $codigo);
         
-        ///return response()->json("Verificacion chida");
+        //al verificar el codigo registrar | llenar contraseña |
 
         return response()->json([
             'ok' => 'ok',
