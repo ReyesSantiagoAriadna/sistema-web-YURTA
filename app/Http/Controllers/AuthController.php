@@ -277,8 +277,6 @@ class AuthController extends Controller
         $client = new \Nexmo\Client($basic);
 
 
-
-
         $verification = $client->verify()->start([
             'number' => $request->number,
             'brand'  => $request->brand,
@@ -314,6 +312,13 @@ class AuthController extends Controller
         $result = $client->verify()->check($verification, $codigo);
 
 
+        return response()->json([
+            'number'       => $verification->getNumber(),
+            'result'        => $result->getNumber(),
+            'verify'       => 'ok',
+        ]);
+
+        /*
         $user = User::
         where('telefono',"=",$verification->getNumber())
             ->where('code',"=",$request->code)
@@ -334,7 +339,7 @@ class AuthController extends Controller
             ]);
         }else{ //si no existe REGISTRAR->ENVIAR TOKEN
             return $this->signup($verification->getNumber());
-        }
+        }*/
     }
 
 
