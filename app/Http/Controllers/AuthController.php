@@ -238,10 +238,10 @@ class AuthController extends Controller
         User::where('telefono', $request->telefono)               //add password
             ->update(['password'=>Hash::make($request->password)]);
         return response()->json([
+            'result'=>'ok',
             'message'=>'success',
         ]);
     }
-
 
 
     public function addInf(Request $request){
@@ -255,6 +255,7 @@ class AuthController extends Controller
         User::where('telefono', $request->telefono)     //add information
             ->update(['name'=>$request->name,'email'=>$request->email]);
         return response()->json([
+            'result'=>'ok',
             'message'=>'success',
         ]);
 
@@ -305,6 +306,7 @@ class AuthController extends Controller
         ]);
 
 
+
         $basic  = new \Nexmo\Client\Credentials\Basic($request->apiKey, $request->apiSecret);
         $client = new \Nexmo\Client($basic);
 
@@ -337,18 +339,13 @@ class AuthController extends Controller
             }else{ //si no existe REGISTRAR->ENVIAR TOKEN
                 return $this->signup($number);
             }
-        } catch (Exception $e) {
+        }catch (Exception $e) {
             $verification = $e->getEntity();
             return response()->json([
                 'message'=> "Verification failed with status " . $verification['status']
                     . " and error text \"" . $verification['error_text'],
             ]);
         }
-
-
-
-
-
     }
 
 

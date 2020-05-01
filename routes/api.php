@@ -24,9 +24,9 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user', 'AuthController@user');
 
         //actualizar contraseña
-        Route::post('password','AuthController@changePassword');
+        Route::post('change_password','AuthController@changePassword');
         //actualizar información de usuario
-        Route::post('addInf','AuthController@addInf');
+        Route::post('change_inf','AuthController@addInf');
 
         Route::get('file/avatar','AuthController@avatar');
         Route::post('file/avatar','AuthController@saveAvatar');
