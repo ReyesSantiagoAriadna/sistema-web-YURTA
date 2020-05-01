@@ -248,8 +248,8 @@ class AuthController extends Controller
         $request->validate([
             'telefono' => 'required | string',
             'name'     => 'required|string',
-            'email'    => 'string|email',
         ]);
+
 
         $request->email!=null?
         User::where('telefono', $request->telefono)     //add information
@@ -257,6 +257,8 @@ class AuthController extends Controller
         :
             User::where('telefono', $request->telefono)     //add information
             ->update(['name'=>$request->name]) ;
+
+
 
 
         return response()->json([
