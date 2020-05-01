@@ -69,8 +69,8 @@ class AuthController extends Controller
         $request->validate([
             'telefono'       => 'required|string',
             'password'    => 'required|string',
-            //'remember_me' => 'boolean',
         ]);
+
 
 
         $credentials = request(['telefono', 'password']);
@@ -79,6 +79,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Unauthorized'], 401);
         }
+
 
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');

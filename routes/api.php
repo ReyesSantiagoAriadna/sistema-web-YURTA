@@ -17,6 +17,7 @@ Route::group(['prefix' => 'auth'], function () {
     //Route::post('signup', 'AuthController@signup'); // X
 
 
+
     Route::group(['middleware' => 'auth:api'], function() {
 
         Route::get('logout', 'AuthController@logout');
