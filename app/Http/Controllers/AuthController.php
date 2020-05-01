@@ -251,9 +251,14 @@ class AuthController extends Controller
             'email'    => 'string|email',
         ]);
 
-
+        $request->email!=null?
         User::where('telefono', $request->telefono)     //add information
-            ->update(['name'=>$request->name,'email'=>$request->email]);
+            ->update(['name'=>$request->name,'email'=>$request->email])
+        :
+            User::where('telefono', $request->telefono)     //add information
+            ->update(['name'=>$request->name]) ;
+
+
         return response()->json([
             'result'=>'ok',
             'message'=>'success',
