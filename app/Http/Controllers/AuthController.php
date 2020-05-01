@@ -293,14 +293,16 @@ class AuthController extends Controller
     }
 
 
+
     public function verifyCode(Request $request){
+
         $request->validate([
             'apiKey'       => 'required|string',
             'apiSecret'    => 'required|string',
             'request_id'   => 'required|string',
-            'code'         =>  'required|string',
+            'code'         => 'required|string',
+            'number'       => 'required|string',
         ]);
-
 
 
         $basic  = new \Nexmo\Client\Credentials\Basic($request->apiKey, $request->apiSecret);
@@ -308,39 +310,45 @@ class AuthController extends Controller
 
         $codigo = $request->code;
         $request_id = $request->request_id;
+        $number = $request->number;
+
 
         $verification = new \Nexmo\Verify\Verification($request_id);
-        $result = $client->verify()->check($verification, $codigo);
 
 
-        return response()->json([
-            'number'       => $verification->getNumber(),
-            'result'        => $result->getNumber(),
-            'verify'       => 'ok',
-        ]);
+        try {
+            $client->verify()->check($verification, $codigo);
 
-        /*
-        $user = User::
-        where('telefono',"=",$verification->getNumber())
-            ->where('code',"=",$request->code)
-            ->get();
 
-        if (count($user)>0){ //si ya existe el usuario enviar token
-            $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->token;
-            $token->save();
+            $user = User::where('telefono',"=",$number)->get();
+
+            if (count($user)>0){ //si ya existe el usuario enviar token
+                $tokenResult = $user->createToken('Personal Access Token');
+                $token = $tokenResult->token;
+                $token->save();
+                return response()->json([
+                    'verify'       => 'ok',
+                    'access_token' => $tokenResult->accessToken,
+                    'token_type'   => 'Bearer',
+                    'expires_at'   => Carbon::parse(
+                        $tokenResult->token->expires_at)
+                        ->toDateTimeString(),
+                ]);
+            }else{ //si no existe REGISTRAR->ENVIAR TOKEN
+                return $this->signup($number);
+            }
+        } catch (Exception $e) {
+            $verification = $e->getEntity();
             return response()->json([
-                'result'       => $result,
-                'verify'       => 'ok',
-                'access_token' => $tokenResult->accessToken,
-                'token_type'   => 'Bearer',
-                'expires_at'   => Carbon::parse(
-                    $tokenResult->token->expires_at)
-                    ->toDateTimeString(),
+                'message'=> "Verification failed with status " . $verification['status']
+                    . " and error text \"" . $verification['error_text'],
             ]);
-        }else{ //si no existe REGISTRAR->ENVIAR TOKEN
-            return $this->signup($verification->getNumber());
-        }*/
+        }
+
+
+
+
+
     }
 
 
