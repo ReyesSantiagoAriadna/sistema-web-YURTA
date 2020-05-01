@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Carbon\Carbon;
+use http\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -274,6 +275,8 @@ class AuthController extends Controller
 
         $basic  = new \Nexmo\Client\Credentials\Basic($request->apiKey, $request->apiSecret);
         $client = new \Nexmo\Client($basic);
+
+
 
 
         $verification = $client->verify()->start([
