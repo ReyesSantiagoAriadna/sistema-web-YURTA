@@ -22,6 +22,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Response;
 
 use App\User;
+use App\Producto;
+use App\Promocion;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -496,5 +498,15 @@ class ApiController extends Controller
             'ok' => 'ok',
             'result' => $result]);
         
+    }
+
+    public function mostrar_productos(){
+        $productos = Producto::all();
+        return response()->json(['productos' => $productos]);
+    }
+
+    public function mostrar_promociones(){
+        $promociones = Promocion::all();
+        return response()->json(['promociones' => $promociones]);
     }
 }
