@@ -502,7 +502,7 @@ class ApiController extends Controller
 
     public function mostrar_productos(){
         $productos = Producto::all();
-        return $productos;
+        return response()->json(['productos' => $productos]);
     }
 
     public function mostrar_promociones(){
