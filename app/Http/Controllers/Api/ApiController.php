@@ -506,7 +506,7 @@ class ApiController extends Controller
     }
 
     public function mostrar_promociones(){
-        $promociones = Promocion::all();
+        $promociones = Promocion::select('id','descripcion','url_imagen')->get();
         return response()->json(['promociones' => $promociones]);
     }
 }
