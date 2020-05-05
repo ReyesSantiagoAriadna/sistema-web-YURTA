@@ -17,7 +17,7 @@ Route::group(['prefix' => 'auth'], function () {
     //Route::post('signup', 'AuthController@signup'); // X
 
     Route::get('productos','Api\ApiController@mostrar_productos');
-    Route::get('promociones','Api\ApiController@mostrar_promociones');
+
     
 
     Route::group(['middleware' => 'auth:api'], function() {
@@ -33,8 +33,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('file/avatar','AuthController@avatar');
         Route::post('file/avatar','AuthController@saveAvatar');
 
-        
-        
+
+        Route::get('promociones','Api\ApiController@mostrar_promociones');
 
         
     });
