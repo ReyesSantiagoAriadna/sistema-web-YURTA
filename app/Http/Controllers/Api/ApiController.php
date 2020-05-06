@@ -500,17 +500,16 @@ class ApiController extends Controller
         
     }
 
+
     public function mostrar_productos(){
-        $productos = Producto::all();
-        return response()->json(['ok' => 'ok', 'prod' => $productos]);
+        $productos = Producto::select('id','solar','cultivo','nombre','cont_caja','precio_mayoreo',
+            'precio_menudeo','url_imagen');
+        return response()->json(['productos' => $productos]);
     }
 
+
     public function mostrar_promociones(){
-
         $promociones = Promocion::select('id','descripcion','url_imagen')->get();
-
         return response()->json(['promociones'=>$promociones]);
-
-
     }
 }
