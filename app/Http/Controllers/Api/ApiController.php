@@ -503,7 +503,7 @@ class ApiController extends Controller
 
     public function mostrar_productos(){
         $productos = Producto::select('id','solar','cultivo','nombre','cont_caja','precio_mayoreo',
-            'precio_menudeo','url_imagen');
+            'precio_menudeo','url_imagen')->get();
         return response()->json(['productos' => $productos]);
     }
 
