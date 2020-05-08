@@ -24,6 +24,7 @@ use Illuminate\Http\Response;
 use App\User;
 use App\Producto;
 use App\Promocion;
+use App\PedidoInv;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -511,5 +512,54 @@ class ApiController extends Controller
     public function mostrar_promociones(){
         $promociones = Promocion::select('id','descripcion','url_imagen')->get();
         return response()->json(['promociones'=>$promociones]);
+    }
+
+
+    public function mostrar_pedidos(){ 
+        $pedidos = PedidoInv::join('users', 'pedidoInv.cliente', '=', 'users.id')
+        ->select('pedidoInv.id','users.name','pedidoInv.fecha_pedido','pedidoInv.fecha_entrega') 
+        ->where('pedidoInv.estado','=', 0)
+        ->get();
+        return response()->json(['pedidos'=>$pedidos]);
+    }
+
+    public function agregar_pedido(Request $request){
+       // $status_default='0';
+        $pedidoNuevo = new PedidoInv();
+        $pedidoNuevo->fecha_pedido = $request->fecha_pedido;
+        $pedidoNuevo->fecha_entrega = $request->fecha_entrega;
+        $pedidoNuevo->estado = $request->estado;
+        $pedidoNuevo->cliente = $request->cliente;
+        $pedidoNuevo->save(); 
+
+        return response()->json([
+            'id' =>$pedidoNuevo->id,
+            'fecha_pedido' => $pedidoNuevo->fecha_pedido,
+            'fecha_entrega' => $pedidoNuevo->fecha_entrega,
+            'estado'=>$pedidoNuevo->estado,
+            'cliente'=>$pedidoNuevo->cliente
+        ]);
+    }
+
+    public function editar_buscar($id){ 
+        $pedido = PedidoInv::findOrFail($id);
+        return response()->json(['pedido' => $pedido]);
+    }
+
+    public function actualizar_pedido(Request $request, $id){ 
+        $pedidoActualizado = PedidoInv::findOrFail($id);
+        $pedidoActualizado->fecha_pedido = $request->fecha_pedido;
+        $pedidoActualizado->fecha_entrega = $request->fecha_entrega;
+        $pedidoActualizado->estado = $request->estado;
+        $pedidoActualizado->cliente = $request->cliente;
+        $pedidoActualizado->save(); 
+        
+        return response()->json(['pedido actualizado']);
+          
+    }
+    public function eliminar_pedido($id){  
+            $pedidoEliminar = PedidoInv::findOrFail($id);
+            $pedidoEliminar->delete(); 
+        return response()->json(['pedido eliminado']);
     }
 }

@@ -38,10 +38,18 @@ Route::group(['prefix' => 'auth'], function () {
         //promocion
         Route::get('promociones','Api\ApiController@mostrar_promociones');
 
+        //pedidos
+        Route::get('pedidos','Api\ApiController@eliminar_pedido');
+        Route::post('addpedido','Api\ApiController@agregar_pedido');
+        Route::get('pedido_buscar/{id}','Api\ApiController@editar_buscar');
+        Route::put('editar_pedido/{id}','Api\ApiController@actualizar_pedido');
+        Route::delete('eliminar_pedido/{id}','Api\ApiController@eliminar_pedido');
+
         
     });
     
 });
+
 
 
 
