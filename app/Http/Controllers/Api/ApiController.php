@@ -25,6 +25,7 @@ use App\User;
 use App\Producto;
 use App\Promocion;
 use App\PedidoInv;
+use App\DetallePedidoInv;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -557,9 +558,75 @@ class ApiController extends Controller
         return response()->json(['pedido actualizado']);
           
     }
+
+    public function pedidoDetalles(Request $requets){        
+ 
+      // $array = json_decode(file_get_contents("php://input"), true);//$request->detalles; //json_decode(file_get_contents("php://input"), true); //json_decode(json_encode( $_GET['detalles'] ), true ); 
+       //$count = count($array); 
+
+        $filters = json_decode(file_get_contents("php://input"), true); 
+        $pedido = $requets->id_pedido;
+        $productos= $filters['productos'];
+        $data;
+
+       foreach ($productos as $key => $value) {
+            $data[] = ['medida'    => $value['medida'],
+                       'cantidad'  => $value['cantidad'],
+                       'id_pedido' => $pedido,
+                       'ped_producto' => $value['id'],
+                    ];
+        } 
+
+        //DetallePedidoInv::insert($array);
+        return response()->json(['pedido y detalles agregados' => $productos ]);
+        
+    }
+
     public function eliminar_pedido($id){  
             $pedidoEliminar = PedidoInv::findOrFail($id);
             $pedidoEliminar->delete(); 
         return response()->json(['pedido eliminado']);
     }
+
+    public function obtener_user($phone){
+        $user = User::where('phone', $phone); 
+        return response()->json(['usuario' => $user]);
+    }
+
+    public function buscar_usuario(Request $request){
+
+        $request->validate([
+            'telefono'       => 'required|string',
+        ]);
+
+
+        $user = User::select('telefono','name','email','url_avatar')
+            ->where('telefono',"=",$request->telefono)
+            ->get();
+
+
+        if (count($user)>0){
+           return response()->json([
+                'message'=> 'success',
+                'telefono' => $user[0]['telefono'],
+                'name' => $user[0]['name'],
+                'email' => $user[0]['email'],
+                'url_avatar' => $user[0]['url_avatar'],
+            ]);
+
+        }
+
+        return response()->json([
+            'error' => 'no found'
+        ]);
+    }
+
+    public function update_user(Request $request, $id){
+        $userUpdate = user::findOrFail($id);
+        $userUpdate->name = $request->name;
+        $userUpdate->email = $request->email;
+        $userUpdate->url_avatar = $request->url_avatar;
+        $userUpdate->save();
+        return response()->json(['Datos actualizados']);
+    } 
 }
