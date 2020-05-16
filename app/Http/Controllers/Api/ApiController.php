@@ -600,7 +600,7 @@ class ApiController extends Controller
         ]);
 
 
-        $user = User::select('telefono','name','email','url_avatar')
+        $user = User::select('id','name','email','telefono','url_avatar')
             ->where('telefono',"=",$request->telefono)
             ->get();
 
@@ -608,9 +608,10 @@ class ApiController extends Controller
         if (count($user)>0){
            return response()->json([
                 'message'=> 'success',
-                'telefono' => $user[0]['telefono'],
+                'id' => $user[0]['id'],
                 'name' => $user[0]['name'],
                 'email' => $user[0]['email'],
+                'telefono' => $user[0]['telefono'],                
                 'url_avatar' => $user[0]['url_avatar'],
             ]);
 
