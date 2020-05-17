@@ -624,8 +624,7 @@ class ApiController extends Controller
 
     public function update_user(Request $request, $id){
         $nameUpdate = $request->name;
-        $emailUpdate = $request->email;
-        $url_avatarUp = $request->url_avatar;
+        $emailUpdate = $request->email; 
 
         $user = User::where('id', $id)
                  ->update(['name'=>$nameUpdate, 'email'=>$emailUpdate]);
@@ -635,8 +634,7 @@ class ApiController extends Controller
                'id' =>$user->id,
                'name' => $user->name,
                'email' => $user->email,
-               'telefono'=>$user->telefono, 
-               'url_avatar'=>$user->url_avatar
+               'telefono'=>$user->telefono,  
         ]);
          
     } 

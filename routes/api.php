@@ -31,8 +31,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::post('change_password','AuthController@changePassword');
         //actualizar información de usuario
         Route::post('change_inf','AuthController@addInf');
-        Route::get('file/avatar','AuthController@avatar');
-        Route::post('file/avatar','AuthController@saveAvatar');
+        
 
         //producto
         Route::get('productos','Api\ApiController@mostrar_productos');
@@ -54,6 +53,9 @@ Route::group(['prefix' => 'auth'], function () {
     });
     
 });
+
+Route::get('file/avatar','AuthController@avatar');
+Route::post('file/avatar','AuthController@saveAvatar');
 
 
 
