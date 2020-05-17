@@ -623,11 +623,21 @@ class ApiController extends Controller
     }
 
     public function update_user(Request $request, $id){
-        $userUpdate = user::findOrFail($id);
-        $userUpdate->name = $request->name;
-        $userUpdate->email = $request->email;
-        $userUpdate->url_avatar = $request->url_avatar;
-        $userUpdate->save();
-        return response()->json(['Datos actualizados']);
+        $nameUpdate = $request->name;
+        $emailUpdate = $request->email;
+        $url_avatarUp = $request->url_avatar;
+
+        $user = User::where('id', $id)
+                 ->update(['name'=>$nameUpdate, 'email'=>$emailUpdate]);
+ 
+        $user = User::find($id);
+        return response()->json([
+               'id' =>$user->id,
+               'name' => $user->name,
+               'email' => $user->email,
+               'telefono'=>$user->telefono, 
+               'url_avatar'=>$user->url_avatar
+        ]);
+         
     } 
 }
