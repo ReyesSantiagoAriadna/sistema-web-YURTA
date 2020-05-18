@@ -625,10 +625,9 @@ class ApiController extends Controller
     public function update_user(Request $request, $id){
         $nameUpdate = $request->name;
         $emailUpdate = $request->email; 
-        $url_avatar = $request->$url_avatar;
 
         $user = User::where('id', $id)
-                 ->update(['name'=>$nameUpdate, 'email'=>$emailUpdate, 'url_avatar' => $url_avatar]);
+                 ->update(['name'=>$nameUpdate, 'email'=>$emailUpdate]);
  
         $user = User::find($id);
         return response()->json([
@@ -636,7 +635,6 @@ class ApiController extends Controller
                'name' => $user->name,
                'email' => $user->email,
                'telefono'=>$user->telefono,  
-               'url_avatar'=>$user->url_avatar,
         ]);
          
     } 
