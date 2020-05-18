@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+//heroku ps:exec -a yurtapp
 //create personal acces client php artisan passport:install
 
 Route::group(['prefix' => 'auth'], function () {
