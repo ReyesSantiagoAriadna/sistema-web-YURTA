@@ -515,6 +515,7 @@ class ApiController extends Controller
         return response()->json(['promociones'=>$promociones]);
     }
 
+<<<<<<< HEAD
     public function  search(Request $request){
         $data = $request->data;
         $productos = Producto::where('nombre', 'like', "%{$data}%")
@@ -534,4 +535,129 @@ class ApiController extends Controller
         ]);
 
     }
+=======
+
+    public function mostrar_pedidos(){ 
+        $pedidos = PedidoInv::join('users', 'pedidoInv.cliente', '=', 'users.id')
+        ->select('pedidoInv.id','users.name','pedidoInv.fecha_pedido','pedidoInv.fecha_entrega') 
+        ->where('pedidoInv.estado','=', 0)
+        ->get();
+        return response()->json(['pedidos'=>$pedidos]);
+    }
+
+    public function agregar_pedido(Request $request){
+       // $status_default='0';
+        $pedidoNuevo = new PedidoInv();
+        $pedidoNuevo->fecha_pedido = $request->fecha_pedido;
+        $pedidoNuevo->fecha_entrega = $request->fecha_entrega;
+        $pedidoNuevo->estado = $request->estado;
+        $pedidoNuevo->cliente = $request->cliente;
+        $pedidoNuevo->save(); 
+
+        return response()->json([
+            'id' =>$pedidoNuevo->id,
+            'fecha_pedido' => $pedidoNuevo->fecha_pedido,
+            'fecha_entrega' => $pedidoNuevo->fecha_entrega,
+            'estado'=>$pedidoNuevo->estado,
+            'cliente'=>$pedidoNuevo->cliente
+        ]);
+    }
+
+    public function editar_buscar($id){ 
+        $pedido = PedidoInv::findOrFail($id);
+        return response()->json(['pedido' => $pedido]);
+    }
+
+    public function actualizar_pedido(Request $request, $id){ 
+        $pedidoActualizado = PedidoInv::findOrFail($id);
+        $pedidoActualizado->fecha_pedido = $request->fecha_pedido;
+        $pedidoActualizado->fecha_entrega = $request->fecha_entrega;
+        $pedidoActualizado->estado = $request->estado;
+        $pedidoActualizado->cliente = $request->cliente;
+        $pedidoActualizado->save(); 
+        
+        return response()->json(['pedido actualizado']);
+          
+    }
+
+    public function pedidoDetalles(Request $requets){        
+ 
+      // $array = json_decode(file_get_contents("php://input"), true);//$request->detalles; //json_decode(file_get_contents("php://input"), true); //json_decode(json_encode( $_GET['detalles'] ), true ); 
+       //$count = count($array); 
+
+        $filters = json_decode(file_get_contents("php://input"), true); 
+        $pedido = $requets->id_pedido;
+        $productos= $filters['productos'];
+        $data;
+
+       foreach ($productos as $key => $value) {
+            $data[] = ['medida'    => $value['medida'],
+                       'cantidad'  => $value['cantidad'],
+                       'id_pedido' => $pedido,
+                       'ped_producto' => $value['id'],
+                    ];
+        } 
+
+        //DetallePedidoInv::insert($array);
+        return response()->json(['pedido y detalles agregados' => $productos ]);
+        
+    }
+
+    public function eliminar_pedido($id){  
+            $pedidoEliminar = PedidoInv::findOrFail($id);
+            $pedidoEliminar->delete(); 
+        return response()->json(['pedido eliminado']);
+    }
+
+    public function obtener_user($phone){
+        $user = User::where('phone', $phone); 
+        return response()->json(['usuario' => $user]);
+    }
+
+    public function buscar_usuario(Request $request){
+
+        $request->validate([
+            'telefono'       => 'required|string',
+        ]);
+
+
+        $user = User::select('id','name','email','telefono','url_avatar')
+            ->where('telefono',"=",$request->telefono)
+            ->get();
+
+
+        if (count($user)>0){
+           return response()->json([
+                'message'=> 'success',
+                'id' => $user[0]['id'],
+                'name' => $user[0]['name'],
+                'email' => $user[0]['email'],
+                'telefono' => $user[0]['telefono'],                
+                'url_avatar' => $user[0]['url_avatar'],
+            ]);
+
+        }
+
+        return response()->json([
+            'error' => 'no found'
+        ]);
+    }
+
+    public function update_user(Request $request, $id){
+        $nameUpdate = $request->name;
+        $emailUpdate = $request->email; 
+
+        $user = User::where('id', $id)
+                 ->update(['name'=>$nameUpdate, 'email'=>$emailUpdate]);
+ 
+        $user = User::find($id);
+        return response()->json([
+               'id' =>$user->id,
+               'name' => $user->name,
+               'email' => $user->email,
+               'telefono'=>$user->telefono,  
+        ]);
+         
+    } 
+>>>>>>> e720d25163fbd8958ebbfa1a947afb2944c13eaa
 }

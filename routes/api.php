@@ -25,12 +25,15 @@ Route::group(['prefix' => 'auth'], function () {
         //user
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+        Route::get('file/avatar','AuthController@avatar');
+        Route::post('file/avatar/{id}','AuthController@saveAvatar');
+       
+
         //actualizar contraseña
         Route::post('change_password','AuthController@changePassword');
         //actualizar información de usuario
         Route::post('change_inf','AuthController@addInf');
-        Route::get('file/avatar','AuthController@avatar');
-        Route::post('file/avatar','AuthController@saveAvatar');
+        
 
         //producto
         Route::get('productos','Api\ApiController@mostrar_productos');
@@ -38,10 +41,28 @@ Route::group(['prefix' => 'auth'], function () {
         //promocion
         Route::get('promociones','Api\ApiController@mostrar_promociones');
 
+        //pedidos
         
+        Route::get('pedidos','Api\ApiController@mostrar_pedidos');
+        Route::post('addpedido','Api\ApiController@agregar_pedido');
+        Route::get('pedido_buscar/{id}','Api\ApiController@editar_buscar');
+        Route::put('editar_pedido/{id}','Api\ApiController@actualizar_pedido');
+        Route::delete('eliminar_pedido/{id}','Api\ApiController@eliminar_pedido');
+        Route::post('addpedidodetails','Api\ApiController@pedidoDetalles');
+        
+        Route::post('buscarUser', 'Api\ApiController@buscar_usuario');
+        Route::put('update_user/{id}','Api\ApiController@update_user');
     });
     
 });
+
+
+
+
+
+
+
+
 
 
 
