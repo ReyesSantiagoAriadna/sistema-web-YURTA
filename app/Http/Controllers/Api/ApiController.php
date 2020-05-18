@@ -517,21 +517,29 @@ class ApiController extends Controller
 
     public function  search(Request $request){
         $data = $request->data;
-        $productos = Producto::where('nombre', 'like', "%{$data}%")
+
+        if($data!= ''){
+            $productos = Producto::where('nombre', 'like', "%{$data}%")
                 // ->orWhere('last_name', 'like', "%{$data}%")
-                 ->get();
+                ->get();
 
-        if (count($productos)>0){
+            if (count($productos)>0){
+                return Response()->json([
+                    'productos' => $productos
+                ]);
+
+
+            }
+
             return Response()->json([
-                'productos' => $productos
+                'message' => 'no hay resultados'
             ]);
-
-
         }
 
         return Response()->json([
             'message' => 'no hay resultados'
         ]);
+
 
     }
 
@@ -586,7 +594,7 @@ class ApiController extends Controller
         $filters = json_decode(file_get_contents("php://input"), true); 
         $pedido = $requets->id_pedido;
         $productos= $filters['productos'];
-        $data;
+
 
        foreach ($productos as $key => $value) {
             $data[] = ['medida'    => $value['medida'],
