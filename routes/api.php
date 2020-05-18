@@ -26,7 +26,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
         Route::get('file/avatar','AuthController@avatar');
-        Route::post('file/avatar','AuthController@saveAvatar');
+        Route::post('file/avatar/{id}','AuthController@saveAvatar');
        
 
         //actualizar contraseña
@@ -55,6 +55,8 @@ Route::group(['prefix' => 'auth'], function () {
     });
     
 });
+
+
 
 
 
