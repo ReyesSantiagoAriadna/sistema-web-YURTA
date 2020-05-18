@@ -129,10 +129,11 @@ class AuthController extends Controller
         $user->original_filename = $cover->getClientOriginalName();
         $user->filename = $cover->getFilename().'.'.$extension;
 
+        $user->url_avatar = 'http://yurtapp.herokuapp.com/storage/'.$cover->getFilename().'.'.$extension;
         $user->save();
 
-        return response()->json(['message' =>
-            'Successfully logged out']);
+        return response()->json(['url' =>
+            'http://yurtapp.herokuapp.com/storage/'.$cover->getFilename().'.'.$extension]);
     }
 
     public function buscar_usuario(Request $request){
