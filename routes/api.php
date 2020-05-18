@@ -34,7 +34,7 @@ Route::group(['prefix' => 'auth'], function () {
 
         //producto
         Route::get('productos','Api\ApiController@mostrar_productos');
-
+        Route::post('search_products','Api\ApiController@search');
         //promocion
         Route::get('promociones','Api\ApiController@mostrar_promociones');
 

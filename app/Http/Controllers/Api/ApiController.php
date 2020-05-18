@@ -512,4 +512,24 @@ class ApiController extends Controller
         $promociones = Promocion::select('id','descripcion','url_imagen')->get();
         return response()->json(['promociones'=>$promociones]);
     }
+
+    public function  search(Request $request){
+        $data = $request->data;
+        $productos = Producto::where('nombre', 'like', "%{$data}%")
+                // ->orWhere('last_name', 'like', "%{$data}%")
+                 ->get();
+
+        if (count($productos)>0){
+            return Response()->json([
+                'productos' => $productos
+            ]);
+
+
+        }
+
+        return Response()->json([
+            'message' => 'no hay resultados'
+        ]);
+
+    }
 }
