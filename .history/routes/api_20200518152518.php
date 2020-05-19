@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-//heroku ps:exec -a yurtapp
+
 //create personal acces client php artisan passport:install
 
 Route::group(['prefix' => 'auth'], function () {
@@ -26,9 +26,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
         Route::get('file/avatar','AuthController@avatar');
-        Route::post('file/avatar','AuthController@saveAvatar');
-
-
+        Route::post('file/avatar/{id}','AuthController@saveAvatar');
+       
 
         //actualizar contraseña
         Route::post('change_password','AuthController@changePassword');
@@ -43,6 +42,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('promociones','Api\ApiController@mostrar_promociones');
 
         //pedidos
+<<<<<<< HEAD
         
         Route::get('pedidos','Api\ApiController@mostrar_pedidos');
         Route::post('addpedido','Api\ApiController@agregar_pedido');
@@ -51,6 +51,16 @@ Route::group(['prefix' => 'auth'], function () {
         Route::delete('eliminar_pedido/{id}','Api\ApiController@eliminar_pedido');
         Route::post('addpedidodetails','Api\ApiController@pedidoDetalles');
         
+=======
+        
+        Route::get('pedidos','Api\ApiController@mostrar_pedidos');
+        Route::post('addpedido','Api\ApiController@agregar_pedido');
+        Route::get('pedido_buscar/{id}','Api\ApiController@editar_buscar');
+        Route::put('editar_pedido/{id}','Api\ApiController@actualizar_pedido');
+        Route::delete('eliminar_pedido/{id}','Api\ApiController@eliminar_pedido');
+        Route::post('addpedidodetails','Api\ApiController@pedidoDetalles');
+        
+>>>>>>> e720d25163fbd8958ebbfa1a947afb2944c13eaa
         Route::post('buscarUser', 'Api\ApiController@buscar_usuario');
         Route::put('update_user/{id}','Api\ApiController@update_user');
     });

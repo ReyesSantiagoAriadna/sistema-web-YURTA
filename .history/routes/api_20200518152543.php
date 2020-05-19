@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-//heroku ps:exec -a yurtapp
+
 //create personal acces client php artisan passport:install
 
 Route::group(['prefix' => 'auth'], function () {
@@ -26,9 +26,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
         Route::get('file/avatar','AuthController@avatar');
-        Route::post('file/avatar','AuthController@saveAvatar');
-
-
+        Route::post('file/avatar/{id}','AuthController@saveAvatar');
+       
 
         //actualizar contraseña
         Route::post('change_password','AuthController@changePassword');

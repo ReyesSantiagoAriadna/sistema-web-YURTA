@@ -121,43 +121,7 @@ class AuthController extends Controller
 
         $user = User::find($request->id);
 
-
-       /* if(!$request->hasFile('fileName')) {
-            return response()->json(['upload_file_not_found'], 400);
-        }
-
-        $allowedfileExtension=['pdf','jpg','png'];
-        $file = $request->file('fileName');
-        $errors = [];
-
-
-
-        $extension = $file->getClientOriginalExtension();
-
-        $check = in_array($extension,$allowedfileExtension);
-
-        if($check) {
-            foreach($request->fileName as $mediaFiles) {
-                $media = new Media();
-                $media_ext = $mediaFiles->getClientOriginalName();
-                $media_no_ext = pathinfo($media_ext, PATHINFO_FILENAME);
-                $mFiles = $media_no_ext . '-' . uniqid() . '.' . $extension;
-                $mediaFiles->move(public_path().'/images/', $mFiles);
-                $media->fileName = $mFiles;
-                $media->clientId = $request->clientId;
-                $media->uploadedBy = Auth::user()->id;
-                $media->save();
-            }
-        } else {
-            return response()->json(['invalid_file_format'], 422);
-        }
-
-        return response()->json(['file_uploaded'], 200);
-
-
-            */
-
-        $cover = $request->file('bookcover');
+        $cover = $request->file('image');
         $extension = $cover->getClientOriginalExtension();
         Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
 
@@ -165,10 +129,11 @@ class AuthController extends Controller
         $user->original_filename = $cover->getClientOriginalName();
         $user->filename = $cover->getFilename().'.'.$extension;
 
+        $user->url_avatar = 'http://yurtapp.herokuapp.com/storage/'.$cover->getFilename().'.'.$extension;
         $user->save();
 
-        return response()->json(['message' =>
-            'Successfully logged out']);
+        return response()->json(['url' =>
+            'http://yurtapp.herokuapp.com/storage/'.$cover->getFilename().'.'.$extension]);
     }
 
     public function buscar_usuario(Request $request){
@@ -376,6 +341,10 @@ class AuthController extends Controller
                 ->toDateTimeString(),
         ]);
     }
+
+
+
+
 
 
 }

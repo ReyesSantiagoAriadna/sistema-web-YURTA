@@ -515,33 +515,27 @@ class ApiController extends Controller
         return response()->json(['promociones'=>$promociones]);
     }
 
+<<<<<<< HEAD
     public function  search(Request $request){
         $data = $request->data;
-
-        if($data!= ''){
-            $productos = Producto::where('nombre', 'like', "%{$data}%")
+        $productos = Producto::where('nombre', 'like', "%{$data}%")
                 // ->orWhere('last_name', 'like', "%{$data}%")
-                ->get();
+                 ->get();
 
-            if (count($productos)>0){
-                return Response()->json([
-                    'productos' => $productos
-                ]);
-
-
-            }
-
+        if (count($productos)>0){
             return Response()->json([
-                'message' => 'no hay resultados'
+                'productos' => $productos
             ]);
+
+
         }
 
         return Response()->json([
             'message' => 'no hay resultados'
         ]);
 
-
     }
+=======
 
     public function mostrar_pedidos(){ 
         $pedidos = PedidoInv::join('users', 'pedidoInv.cliente', '=', 'users.id')
@@ -594,7 +588,7 @@ class ApiController extends Controller
         $filters = json_decode(file_get_contents("php://input"), true); 
         $pedido = $requets->id_pedido;
         $productos= $filters['productos'];
-
+        $data;
 
        foreach ($productos as $key => $value) {
             $data[] = ['medida'    => $value['medida'],
@@ -652,19 +646,18 @@ class ApiController extends Controller
     public function update_user(Request $request, $id){
         $nameUpdate = $request->name;
         $emailUpdate = $request->email; 
-        $urlUpdate = $request->url_avatar;
 
         $user = User::where('id', $id)
-                 ->update(['name'=>$nameUpdate, 'email'=>$emailUpdate, 'url_avatar'=>$urlUpdate]);
+                 ->update(['name'=>$nameUpdate, 'email'=>$emailUpdate]);
  
         $user = User::find($id);
         return response()->json([
                'id' =>$user->id,
                'name' => $user->name,
                'email' => $user->email,
-               'telefono'=>$user->telefono,
-               'url_avatar' =>$user->url_avatar,
+               'telefono'=>$user->telefono,  
         ]);
          
     } 
+>>>>>>> e720d25163fbd8958ebbfa1a947afb2944c13eaa
 }
