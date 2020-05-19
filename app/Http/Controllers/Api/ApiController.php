@@ -519,8 +519,10 @@ class ApiController extends Controller
         $data = $request->data;
 
         if($data!= ''){
-            $productos = Producto::where('nombre', 'like', "%{$data}%")
-                // ->orWhere('last_name', 'like', "%{$data}%")
+            $productos = Producto::
+                select('id','solar','cultivo','nombre','cont_caja','precio_mayoreo',
+                    'precio_menudeo','url_imagen')
+                ->where('nombre', 'like', "%{$data}%")
                 ->get();
 
             if (count($productos)>0){
