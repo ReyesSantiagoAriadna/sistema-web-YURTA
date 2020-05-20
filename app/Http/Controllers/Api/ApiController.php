@@ -668,5 +668,16 @@ class ApiController extends Controller
                'url_avatar' =>$user->url_avatar,
         ]);
          
-    } 
+    }
+
+
+
+    public function find_items(Request $request){
+        $productos = $request->productos;
+        $models = Producto::
+            select('id','solar','cultivo','nombre','cont_caja','precio_mayoreo',
+                'precio_menudeo','url_imagen')
+            ->whereIn('id', $productos)->get();
+        return response()->json(['productos'=>$models]);
+    }
 }
