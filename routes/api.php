@@ -58,6 +58,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::put('update_user/{id}','Api\ApiController@update_user');
 
          //todas las notificaciones
+         Route::post('notificaciones','Api\ApiController@notifications');
          Route::get('count_notificaciones','Api\ApiController@countNotificationsUnread');
          Route::post('notif_mark_as_read','Api\ApiController@markAsReadNotifications');
         });
@@ -65,7 +66,6 @@ Route::group(['prefix' => 'auth'], function () {
         
         
     });
-    Route::post('notificaciones','Api\ApiController@notifications');
     
     
    
