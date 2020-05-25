@@ -315,7 +315,7 @@ class ApiController extends Controller
 
         $notif['notificaciones'] = User::find($id)->unreadNotifications;
         $notificaciones = Notificaciones::where('notifiable_id',$id)
-            ->select('id','data','type','notifiable_type','fecha_creacion','hora_creacion')->get();
+            ->select('id','data','type','notifiable_type','fecha_creacion')->get();
         //return $notif;
         return response()->json([   
             'notificaciones' => $notificaciones
