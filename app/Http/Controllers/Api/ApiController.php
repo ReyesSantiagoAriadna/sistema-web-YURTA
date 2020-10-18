@@ -168,6 +168,7 @@ class ApiController extends Controller
                     ,'tipo_material.descripcion as material_tipo'
                     ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad',
                     'material.url_imagen')
+
                 ->get();
         return $response;
     }

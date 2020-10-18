@@ -9,8 +9,6 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('login', 'AuthController@login');
     Route::post('buscar_usuario','AuthController@buscar_usuario');
-
-
     Route::post('sendCode','AuthController@sendCode');
     Route::post('verifyCode','AuthController@verifyCode');
 
