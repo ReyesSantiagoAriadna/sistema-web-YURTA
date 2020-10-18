@@ -9,8 +9,6 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use phpDocumentor\Reflection\DocBlock\Tags\Link;
 
-
-
 class NotificacionResidente extends Notification{
     use Queueable;
     public $titulo;

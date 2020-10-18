@@ -168,7 +168,6 @@ class ApiController extends Controller
                     ,'tipo_material.descripcion as material_tipo'
                     ,'material.marca as material_marca','materiales_obra.cantidad as material_cantidad',
                     'material.url_imagen')
-
                 ->get();
         return $response;
     }
@@ -311,10 +310,16 @@ class ApiController extends Controller
 
     //todas las notificaciones de un usuario
     public function notifications(Request $request){
-        $notif['notificaciones'] = User::find($request->id)->unreadNotifications;
-       /* $notificaciones = Notificaciones::where('notifiable_id',$request->id)
-            ->select('id','data')->get();*/
-        return $notif;
+        $user = User::where('telefono',$request->telefono)->firstOrFail(); 
+        $id = $user->id;
+
+        $notif['notificaciones'] = User::find($id)->unreadNotifications;
+        $notificaciones = Notificaciones::where('notifiable_id',$id)
+            ->select('id','data','type','notifiable_type','fecha_creacion')->get();
+        //return $notif;
+        return response()->json([   
+            'notificaciones' => $notificaciones
+        ]);   
     }
 
     //contar las notificaciones de un usuario
