@@ -54,35 +54,13 @@ Route::group(['prefix' => 'auth'], function () {
         
         Route::post('buscarUser', 'Api\ApiController@buscar_usuario');
         Route::put('update_user/{id}','Api\ApiController@update_user');
-
-         //todas las notificaciones
-         Route::post('notificaciones','Api\ApiController@notifications');
-         Route::get('count_notificaciones','Api\ApiController@countNotificationsUnread');
-         Route::post('notif_mark_as_read','Api\ApiController@markAsReadNotifications');
-
-
-            //productos nuevo controllador
-        Route::get('productos_inver','InvernaderoController@mostrar_productos');
-        Route::post('search_products_','InvernaderoController@search');
-        Route::post('find_items_','InvernaderoController@find_items');
-
-        //pedidos nuevo controllador
-        Route::get('pedidos','InvernaderoController@mostrar_pedidos');
-        Route::get('pedido_buscar/{id}','InvernaderoController@editar_buscar');
-        Route::post('addpedido_','InvernaderoController@agregar_pedido');
-        Route::put('editar_pedido/{id}','InvernaderoController@actualizar_pedido');
-        Route::post('addpedidodetails','InvernaderoController@pedidoDetalles');
-        Route::delete('eliminar_pedido/{id}','InvernaderoController@eliminar_pedido');
-    
-        });
-        
-        
-        
     });
 
-   
-    
-   
+
+
+});
+
+
 
 
 

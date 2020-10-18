@@ -311,16 +311,10 @@ class ApiController extends Controller
 
     //todas las notificaciones de un usuario
     public function notifications(Request $request){
-        $user = User::where('telefono',$request->telefono)->firstOrFail(); 
-        $id = $user->id;
-
-        $notif['notificaciones'] = User::find($id)->unreadNotifications;
-        $notificaciones = Notificaciones::where('notifiable_id',$id)
-            ->select('id','data','type','notifiable_type','fecha_creacion')->get();
-        //return $notif;
-        return response()->json([   
-            'notificaciones' => $notificaciones
-        ]);   
+        $notif['notificaciones'] = User::find($request->id)->unreadNotifications;
+       /* $notificaciones = Notificaciones::where('notifiable_id',$request->id)
+            ->select('id','data')->get();*/
+        return $notif;
     }
 
     //contar las notificaciones de un usuario
