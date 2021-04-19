@@ -29,7 +29,7 @@
             </ul>
         </div>
         <div class="body">
-            <form method="POST" action="{{ route('confirmar.pedido') }}"">
+            <form method="POST" action="">
                 @csrf
             <ol class="breadcrumb breadcrumb-col-orange">
                 <li><a href="javascript:void(0);"><i class="material-icons">local_convenience_store</i> Obras</a></li>

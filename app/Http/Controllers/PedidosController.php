@@ -106,8 +106,7 @@ class PedidosController extends Controller
                 //echo "no entra";
                 return back()->with('mensaje','No hay suficiente material');
             } 
-        }
-  
+        } 
         return view('pedidos.detalleConfirmacion', compact('id_pedido','aDatos'))->with('aCantidades',$aCantidades);  
     }  
  
@@ -210,7 +209,7 @@ class PedidosController extends Controller
         }*/
     }
 
-    public function pedido_agregar_materia($id,$materiales,$cantidad,$material){ 
+    public function pedido_agregar_materia(){  
         $obra_pedido = App\Pedido::find($id);  
         $obras_material = App\MaterialObra::where('id_obra',$obra_pedido->obra)                        
         ->get(); 
@@ -229,7 +228,9 @@ class PedidosController extends Controller
                 $material_obra->cantidad = $cantidad;
                 $material_obra->mat_obra = $materiales[$i]; 
                 $material_obra->save();  
-        }   
+        }  
+
+
  
     }
 

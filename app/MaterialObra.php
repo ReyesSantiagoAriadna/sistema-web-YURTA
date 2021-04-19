@@ -3,6 +3,7 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class MaterialObra extends Model{
     protected $table='materiales_obra';
